@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container container-form">
+
+        <h2>Update Post</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {# Display messages #}
+            {% if messages %}
+                {% include "includes/message_form.html" %}
+            {% endif %}
+
+            {# Display non-field errors #}
+            {% if form.non_field_errors %}
+                <div class="errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {# Title field #}
+            <div>
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="errors">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+
+            {# Subtitle field #}
+            <div>
+                {{ form.subtitle.label_tag }}
+                {{ form.subtitle }}
+                {% if form.subtitle.errors %}
+                    <div class="errors">{{ form.subtitle.errors }}</div>
+                {% endif %}
+            </div>
+
+            {# Cover Image field #}
+            <div>
+                {{ form.cover_image.label_tag }}
+                {{ form.cover_image }}
+                {% if form.cover_image.errors %}
+                    <div class="errors">{{ form.cover_image.errors }}</div>
+                {% endif %}
+            </div>
+
+            {# Text field #}
+            <div>
+                {{ form.text.label_tag }}
+                {{ form.text }}
+                {% if form.text.errors %}
+                    <div class="errors">{{ form.text.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="button btn-form">
+                Update
+            </button>
+        </form>
+    </div>
+{% endblock %}

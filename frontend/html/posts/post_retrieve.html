@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        <article>
+            <h1>{{ post.title }}</h1>
+
+            {% if post.subtitle %}
+                <h2>{{ post.subtitle }}</h2>
+            {% endif %}
+
+            {% if post.cover_image %}
+                <img src="{{ post.cover_image }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
+            {% endif %}
+
+            <div>
+                {{ post.text|linebreaks }}
+            </div>
+
+            <div style="margin-top: 2rem; color: #666;">
+                <small>Created: {{ post.created_at|date:"F j, Y" }}</small>
+                {% if post.updated_at != post.created_at %}
+                    <small> | Updated: {{ post.updated_at|date:"F j, Y" }}</small>
+                {% endif %}
+            </div>
+
+            {% if user.is_superuser %}
+                <div style="margin-top: 2rem;">
+                    <a href="{% url 'post_update' post_id=post.id %}" class="button">Edit Post</a>
+                </div>
+            {% endif %}
+        </article>
+
+    </div>
+{% endblock %}

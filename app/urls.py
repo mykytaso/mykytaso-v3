@@ -1,6 +1,6 @@
 from django.urls import path
 
-from posts.views import PostListView
+from posts.views import post_create, post_list, post_retrieve, post_update
 from users.views import (
     CustomLoginView,
     CustomLogoutView,
@@ -51,5 +51,8 @@ urlpatterns = [
         name="password_reset_set_new",
     ),
     # Posts app URLs
-    path("", PostListView.as_view(), name="index"),
+    path("posts/", post_list, name="index"),
+    path("posts/<uuid:post_id>/", post_retrieve, name="post_retrieve"),
+    path("posts/edit/<uuid:post_id>/", post_update, name="post_update"),
+    path("posts/create/", post_create, name="post_create"),
 ]

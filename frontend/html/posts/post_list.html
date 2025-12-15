@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container">
+        <h2>Posts</h2>
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        {% if posts %}
+            <div style="display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem;">
+                {% for post in posts %}
+                    <article style="border-bottom: 1px solid #ddd; padding-bottom: 1.5rem;">
+                        <h3>
+                            <a href="{% url 'post_retrieve' post_id=post.id %}">{{ post.title }}</a>
+                        </h3>
+
+                        {% if post.subtitle %}
+                            <p style="color: #666; margin-top: 0.5rem;">{{ post.subtitle }}</p>
+                        {% endif %}
+
+                        {% if post.cover_image %}
+                            <img src="{{ post.cover_image }}" alt="{{ post.title }}" style="max-width: 100%; height: auto; margin-top: 1rem;">
+                        {% endif %}
+
+                        <div style="margin-top: 1rem;">
+                            {{ post.text|truncatewords:50|linebreaks }}
+                        </div>
+
+                        <div style="margin-top: 1rem; color: #666;">
+                            <small>
+                                {% if post.published_at %}
+                                    Published: {{ post.published_at|date:"F j, Y" }}
+                                {% else %}
+                                    Created: {{ post.created_at|date:"F j, Y" }}
+                                {% endif %}
+                            </small>
+                        </div>
+
+                        {% if user.is_superuser %}
+                            <div style="margin-top: 1rem;">
+                                <a href="{% url 'post_update' post_id=post.id %}" class="button">Edit</a>
+                            </div>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="margin-top: 2rem; color: #666;">No posts available yet.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -19,11 +19,18 @@
             <span>About me</span>
         </a>
 
-        <a href="#" class="button button-nav navbar-menu-item">
+        <a href="https://flowcv.com/resume/2ij133mut7p8" class="button button-nav navbar-menu-item">
             <span>Resume</span>
         </a>
 
         {% if user.is_authenticated %}
+
+            {% if user.is_superuser %}
+                <a class="button button-nav navbar-menu-item {% if url_name == 'post_create' %}active{% endif %}" href="{% url 'post_create' %}">
+                    Create Post
+                </a>
+            {% endif %}
+
             <a class="button button-nav navbar-menu-item {% if url_name == 'user_profile' or url_name == 'password_change' or url_name == 'user_update' %}active{% endif %}" href="{% url 'user_profile' %}">
                 Profile
             </a>
