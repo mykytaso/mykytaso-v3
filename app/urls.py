@@ -51,7 +51,7 @@ urlpatterns = [
         name="password_reset_set_new",
     ),
     # Posts app URLs
-    path("posts/", post_list, name="index"),
+    path("", post_list, name="post_list"),
     path("posts/<uuid:post_id>/", post_retrieve, name="post_retrieve"),
     path("posts/edit/<uuid:post_id>/", post_update, name="post_update"),
     path("posts/create/", post_create, name="post_create"),

@@ -98,7 +98,7 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LogoutView):
     """Custom logout view."""
 
-    next_page = reverse_lazy("index")
+    next_page = reverse_lazy("post_list")
 
     def dispatch(self, request, *args, **kwargs):
         """Add logout message before redirecting."""
