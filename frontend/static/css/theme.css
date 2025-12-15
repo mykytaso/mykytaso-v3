@@ -1,0 +1,124 @@
+:root {
+
+    --sans-font: "Ubuntu", Helvetica, Verdana, sans-serif;
+    --serif-font: "Merriweather", Georgia, Times, serif;
+
+    --max-content-width: 1400px;
+    --normal-content-width: 1000px;
+    --max-form-width: 400px;
+
+    /*--block-border-radius: 15px;*/
+    --button-border-radius: 14px;
+
+    --button-color: #FFFFFF;
+    --button-bg-color: #4A5DF9;
+    --button-border: 0px;
+    --button-hover-color: #FFFFFF;
+    --button-hover-bg-color: #4150F7;
+    --button-hover-border: 0px;
+
+}
+
+html, html[theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #0C1014;
+    --text-color-secondary: #6A717A;
+
+
+
+    /*--opposite-bg-color: #ff0000;*/
+    /*--brighter-text-color: #ff0000;*/
+    /*--opposite-text-color: #ff0000;*/
+
+    /*--block-bg-color: #FFF;*/
+    /*--opposite-block-bg-color: #282c35;*/
+    /*--block-shadow: 10px 15px 40px rgba(83, 91, 110, 0.11);*/
+    /*--block-border: none;*/
+
+    /*--card-title-color: #333;*/
+    /*--card-title-bg-color: #FFF;*/
+
+    --link-color: #4150F7;
+    --link-hover-color-my: #4150F7;
+    --visited-link-color: #4150F7;
+    --link-active-color: #8F93D6;
+
+    --button-nav-color: #0C1014;
+    --button-nav-bg-color: transparent;
+    --button-nav-border: 0px;
+    --button-nav-hover-color: #0C1014;
+    --button-nav-hover-bg-color: #F3F3F3;
+
+    /*--select-color: #333;*/
+    /*--select-bg-color: #FFF;*/
+
+    --input-border: solid 1px #DBDFE4;
+    --input-border-focus: solid 1px #0C1014;
+}
+
+html[theme="dark"] {
+    --bg-color: #0C1014;
+    --text-color: #F5F5F5;
+    --text-color-secondary: #A7A7A7;
+
+
+
+    /*--opposite-bg-color: #f5f6f8;*/
+    /*--brighter-text-color: #FFF;*/
+    /*--opposite-text-color: #333;*/
+
+    /*--block-bg-color: #1B1B1C;*/
+    /*--opposite-block-bg-color: #FFF;*/
+    /*--block-shadow: 0px 0px 0px #000;*/
+    /*--block-border: solid 1px #FCFDFF;*/
+
+    /*--card-title-color: #FFF;*/
+    /*--card-title-bg-color: #333;*/
+
+    --link-color: #708DFF;
+    --link-hover-color-my: #708DFF;
+    --visited-link-color: #708DFF;
+    --link-active-color: #586689;
+
+    --button-nav-color: #F5F5F5;
+    --button-nav-bg-color: transparent;
+    --button-nav-border: 0px;
+    --button-nav-hover-color: #F5F5F5;
+    --button-nav-hover-bg-color: #25282C;
+
+    /*--select-color: #333;*/
+    /*--select-bg-color: #FFF;*/
+
+    --input-border: solid 1px #2B3036;
+    --input-border-focus: solid 1px #F8F9F9;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--sans-font);
+    font-size: 16px;
+    line-height: 1.42;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    text-rendering: optimizeSpeed;
+    transition: 0.5s ease-out;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.01rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+    @media (max-width: 1024px) {
+        body {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 570px) {
+        body {
+            font-size: 13px;
+        }
+    }

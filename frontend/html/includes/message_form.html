@@ -1,0 +1,11 @@
+<div class="messages width-as-form">
+    {% for message in messages %}
+        <div class="{{ message.tags }}">
+            {% if 'safe' in message.tags %}
+                {{ message|safe }}
+            {% else %}
+                {{ message }}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

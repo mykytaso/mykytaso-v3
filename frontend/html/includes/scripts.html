@@ -1,0 +1,16 @@
+{% load static %}
+
+<script src="{% static "js/vendor/htmx.min.js" %}"></script>
+<script src="{% static "js/main.js" %}?v={{ settings.STYLES_HASH }}"></script>
+
+
+<!--
+- HTMX performs background requests, and Django expects CSRF tokens for POST/PUT/PATCH/DELETE requests.
+- HTMX does not automatically include CSRF tokens, so you must add it manually.
+- This snippet ensures all HTMX requests include the CSRF token → preventing 403 Forbidden errors.
+-->
+<script>
+    window.addEventListener("htmx:configRequest", (event) => {
+        event.detail.headers["X-CSRFToken"] = "{{ csrf_token }}";
+    })
+</script>

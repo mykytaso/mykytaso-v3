@@ -1,0 +1,169 @@
+h1,
+.header-1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 270%;
+    line-height: 1.3em;
+    padding: 10px 0 50px;
+    margin: 0 auto;
+    max-width: var(--max-content-width);
+}
+
+h2,
+.header-2 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 210%;
+    line-height: 1.3em;
+    padding: 10px 0 30px;
+    margin: 0 auto;
+    max-width: var(--max-content-width);
+}
+
+h3,
+.header-3 {
+    text-align: left;
+    font-weight: 500;
+    font-size: 170%;
+    line-height: 1.3em;
+    padding: 30px 0 20px;
+    margin: 0 auto;
+    max-width: var(--max-content-width);
+}
+
+.header-1 > a,
+.header-2 > a,
+.header-3 > a,
+.header-4 > a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+h1 + h2,
+.header-1 + .header-2,
+h2 + h3,
+.header-2 + .header-3 {
+    padding-top: 10px;
+}
+
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+    a:visited {
+        color: var(--visited-link-color);
+    }
+    a:hover {
+        color: var(--link-hover-color-my);
+        text-decoration: underline;
+    }
+    a:active {
+        color: var(--link-active-color) !important;
+        text-decoration: underline;
+    }
+
+
+.text-align-center {
+    text-align: center;
+}
+
+
+/* Buttons */
+.button {
+    display: inline-block;          /* Allows width/height while staying inline */
+    padding: 15px 18px;              /* Internal spacing (vertical horizontal) */
+    box-sizing: border-box;          /* Include padding/border in width calculations */
+    text-decoration: none;           /* Remove underline for links */
+    border-radius: var(--button-border-radius);  /* Rounded corners */
+    background-color: var(--button-bg-color);    /* Theme-aware background */
+    border: var(--button-border);                /* Theme-aware border */
+    color: var(--button-color);                  /* Theme-aware text color */
+    text-align: center;              /* Center text horizontally */
+    line-height: 1em;                /* Compact line height for single-line buttons */
+    font-size: 16px;                 /* Base font size for readability */
+    font-weight: 500;                /* Medium font weight */
+    cursor: pointer;                 /* Show pointer on hover */
+}
+
+    /* Responsive button font sizes - match body text scaling */
+    @media (max-width: 1024px) {
+        .button {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 570px) {
+        .button {
+            font-size: 13px;
+        }
+    }
+
+    .button:hover {
+        color: var(--button-hover-color);
+        background-color: var(--button-hover-bg-color);
+        border: var(--button-hover-border);
+    }
+
+    .button-nav {
+        color: var(--button-nav-color);
+        background-color: var(--button-nav-bg-color);
+        border: var(--button-nav-border);
+        padding: 12px 14px;
+    }
+        .button-nav:hover {
+            color: var(--button-nav-hover-color);
+            background-color: var(--button-nav-hover-bg-color);
+        }
+
+.show-on-iphone {
+    display: none !important;
+}
+
+@media (max-width: 570px) {
+    .hide-on-iphone {
+        display: none !important;
+    }
+
+    .show-on-iphone {
+        display: block !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hide-on-ipad {
+        display: none;
+    }
+}
+
+img.emoji {
+   height: 1.2em;
+   width: 1.2em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
+}
+
+i.fa, i.fab {
+    position: relative;
+    top: 2px;
+}
+
+.theme-switcher {
+    display: inline-block;
+    position: relative;
+    padding: 0 0 0 20px
+}
+
+    .theme-switcher input {
+        display: none;
+    }
+
+    .theme-switcher .slider:after {
+        content: "☀️";
+        display: block;
+    }
+
+        .theme-switcher input:checked + .slider:after {
+            content: "🌙";
+        }

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container">
+        <h2>
+            Test block content
+        </h2>
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        <div class="text-align-center">
+            <a href="{% url 'password_reset_request' %}">Test Link</a>
+        </div>
+    </div>
+
+{% endblock %}

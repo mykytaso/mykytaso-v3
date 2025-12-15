@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container container-form">
+
+        <h2>
+            User Profile
+        </h2>
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        <div class="col-auto">
+            <b>Username:</b> {{ user.username }}
+        </div>
+
+        <div class="col-auto">
+            <b>Email:</b> {{ user.email }}
+        </div>
+
+        <div class="col-auto">
+            <a href="{% url 'password_change' %}">Change Password</a>
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'user_update' %}">Edit Profile</a>
+        </div>
+
+    </div>
+{% endblock %}

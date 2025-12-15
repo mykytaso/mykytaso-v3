@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container container-form">
+
+        <h2>Login</h2>
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            {# Display non-field errors #}
+            {% if form.non_field_errors %}
+                <div class="errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {# Username/Email field #}
+            <div>
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="errors">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            {# Password field #}
+            <div>
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="errors">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="button btn-form">
+                Login
+            </button>
+        </form>
+
+        <div class="text-align-center form-bottom-text">
+            <a href="{% url 'password_reset_request' %}">Forgot password?</a>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,173 @@
+[project]
+name = "mykytaso-app-v3"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=6.0",
+    "django-crispy-forms>=2.3",
+    "crispy-bootstrap5>=2.0.0",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.1",
+    "requests>=2.31.0",
+]
+
+[tool.ruff]
+# Set the maximum line length to 100 (following modern Python best practices)
+line-length = 100
+# Target Python 3.12+
+target-version = "py312"
+# Exclude common directories
+exclude = [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.egg-info",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "migrations",
+]
+
+[tool.ruff.lint]
+# Enable comprehensive rule sets for production-quality code
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort (import sorting)
+    "N",      # pep8-naming
+    "UP",     # pyupgrade (modern Python syntax)
+    "YTT",    # flake8-2020 (avoid sys.version checks)
+    "ASYNC",  # flake8-async (async best practices)
+    "S",      # flake8-bandit (security)
+    "BLE",    # flake8-blind-except
+    "FBT",    # flake8-boolean-trap
+    "B",      # flake8-bugbear
+    "A",      # flake8-builtins
+    "COM",    # flake8-commas
+    "C4",     # flake8-comprehensions
+    "DTZ",    # flake8-datetimez (timezone-aware datetime)
+    "T10",    # flake8-debugger
+    "DJ",     # flake8-django
+    "EM",     # flake8-errmsg
+    "EXE",    # flake8-executable
+    "FA",     # flake8-future-annotations
+    "ISC",    # flake8-implicit-str-concat
+    "ICN",    # flake8-import-conventions
+    "G",      # flake8-logging-format
+    "INP",    # flake8-no-pep420
+    "PIE",    # flake8-pie
+    "T20",    # flake8-print
+    "PYI",    # flake8-pyi
+    "PT",     # flake8-pytest-style
+    "Q",      # flake8-quotes
+    "RSE",    # flake8-raise
+    "RET",    # flake8-return
+    "SLF",    # flake8-self
+    "SLOT",   # flake8-slots
+    "SIM",    # flake8-simplify
+    "TID",    # flake8-tidy-imports
+    "TCH",    # flake8-type-checking
+    "INT",    # flake8-gettext
+    "ARG",    # flake8-unused-arguments
+    "PTH",    # flake8-use-pathlib
+    "TD",     # flake8-todos
+    "FIX",    # flake8-fixme
+    "ERA",    # eradicate (commented-out code)
+    "PD",     # pandas-vet
+    "PGH",    # pygrep-hooks
+    "PL",     # Pylint
+    "TRY",    # tryceratops (exception handling)
+    "FLY",    # flynt (f-string conversion)
+    "NPY",    # NumPy-specific rules
+    "AIR",    # Airflow
+    "PERF",   # Perflint (performance)
+    "FURB",   # refurb (modernization)
+    "LOG",    # flake8-logging
+    "RUF",    # Ruff-specific rules
+]
+
+# Ignore specific rules that may be too strict for your use case
+ignore = [
+    "E501",    # Line too long (handled by formatter)
+    "S101",    # Use of assert (common in tests)
+    "S104",    # Possible binding to all interfaces
+    "S105",    # Possible hardcoded password
+    "S106",    # Possible hardcoded password in function default
+    "S107",    # Possible hardcoded password in function default
+    "S608",    # Possible SQL injection
+    "DTZ005",  # datetime.now() without timezone (FastAPI uses it)
+    "B008",    # Function call in default argument (FastAPI Depends pattern)
+    "FBT001",  # Boolean positional arg in function
+    "FBT002",  # Boolean default value in function
+    "TD002",   # Missing TODO author
+    "TD003",   # Missing TODO link
+    "FIX002",  # Line contains TODO
+    "ARG001",  # Unused function argument (common in FastAPI)
+    "ARG002",  # Unused method argument
+    "PLR0913", # Too many arguments
+    "PLR2004", # Magic value used in comparison
+    "TRY003",  # Avoid specifying long messages outside exception class
+    "EM101",   # Exception must not use string literal
+    "EM102",   # Exception must not use f-string literal
+    "COM812",  # Missing trailing comma (handled by formatter)
+    "ISC001",  # Implicit string concatenation (conflicts with formatter)
+    "T201",    # Print statement (may want to use logging instead)
+    "G004",    # Logging statement uses f-string
+    "PGH003",  # Use specific rule codes when ignoring type issues
+]
+
+# Allow fix for all enabled rules (when using `--fix`)
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore specific rules in specific files/directories
+"__init__.py" = ["F401", "F403"]  # Unused imports in __init__.py files
+"test_*.py" = ["S101", "ARG001", "PLR2004", "S105", "S106"]  # Test files
+"tests/*.py" = ["S101", "ARG001", "PLR2004", "S105", "S106"]  # Test files
+"migrations/*.py" = ["ALL"]  # Ignore all rules in migrations
+"debug_*.py" = ["T201", "S101"]  # Allow print and assert in debug scripts
+
+[tool.ruff.lint.isort]
+# Configure import sorting
+known-first-party = ["app"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+lines-after-imports = 2
+
+[tool.ruff.lint.mccabe]
+# Set maximum complexity
+max-complexity = 10
+
+[tool.ruff.lint.pydocstyle]
+# Use Google-style docstrings
+convention = "google"
+
+[tool.ruff.lint.pylint]
+# Pylint configuration
+max-args = 10
+max-branches = 12
+max-returns = 6
+max-statements = 50
+
+[tool.ruff.format]
+# Format configuration
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.4.0",
+    "ruff>=0.14.4",
+]

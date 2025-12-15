@@ -1,0 +1,122 @@
+# ==========================================
+# Docker Compose Configuration
+# ==========================================
+# Orchestrates Django web app and PostgreSQL database
+# Run with: make docker-up-d
+
+services:
+  # ==========================================
+  # Django Web Application Service
+  # ==========================================
+  web:
+    # Build configuration
+    build:
+      context: .              # Build from current directory
+      dockerfile: Dockerfile  # Use this Dockerfile
+    image: mykyta-app:latest  # Tag the built image
+    container_name: mykyta_app  # Name for easy reference
+    restart: unless-stopped   # Auto-restart unless manually stopped
+
+    # Port mapping: host:container
+    # Access app at http://localhost:8000
+    ports:
+      - "8000:8000"
+
+    hostname: web  # Network hostname for inter-container communication
+
+    # Connect to custom network (allows services to find each other by name)
+    networks:
+      - app-network
+
+    # Wait for database to be healthy before starting
+    depends_on:
+      db:
+        condition: service_healthy
+
+    # Load environment variables from .env file
+    env_file:
+      - .env
+
+    # Database connection settings
+    # Override .env values to use Docker network hostnames
+    environment:
+      - POSTGRES_HOST=db  # Use service name as hostname
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+    # Startup command (overrides Dockerfile CMD)
+    # 1. Wait for database to accept connections
+    # 2. Run database migrations
+    # 3. Start Django dev server
+    command: sh -c "
+             while ! nc -z db 5432; do sleep 0.1; done &&
+             uv run manage.py migrate --noinput &&
+             exec uv run manage.py runserver 0.0.0.0:8000"
+
+    # Mount current directory into container
+    # Enables live code reloading during development
+    volumes:
+      - .:/app
+
+  # ==========================================
+  # PostgreSQL Database Service
+  # ==========================================
+  db:
+    image: postgres:18.0      # Use official PostgreSQL 18 image
+    restart: always           # Always restart on failure
+
+    # Port mapping: host:container
+    # Access database at localhost:5432
+    ports:
+      - "5432:5432"
+
+    hostname: mykyta_db  # Network hostname
+
+    # Persist database data in named volume
+    # Data survives container restarts
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+
+    # Load database credentials from .env
+    env_file:
+      - .env
+
+    # PostgreSQL configuration
+    # ?Variable not set: Fail if variable is missing (safety check)
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata  # Custom data directory
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+
+    # Health check: verify database is ready to accept connections
+    # Used by web service's depends_on condition
+    # -d flag specifies the database to check (prevents "database does not exist" error)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s  # Check every 10 seconds
+      timeout: 5s    # Wait max 5 seconds for response
+      retries: 5     # Try 5 times before marking unhealthy
+
+    networks:
+      - app-network
+
+# ==========================================
+# Named Volumes
+# ==========================================
+# Persist data outside containers
+volumes:
+  db-data:
+    driver: local  # Store on local filesystem
+  cache:
+    driver: local  # Reserved for future caching needs
+
+# ==========================================
+# Networks
+# ==========================================
+# Custom network allows services to communicate by name
+networks:
+  app-network:
+    driver: bridge  # Default bridge network driver

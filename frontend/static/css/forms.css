@@ -1,0 +1,119 @@
+/* Form Styles */
+form {
+    margin: 0 auto;
+}
+
+    form > div {
+        margin-bottom: 20px;
+    }
+
+/* Form Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--sans-font);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border: var(--input-border);
+    border-radius: var(--button-border-radius);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+    /* Input Focus State */
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="number"]:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border: var(--input-border-focus);
+    }
+
+    /*!* Placeholder Text *!*/
+    /*input[type="text"]::placeholder,*/
+    /*input[type="email"]::placeholder,*/
+    /*input[type="password"]::placeholder,*/
+    /*textarea::placeholder {*/
+    /*    color: var(--text-color-secondary);*/
+    /*    opacity: 0.1;*/
+    /*}*/
+
+/* Form Labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-bottom-text {
+    margin: 12px 0 0 0;
+}
+
+/* Submit Button */
+.btn-form {
+    margin: 20px 0;
+    width: 100%;
+}
+
+
+/* Error Messages near with input field */
+.errorlist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    padding: 10px 14px;
+    margin: 10px auto;
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: var(--button-border-radius);
+    color: #dc3545;
+}
+
+
+/* Success/Info Messages */
+.messages {
+    margin: 0 auto;
+    padding: 0;
+}
+
+    .width-as-form {
+        max-width: var(--max-form-width);
+    }
+
+    .messages > div {
+        padding: 12px 16px;
+        margin-bottom: 12px;
+        border-radius: var(--button-border-radius);
+    }
+
+    .messages .success {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+    }
+
+    .messages .error {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+
+    .messages .warning {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #f0ad4e;
+    }
+
+    .messages .info {
+        background-color: rgba(23, 162, 184, 0.1);
+        color: #17a2b8;
+    }
+
+    .messages a {
+        color: inherit;
+        text-decoration: underline;
+    }

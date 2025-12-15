@@ -1,0 +1,113 @@
+{% load static %}
+
+<div class="navbar">
+    <a href="{% url "index" %}" class="navbar-logo">
+        <img src="{% static "images/m.png" %}" alt="" class="navbar-logo-image">
+        <span class="">Mykyta</span>
+    </a>
+
+    <div class="button navbar-burger show-on-iphone"
+         onclick="return document.getElementById('navbar-menu').classList.toggle('navbar-menu-visible');"
+    >
+        ≡
+    </div>
+
+    <div class="navbar-menu hide-on-iphone" id="navbar-menu" hx-boost="true">
+        {% with request.resolver_match.url_name as url_name %}
+
+        <a href="#" class="button button-nav navbar-menu-item">
+            <span>About me</span>
+        </a>
+
+        <a href="#" class="button button-nav navbar-menu-item">
+            <span>Resume</span>
+        </a>
+
+        {% if user.is_authenticated %}
+            <a class="button button-nav navbar-menu-item {% if url_name == 'user_profile' or url_name == 'password_change' or url_name == 'user_update' %}active{% endif %}" href="{% url 'user_profile' %}">
+                Profile
+            </a>
+
+            <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+                <button type="submit" class="button button-nav navbar-menu-item">
+                    Logout
+                </button>
+            </form>
+        {% else %}
+            <a class="button button-nav navbar-menu-item {% if url_name == 'login' or url_name == 'password_reset_request' %}active{% endif %}" href="{% url 'login' %}">
+                Login
+            </a>
+            <a class="button button-nav navbar-menu-item {% if url_name == 'register' %}active{% endif %}" href="{% url 'register' %}">
+                Register
+            </a>
+        {% endif %}
+
+        <label class="theme-switcher navbar-menu-item" onclick="return toggleTheme(event);" for="checkbox">
+            <input type="checkbox" id="checkbox"/>
+            <span class="slider"></span>
+        </label>
+
+        {% endwith %}
+    </div>
+</div>
+
+
+{#<nav class="navbar navbar-expand-md navbar-light">#}
+{#  <div class="container">#}
+{##}
+{#    <!-- Toggler for smaller screens -->#}
+{#    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">#}
+{#      <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{##}
+{#    <!-- Navbar Content -->#}
+{#    <div class="collapse navbar-collapse" id="navbarNav">#}
+{##}
+{#      {% with request.resolver_match.url_name as url_name %}#}
+{#        <ul class="navbar-nav mx-auto test-sm-center">#}
+{##}
+{#          <li class="nav-item">#}
+{#            <a class="btn-nav" href="{% url 'index' %}">Home</a>#}
+{#          </li>#}
+{##}
+{#          <li class="nav-item">#}
+{#            <a class="btn btn-outline-primary btn-sm rounded-4 mx-2 mt-3 {% if url_name == "about_me" %}active{% endif %}" href="#" role="button">About me</a>#}
+{#          </li>#}
+{##}
+{#          <li class="nav-item">#}
+{#            <a class="btn btn-outline-primary btn-sm rounded-4 mx-2 mt-3 {% if url_name == "resume" %}active{% endif %}" href="#" role="button">Resume</a>#}
+{#          </li>#}
+{##}
+{#          <li class="nav-item">#}
+{#            <a class="btn btn-outline-primary btn-sm rounded-4 mx-2 mt-3 {% if url_name == "send_message" %}active{% endif %}" href="#" role="button">Send message</a>#}
+{#          </li>#}
+{##}
+{#          <li class="nav-item">#}
+{#            {% if user.is_authenticated %}#}
+{##}
+{#              <form method="post" action="{% url 'logout' %}">#}
+{#                {% csrf_token %}#}
+{#                <span class="input-group">#}
+{#                  <a class="btn btn-outline-primary btn-sm rounded-start-4 ms-2 mt-3 {% if url_name == "user_detail" %}active{% endif %}" href="{% url 'user_detail' %}" role="button"><i class="bi bi-person-fill"></i></a>#}
+{#                  <button type="submit" class="btn btn-outline-primary btn-sm rounded-end-4 me-2 mt-3 ">Logout</button>#}
+{#                </span>#}
+{#              </form>#}
+{##}
+{#            {% else %}#}
+{##}
+{#              <span class="input-group">#}
+{#                <a class="btn btn-outline-primary btn-sm rounded-start-4 ms-2 mt-3 {% if url_name == "login" %}active{% endif %}" href="{% url 'login' %}" role="button">Login</a>#}
+{#                <a class="btn btn-outline-primary btn-sm rounded-end-4 me-2 mt-3 {% if url_name == "register" %}active{% endif %}" href="{% url 'register' %}" role="button">Register</a>#}
+{#              </span>#}
+{##}
+{#            {% endif %}#}
+{#          </li>#}
+{##}
+{#        </ul>#}
+{#      {% endwith %}#}
+{##}
+{#    </div>#}
+{##}
+{#  </div>#}
+{#</nav>#}
