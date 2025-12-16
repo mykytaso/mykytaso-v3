@@ -15,22 +15,15 @@
     <div class="navbar-menu hide-on-iphone" id="navbar-menu" hx-boost="true">
         {% with request.resolver_match.url_name as url_name %}
 
-        <a href="#" class="button button-nav navbar-menu-item">
+        <a class="button button-nav navbar-menu-item {% if url_name == 'post_list' %}active{% endif %}" href="{% url 'post_list' %}">
+            <span>Posts</span>
+        </a>
+
+        <a class="button button-nav navbar-menu-item {% if url_name == 'about_me' %}active{% endif %}" href="{% url 'about_me' %}">
             <span>About me</span>
         </a>
 
-        <a href="https://flowcv.com/resume/2ij133mut7p8" class="button button-nav navbar-menu-item">
-            <span>Resume</span>
-        </a>
-
         {% if user.is_authenticated %}
-
-            {% if user.is_superuser %}
-                <a class="button button-nav navbar-menu-item {% if url_name == 'post_create' %}active{% endif %}" href="{% url 'post_create' %}">
-                    Create Post
-                </a>
-            {% endif %}
-
             <a class="button button-nav navbar-menu-item {% if url_name == 'user_profile' or url_name == 'password_change' or url_name == 'user_update' %}active{% endif %}" href="{% url 'user_profile' %}">
                 Profile
             </a>

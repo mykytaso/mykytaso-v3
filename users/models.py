@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 
@@ -26,8 +27,21 @@ class UserAccountManager(BaseUserManager):
 
         return user
 
+    def create_superuser(self, username, email, password=None, **other_fields):
+        """Create and return a superuser with admin privileges."""
+        other_fields.setdefault("is_staff", True)
+        other_fields.setdefault("is_superuser", True)
+        other_fields.setdefault("is_email_verified", True)
 
-class User(AbstractBaseUser):
+        if other_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if other_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+
+        return self.create_user(username, email, password, **other_fields)
+
+
+class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
 
     email = models.EmailField(unique=True)

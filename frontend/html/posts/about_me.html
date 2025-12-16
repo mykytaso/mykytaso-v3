@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container">
+{#        <h2>About me</h2>#}
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        <div class="text-align-center">
+            This is me, Mykyta!
+        </div>
+
+        <div  class="text-align-center">
+            <a href="https://flowcv.com/resume/2ij133mut7p8" class="button">
+                Resume
+            </a>
+        </div>
+
+    </div>
+
+{% endblock %}

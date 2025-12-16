@@ -1,6 +1,7 @@
+from django.contrib import admin
 from django.urls import path
 
-from posts.views import post_create, post_list, post_retrieve, post_update
+from posts.views import post_list, post_retrieve, about_me
 from users.views import (
     CustomLoginView,
     CustomLogoutView,
@@ -16,7 +17,9 @@ from users.views import (
 
 
 urlpatterns = [
-    # path("admin/", admin.site.urls),
+    # Django admin
+    path("admin/", admin.site.urls),
+
     # User authentication URLs
     path("accounts/register/", RegisterView.as_view(), name="register"),
     path("accounts/login/", CustomLoginView.as_view(), name="login"),
@@ -28,6 +31,7 @@ urlpatterns = [
         CustomPasswordChangeView.as_view(),
         name="password_change",
     ),
+
     # Email verification URLs
     path(
         "accounts/verify/<str:token>/",
@@ -39,6 +43,7 @@ urlpatterns = [
         ResendVerificationView.as_view(),
         name="resend_verification",
     ),
+
     # Password reset URLs
     path(
         "accounts/password-reset/",
@@ -50,9 +55,11 @@ urlpatterns = [
         CustomPasswordResetSetNewView.as_view(),
         name="password_reset_set_new",
     ),
+
     # Posts app URLs
     path("", post_list, name="post_list"),
     path("posts/<uuid:post_id>/", post_retrieve, name="post_retrieve"),
-    path("posts/edit/<uuid:post_id>/", post_update, name="post_update"),
-    path("posts/create/", post_create, name="post_create"),
+
+    # About me
+    path("about/", about_me, name="about_me"),
 ]

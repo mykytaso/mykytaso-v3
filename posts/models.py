@@ -2,6 +2,7 @@ from typing import ClassVar
 from uuid import uuid4
 
 from django.db import models
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -9,7 +10,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=512, blank=True)
     subtitle = models.CharField(max_length=512, blank=True)
-    cover_image = models.URLField(blank=True)
+    cover_image = models.URLField(null=True, blank=True)
     text = models.TextField(blank=True)
 
     is_visible = models.BooleanField(default=True)
@@ -23,6 +24,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("post_retrieve", kwargs={"post_id": self.id})
 
     @classmethod
     def visible_objects(cls):
