@@ -3,12 +3,12 @@
     --sans-font: "Ubuntu", Helvetica, Verdana, sans-serif;
     --serif-font: "Merriweather", Georgia, Times, serif;
 
+    /* Content Widths */
     --content-width-max: 1400px;
     --content-width-normal: 1000px;
     --content-width-small: 800px;
     --form-width-max: 400px;
 
-    --button-border-radius: 14px;
 
     /* Card Component Styles */
     --card-border-radius: 32px;
@@ -28,12 +28,11 @@
     --card-subtitle-padding: 12px 20px;
     --card-subtitle-margin: 10px 0 0 0;
 
-
-
-
+    /* Button Styles */
     --button-color: #FFFFFF;
     --button-bg-color: #4A5DF9;
     --button-border: 0px;
+    --button-border-radius: 14px;
     --button-hover-color: #FFFFFF;
     --button-hover-bg-color: #4150F7;
     --button-hover-border: 0px;
