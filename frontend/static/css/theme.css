@@ -1,5 +1,4 @@
 :root {
-
     --sans-font: "Ubuntu", Helvetica, Verdana, sans-serif;
     --serif-font: "Merriweather", Georgia, Times, serif;
 
@@ -9,8 +8,8 @@
     --content-width-small: 800px;
     --form-width-max: 400px;
 
-
     /* Card Component Styles */
+    --cards-group-gap: 60px;
     --card-border-radius: 32px;
     --card-title-subtitle-border-radius: 20px;
 
@@ -118,12 +117,19 @@ body {
 }
 
     @media (max-width: 1024px) {
+        :root {
+            --cards-group-gap: 40px;
+        }
         body {
             font-size: 14px;
         }
     }
 
     @media (max-width: 570px) {
+        :root {
+            --cards-group-gap: 30px;
+        }
+
         body {
             font-size: 13px;
         }

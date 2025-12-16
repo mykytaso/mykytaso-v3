@@ -1,7 +1,7 @@
 .cards-group {
     display: flex;              /* Use Flexbox layout */
     flex-wrap: wrap;            /* Allow cards to wrap onto multiple rows */
-    gap: 40px;                  /* Space between cards (both row and column) */
+    gap: var(--cards-group-gap);                  /* Space between cards (both row and column) */
     justify-content: center;    /* Center cards horizontally */
     align-items: flex-start;    /* Align cards to the top of each row */
 }

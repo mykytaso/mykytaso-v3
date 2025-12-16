@@ -35,15 +35,6 @@ select {
         border: var(--input-border-focus);
     }
 
-    /*!* Placeholder Text *!*/
-    /*input[type="text"]::placeholder,*/
-    /*input[type="email"]::placeholder,*/
-    /*input[type="password"]::placeholder,*/
-    /*textarea::placeholder {*/
-    /*    color: var(--text-color-secondary);*/
-    /*    opacity: 0.1;*/
-    /*}*/
-
 /* Form Labels */
 label {
     display: block;
