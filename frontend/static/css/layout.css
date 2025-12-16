@@ -1,6 +1,6 @@
 .navbar {
     position: relative;
-    max-width: var(--max-content-width);
+    max-width: var(--content-width-max);
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -67,6 +67,8 @@
     /* Bold styling for active/current page link */
     .navbar-menu-item.active {
         font-weight: 700;
+        color: var(--button-nav-hover-color);
+        background-color: var(--button-nav-hover-bg-color);
     }
 
     .navbar a {
@@ -86,12 +88,16 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    max-width: var(--normal-content-width);
+    max-width: var(--content-width-normal);
     box-sizing: border-box;
 }
 
     .container.container-width-max {
-        max-width: var(--max-content-width);
+        max-width: var(--content-width-max);
+    }
+
+    .container.container-width-small {
+        max-width: var(--content-width-small);
     }
 
     .container.container-width-full {
@@ -99,14 +105,14 @@
     }
 
     .container.container-form {
-        max-width: var(--max-form-width);
+        max-width: var(--form-width-max);
     }
 
 
 .footer {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 100px auto 0 auto;
     padding: 0;
 }
 

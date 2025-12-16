@@ -84,7 +84,7 @@ label {
 }
 
     .width-as-form {
-        max-width: var(--max-form-width);
+        max-width: var(--form-width-max);
     }
 
     .messages > div {
