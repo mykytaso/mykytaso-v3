@@ -12,7 +12,7 @@
         color: var(--text-color) !important;
         text-decoration: none !important;
         font-size: 110%;
-        background-color: var(--button-nav-bg-color);
+        background-color: transparent;
     }
 
     .navbar a:hover {
