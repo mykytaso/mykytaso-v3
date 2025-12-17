@@ -11,22 +11,27 @@
     .navbar a {
         color: var(--text-color) !important;
         text-decoration: none !important;
+    }
+
+    .nav-item {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
         font-size: 110%;
         background-color: transparent;
     }
 
-    .navbar a:hover {
+    .nav-item:hover {
         color: var(--text-color) !important;
         text-decoration: none !important;
         background-color: var(--button-nav-hover-bg-color);
     }
 
-    .navbar a:active {
+    .nav-item:active {
         color: var(--text-color) !important;
         text-decoration: none !important;
     }
 
-    .active {
+    .nav-item.active {
         font-weight: 700 !important;
         background-color: var(--button-nav-hover-bg-color) !important;
     }
@@ -46,7 +51,6 @@
         }
 
         .navbar-logo div {
-            text-decoration: none;
             font-size: 170%;
             font-weight: 600;
         }
