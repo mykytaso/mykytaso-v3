@@ -106,16 +106,6 @@ a {
         border: var(--button-hover-border);
     }
 
-    .button-nav {
-        color: var(--button-nav-color);
-        background-color: var(--button-nav-bg-color);
-        border: var(--button-nav-border);
-        padding: 12px 14px;
-    }
-        .button-nav:hover {
-            color: var(--button-nav-hover-color);
-            background-color: var(--button-nav-hover-bg-color);
-        }
 
 .show-on-iphone {
     display: none !important;
@@ -150,9 +140,10 @@ i.fa, i.fab {
 }
 
 .theme-switcher {
-    display: inline-block;
-    position: relative;
-    padding: 0 0 0 20px
+    margin: 0 0 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
     .theme-switcher input {
@@ -161,7 +152,6 @@ i.fa, i.fab {
 
     .theme-switcher .slider:after {
         content: "☀️";
-        display: block;
     }
 
         .theme-switcher input:checked + .slider:after {

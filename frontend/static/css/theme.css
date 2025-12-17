@@ -6,7 +6,7 @@
     --content-width-max: 1400px;
     --content-width-normal: 1000px;
     --content-width-small: 800px;
-    --form-width-max: 400px;
+    --form-width: 400px;
 
     /* Card Component Styles */
     --cards-group-gap: 60px;
@@ -62,7 +62,6 @@ html, html[theme="light"] {
     /* Navigation Button */
     --button-nav-color: #0C1014;
     --button-nav-bg-color: transparent;
-    --button-nav-border: 0px;
     --button-nav-hover-color: #0C1014;
     --button-nav-hover-bg-color: #F3F3F3;
 
@@ -89,7 +88,6 @@ html[theme="dark"] {
     /* Navigation Button */
     --button-nav-color: #F5F5F5;
     --button-nav-bg-color: transparent;
-    --button-nav-border: 0px;
     --button-nav-hover-color: #F5F5F5;
     --button-nav-hover-bg-color: #25282C;
 

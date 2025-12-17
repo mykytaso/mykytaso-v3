@@ -1,84 +1,73 @@
 .navbar {
-    position: relative;
-    max-width: var(--content-width-max);
-    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     gap: 30px;
-    justify-content: center; /* Center the navbar content horizontally */
-    align-items: center; /* Center the navbar content vertically */
+    justify-content: center;
+    align-items: center;
     padding: 30px 10px;
-    box-sizing: border-box;
 }
+
+    .navbar a {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
+        font-size: 110%;
+        background-color: var(--button-nav-bg-color);
+    }
+
+    .navbar a:hover {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
+        background-color: var(--button-nav-hover-bg-color);
+    }
+
+    .navbar a:active {
+        color: var(--text-color) !important;
+        text-decoration: none !important;
+    }
+
+    .active {
+        font-weight: 700 !important;
+        background-color: var(--button-nav-hover-bg-color) !important;
+    }
 
     .navbar-logo {
         display: flex;
         flex-direction: row;
+        flex-wrap: nowrap;
         align-items: center;
         gap: 10px;
-        text-decoration: none;
-        font-size: 170%;
-        font-weight: 600;
     }
 
-        .navbar-logo-image {
+        .navbar-logo img {
             width: 48px;
             height: 48px;
+
+        }
+
+        .navbar-logo div {
+            text-decoration: none;
+            font-size: 170%;
+            font-weight: 600;
         }
 
     .navbar-burger {
         font-size: 22px;
-        line-height: 24px;
         padding: 9px 11px;
-        font-weight: 400;
-        width: 45px;
-        min-width: 45px;
-        height: 45px;
     }
 
     .navbar-menu {
-        display: flex;              /* Use flexbox for menu item layout */
-        flex-direction: row;        /* Arrange items horizontally */
-        flex-wrap: wrap;            /* Allow items to wrap to next line if needed */
-        gap: 10px;                  /* Space between menu items */
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        gap: 10px;
     }
 
         .navbar-menu-visible {
             display: flex !important;
         }
 
-.navbar-menu-item {
-    /* Creates a positioning context.
-    Allows absolutely positioned children (dropdowns, badges)
-    to be positioned relative to this item. */
-    position: relative;
-    font-size: 110%; /* Slightly increases text size relative to parent. */
-    display: flex; /* Turns the item into a flex container. */
-    flex-direction: row; /* Places children horizontally (default for flex). */
-    gap: 5px; /* Adds spacing between child elements. */
-    align-items: center; /* Vertically centers items along the cross axis. */
-    /* Removes default browser styling (important for buttons, inputs, menu items). */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-    /* Bold styling for active/current page link */
-    .navbar-menu-item.active {
-        font-weight: 700;
-        color: var(--button-nav-hover-color);
-        background-color: var(--button-nav-hover-bg-color);
-    }
-
-    .navbar a {
-        color: var(--text-color);
-        text-decoration: none;
-    }
-    .navbar a:active {
-        color: var(--text-color) !important;
-        text-decoration: none !important;
-    }
 
 
 .container {
@@ -104,39 +93,29 @@
         max-width: 100%;
     }
 
-    .container.container-form {
-        max-width: var(--form-width-max);
+    .container.container-width-form {
+        max-width: var(--form-width);
     }
 
 
 .footer {
     display: flex;
     flex-direction: column;
-    margin: 100px auto 0 auto;
-    padding: 0;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 40px 0 0 0;
 }
-
-    .footer-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
         .footer-social {
             display: flex;
             flex-direction: row;
             gap: 20px;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 10px 0 14px 0;
-        }
 
-            .footer-social a {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
+            flex-wrap: nowrap;
+            padding: 0 0 14px 0;
+            margin: 0;
+        }
 
             .footer-social img {
                 display: block;
@@ -144,6 +123,7 @@
             }
 
         .footer-copyright {
+            margin: 0;
             padding: 0 0 20px 0;
             color: var(--text-color-secondary);
         }
