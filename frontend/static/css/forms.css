@@ -61,7 +61,7 @@ label {
     gap: 10px;
     list-style: none;
     padding: 10px 14px;
-    margin: 10px auto;
+    margin: 10px 0;
     background-color: rgba(220, 53, 69, 0.1);
     border-radius: var(--button-border-radius);
     color: #dc3545;
@@ -75,12 +75,12 @@ label {
 }
 
     .width-as-form {
-        max-width: var(--form-width-max);
+        max-width: var(--form-width);
     }
 
     .messages > div {
         padding: 12px 16px;
-        margin-bottom: 12px;
+        margin-bottom: 32px;
         border-radius: var(--button-border-radius);
     }
 
