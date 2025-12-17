@@ -34,10 +34,10 @@
 
         // When HTMX loads new content, sync the theme switch checkbox with current theme.
         htmx.onLoad(function () {
-            const themeSwitch = document.querySelector('.theme-switcher input[type="checkbox"]');
-            if (themeSwitch) {
+            const themeCheckbox = document.getElementById('theme-checkbox');
+            if (themeCheckbox) {
                 // If theme is dark → checkbox ON
-                themeSwitch.checked = (theme === 'dark');
+                themeCheckbox.checked = (theme === 'dark');
             }
         });
     </script>
