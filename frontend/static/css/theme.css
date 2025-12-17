@@ -45,6 +45,7 @@
 
 html, html[theme="light"] {
     box-sizing: border-box;
+    scrollbar-gutter: stable;
 
     --bg-color: #ffffff;
     --text-color: #0C1014;
@@ -71,6 +72,7 @@ html, html[theme="light"] {
 }
 
 html[theme="dark"] {
+    scrollbar-gutter: stable;
     --bg-color: #0C1014;
     --text-color: #F5F5F5;
     --text-color-secondary: #A7A7A7;
