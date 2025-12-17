@@ -32,7 +32,6 @@
     }
 
     .nav-item.active {
-        font-weight: 700 !important;
         background-color: var(--button-nav-hover-bg-color) !important;
     }
 
@@ -108,7 +107,7 @@
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: 40px 0 0 0;
+    padding: 100px 0 0 0;
 }
 
         .footer-social {
