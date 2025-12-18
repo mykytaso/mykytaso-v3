@@ -3,36 +3,36 @@
 {% block content %}
     <div class="content">
 
-        <!-- TODO: add content specific container -->
-
         {# Display messages #}
         {% if messages %}
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <article>
-            <div class="card" style="background-image: url('{{ post.cover_image }}');">
-                <div class="card-content">
-                    {% if post.title %}
-                        <span class="card-title">{{ post.title }}</span>
-                    {% endif %}
+        <div class="content-post-list">
+            <article>
+                <div class="card" style="background-image: url('{{ post.cover_image }}');">
+                    <div class="card-content">
+                        {% if post.title %}
+                            <span class="card-title">{{ post.title }}</span>
+                        {% endif %}
 
-                    {% if post.subtitle %}
-                        <span class="card-subtitle">{{ post.subtitle }}</span>
-                    {% endif %}
+                        {% if post.subtitle %}
+                            <span class="card-subtitle">{{ post.subtitle }}</span>
+                        {% endif %}
 
-                    {% if post.published_at %}
-                       {{ post.published_at|date:"F j, Y" }}
-                    {% else %}
-                       {{ post.created_at|date:"F j, Y" }}
-                    {% endif %}
+                        {% if post.published_at %}
+                           {{ post.published_at|date:"F j, Y" }}
+                        {% else %}
+                           {{ post.created_at|date:"F j, Y" }}
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                {{ post.text|linebreaks }}
-            </div>
-        </article>
+                <div>
+                    {{ post.text|linebreaks }}
+                </div>
+            </article>
+        </div>
 
     </div>
 {% endblock %}

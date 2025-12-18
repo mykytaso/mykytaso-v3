@@ -4,7 +4,10 @@ from posts.models import Post
 
 
 def post_list(request):
-    posts = Post.visible_objects()
+    if request.user.is_superuser:
+        posts = Post.objects.all()
+    else:
+        posts = Post.visible_objects()
     return render(request, "posts/post_list.html", {
         "posts": posts,
     })

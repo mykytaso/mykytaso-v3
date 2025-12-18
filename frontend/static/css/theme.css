@@ -14,6 +14,9 @@
     --content-form-min-width: 200px;
     --content-form-max-width: 400px;
 
+    --content-post-list-min-width: 10px;
+    --content-post-list-max-width: 680px;
+
     /* Card Component Styles */
     --cards-group-gap: 60px;
     --card-border-radius: 32px;
@@ -125,7 +128,7 @@ body {
 
     @media (max-width: 1024px) {
         :root {
-            --content-padding : 0 60px;
+            --content-padding : 20px 60px 0 60px;
 
             --cards-group-gap: 40px;
             --card-title-font-size: 160%;
@@ -138,7 +141,7 @@ body {
 
     @media (max-width: 570px) {
         :root {
-            --content-padding : 0 20px;
+            --content-padding : 20px 20px 0 20px;
 
             --cards-group-gap: 30px;
             --card-title-font-size: 140%;
