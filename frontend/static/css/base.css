@@ -6,7 +6,7 @@ h1,
     line-height: 1.3em;
     padding: 10px 0 50px;
     margin: 0 auto;
-    max-width: var(--content-width-max);
+    /*max-width: var(--content-width-max);*/
 }
 
 h2,
@@ -17,7 +17,7 @@ h2,
     line-height: 1.3em;
     padding: 10px 0 30px;
     margin: 0 auto;
-    max-width: var(--content-width-max);
+    /*max-width: var(--content-width-max);*/
 }
 
 h3,
@@ -28,7 +28,7 @@ h3,
     line-height: 1.3em;
     padding: 30px 0 20px;
     margin: 0 auto;
-    max-width: var(--content-width-max);
+    /*max-width: var(--content-width-max);*/
 }
 
 .header-1 > a,

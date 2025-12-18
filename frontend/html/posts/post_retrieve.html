@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="container">
+    <div class="content">
+
+        <!-- TODO: add content specific container -->
 
         {# Display messages #}
         {% if messages %}
@@ -9,27 +11,28 @@
         {% endif %}
 
         <article>
-            <h1>{{ post.title }}</h1>
+            <div class="card" style="background-image: url('{{ post.cover_image }}');">
+                <div class="card-content">
+                    {% if post.title %}
+                        <span class="card-title">{{ post.title }}</span>
+                    {% endif %}
 
-            {% if post.subtitle %}
-                <h2>{{ post.subtitle }}</h2>
-            {% endif %}
+                    {% if post.subtitle %}
+                        <span class="card-subtitle">{{ post.subtitle }}</span>
+                    {% endif %}
 
-            {% if post.cover_image %}
-                <img src="{{ post.cover_image }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
-            {% endif %}
+                    {% if post.published_at %}
+                       {{ post.published_at|date:"F j, Y" }}
+                    {% else %}
+                       {{ post.created_at|date:"F j, Y" }}
+                    {% endif %}
+                </div>
+            </div>
 
             <div>
                 {{ post.text|linebreaks }}
             </div>
-
-            <div style="margin-top: 2rem; color: #666;">
-                <small>Created: {{ post.created_at|date:"F j, Y" }}</small>
-                {% if post.updated_at != post.created_at %}
-                    <small> | Updated: {{ post.updated_at|date:"F j, Y" }}</small>
-                {% endif %}
-            </div>
-
         </article>
+
     </div>
 {% endblock %}

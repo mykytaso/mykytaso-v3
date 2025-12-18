@@ -1,41 +1,44 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="container container-width-form">
+    <div class="content">
+        <div class="content-form">
 
-        <h2>Resend Verification Email</h2>
-
-        <form method="post">
-            {% csrf_token %}
+           <div class="form-title">Resend Verification Email</div>
 
             {# Display messages #}
             {% if messages %}
                 {% include "includes/message_form.html" %}
             {% endif %}
 
-            {# Display non-field errors #}
-            {% if form.non_field_errors %}
-                <div class="errors">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
+            <form method="post">
+                {% csrf_token %}
 
-            {# Email field #}
-            <div>
-                {{ form.email.label_tag }}
-                {{ form.email }}
-                {% if form.email.errors %}
-                    <div class="errors">{{ form.email.errors }}</div>
+                {# Display non-field errors #}
+                {% if form.non_field_errors %}
+                    <div class="errors">
+                        {{ form.non_field_errors }}
+                    </div>
                 {% endif %}
+
+                {# Email field #}
+                <div>
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="errors">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="button btn-form">
+                    Send Verification Email
+                </button>
+            </form>
+
+            <div class="text-align-center form-bottom-text">
+                Already verified? <a href="{% url 'login' %}" class="link">Log in</a>
             </div>
 
-            <button type="submit" class="button btn-form">
-                Send Verification Email
-            </button>
-        </form>
-
-        <div class="text-align-center form-bottom-text">
-            Already verified? <a href="{% url 'login' %}" class="link">Log in</a>
         </div>
     </div>
 {% endblock %}

@@ -28,12 +28,14 @@
                 Profile
             </a>
 
-            <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-                <button type="submit" class="button nav-item">
-                    Logout
-                </button>
-            </form>
+            <div style="display: table">
+                <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                    <button type="submit" class="button nav-item">
+                        Logout
+                    </button>
+                </form>
+            </div>
         {% else %}
             <a class="button nav-item {% if url_name == 'login' or url_name == 'password_reset_request' %}active{% endif %}" href="{% url 'login' %}">
                 Login

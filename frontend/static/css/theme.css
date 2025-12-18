@@ -5,27 +5,32 @@
     --roboto-semi-condensed-font: "Roboto Semi-Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
     /* Content Widths */
-    --content-width-max: 1400px;
-    --content-width-normal: 1000px;
-    --content-width-small: 800px;
-    --form-width: 400px;
+    /*--content-width-max: 1400px;*/
+    /*--content-width-normal: 1000px;*/
+    /*--content-width-small: 800px;*/
+
+    /* Content */
+    --content-padding : 20px 80px 0 80px;
+    --content-form-min-width: 200px;
+    --content-form-max-width: 400px;
 
     /* Card Component Styles */
     --cards-group-gap: 60px;
     --card-border-radius: 32px;
     --card-title-subtitle-border-radius: 20px;
+    --card-content-padding: 40px 40px 60px 40px;
 
-    --card-title-font-size: 140%;
+    --card-title-font-size: 200%;
     --card-title-font-weight: 600;
     --card-title-color: #F5F5F5;
-    --card-title-bg-color: rgba(33, 35, 40, 0.8);
+    --card-title-bg-color: rgba(0, 0, 0, 0.8);
     --card-title-padding: 12px 20px;
     --card-title-margin: 10px 0 0 0;
 
     --card-subtitle-font-size: 100%;
-    --card-subtitle-font-weight: 100;
+    --card-subtitle-font-weight: 300;
     --card-subtitle-color: #F5F5F5;
-    --card-subtitle-bg-color: rgba(33, 35, 40, 0.8);
+    --card-subtitle-bg-color: rgba(0, 0, 0, 0.8);
     --card-subtitle-padding: 12px 20px;
     --card-subtitle-margin: 10px 0 0 0;
 
@@ -120,7 +125,11 @@ body {
 
     @media (max-width: 1024px) {
         :root {
+            --content-padding : 0 60px;
+
             --cards-group-gap: 40px;
+            --card-title-font-size: 160%;
+            --card-content-padding: 10px 10px 40px 10px;
         }
         body {
             font-size: 14px;
@@ -129,7 +138,12 @@ body {
 
     @media (max-width: 570px) {
         :root {
+            --content-padding : 0 20px;
+
             --cards-group-gap: 30px;
+            --card-title-font-size: 140%;
+            --card-content-padding: 10px 10px 40px 10px;
+
         }
 
         body {
