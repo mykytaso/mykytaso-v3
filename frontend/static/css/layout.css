@@ -121,6 +121,20 @@
         /*border: solid 1px red;*/
     }
 
+    .content .content-post-retrieve {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+        min-width: var(--content-post-retrieve-min-width);
+        max-width: var(--content-post-retrieve-max-width);
+
+        padding: 0;
+        margin: 0;
+        /*border: solid 1px red;*/
+    }
+
 
 
 .footer {

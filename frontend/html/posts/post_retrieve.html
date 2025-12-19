@@ -8,29 +8,34 @@
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="content-post-list">
+        <div class="content-post-retrieve">
             <article>
-                <div class="card" style="background-image: url('{{ post.cover_image }}');">
-                    <div class="card-content">
-                        {% if post.title %}
-                            <span class="card-title">{{ post.title }}</span>
-                        {% endif %}
 
-                        {% if post.subtitle %}
-                            <span class="card-subtitle">{{ post.subtitle }}</span>
-                        {% endif %}
-
-                        {% if post.published_at %}
-                           {{ post.published_at|date:"F j, Y" }}
-                        {% else %}
-                           {{ post.created_at|date:"F j, Y" }}
-                        {% endif %}
+                {% if post.title %}
+                    <div class="post-title">
+                        {{ post.title }}
                     </div>
+                {% endif %}
+
+                <div class="post-info">
+                    <div class="block-left">
+                        <div>Likes: 0</div>
+                        <div>Comments: 0</div>
+                    </div>
+
+                    {% if post.published_at %}
+                       {{ post.published_at|date:"M j, Y" }}
+                    {% else %}
+                       {{ post.created_at|date:"M j, Y" }}
+                    {% endif %}
                 </div>
+
+                <img class="post-cover-image" src="{{ post.cover_image }}" alt="">
 
                 <div>
                     {{ post.text|linebreaks }}
                 </div>
+
             </article>
         </div>
 

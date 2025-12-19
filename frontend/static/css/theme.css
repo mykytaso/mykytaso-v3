@@ -17,7 +17,10 @@
     --content-post-list-min-width: 10px;
     --content-post-list-max-width: 680px;
 
-    /* Card Component Styles */
+    --content-post-retrieve-min-width: 10px;
+    --content-post-retrieve-max-width: 680px;
+
+    /* Card */
     --cards-group-gap: 60px;
     --card-border-radius: 32px;
     --card-title-subtitle-border-radius: 20px;
@@ -36,6 +39,10 @@
     --card-subtitle-bg-color: rgba(0, 0, 0, 0.8);
     --card-subtitle-padding: 12px 20px;
     --card-subtitle-margin: 10px 0 0 0;
+
+    /* Post */
+    --post-title-font-size: 280%;
+    --post-title-font-weight: 900;
 
     /* Button Styles */
     --button-color: #FFFFFF;
@@ -64,6 +71,9 @@ html, html[theme="light"] {
     /* Cards (Post previews) */
     --card-shadow: 10px 15px 40px rgba(83, 91, 110, 0.11);
 
+    /* Post */
+    --post-info-border: solid 1px #F2F2F2;
+
     /* Links */
     --link-color: #4150F7;
     --link-hover-color-my: #4150F7;
@@ -83,6 +93,7 @@ html, html[theme="light"] {
 
 html[theme="dark"] {
     scrollbar-gutter: stable;
+
     --bg-color: #0C1014;
     --text-color: #F5F5F5;
     --text-color-secondary: #A7A7A7;
@@ -90,6 +101,9 @@ html[theme="dark"] {
     /* Cards (Post previews) */
     --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     --card-bg-color: #212328;
+
+    /* Post */
+    --post-info-border: solid 1px #262626;
 
     /* Links */
     --link-color: #708DFF;
