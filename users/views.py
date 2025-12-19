@@ -15,6 +15,8 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views.generic import CreateView, FormView, TemplateView, UpdateView
 
+from likes.models import Like
+from likes.views import get_client_ip
 from users.forms import RegisterForm, ResendVerificationForm, UpdateForm
 from utils.email import MailgunError, send_password_reset_email, send_verification_email
 
@@ -77,7 +79,7 @@ class CustomLoginView(LoginView):
         if not user.is_email_verified:
             messages.error(
                 self.request,
-                "Your email isn’t verified. Please check your inbox to complete verification.",
+                "Your email isn't verified. Please check your inbox to complete verification.",
             )
             # Add link to resend verification
             messages.info(
@@ -88,7 +90,38 @@ class CustomLoginView(LoginView):
             )
             return self.form_invalid(form)
 
-        return super().form_valid(form)
+        # Get user's IP address before login
+        user_ip = get_client_ip(self.request)
+
+        # Log the user in
+        response = super().form_valid(form)
+
+        # Migrate anonymous likes from this IP to authenticated user
+        if user_ip:
+
+            # Find anonymous likes from this IP address
+            anonymous_likes = Like.objects.filter(
+                ip_address=user_ip,
+                user__isnull=True
+            )
+
+            # For each anonymous like, check if user already liked this post
+            for like in anonymous_likes:
+                # Check if user already has a like for this post
+                user_already_liked = Like.objects.filter(
+                    post=like.post,
+                    user=user
+                ).exists()
+
+                if not user_already_liked:
+                    # Migrate the anonymous like to the user (preserve IP address)
+                    like.user = user
+                    like.save()
+                else:
+                    # User already liked this post, delete the duplicate anonymous like
+                    like.delete()
+
+        return response
 
     def get_success_url(self):
         """Redirect to user profile after login."""
@@ -177,8 +210,40 @@ class VerifyEmailView(TemplateView):
         if user.is_verification_token_valid(token):
             # Token is valid, verify the user
             user.verify_email()
+
+            # Get user's IP address before login
+            from posts.views import get_client_ip
+            user_ip = get_client_ip(request)
+
             # Log the user in automatically
             login(request, user)
+
+            # Migrate anonymous likes from this IP to authenticated user
+            if user_ip:
+                from posts.models import Like
+
+                # Find anonymous likes from this IP address
+                anonymous_likes = Like.objects.filter(
+                    ip_address=user_ip,
+                    user__isnull=True
+                )
+
+                # For each anonymous like, check if user already liked this post
+                for like in anonymous_likes:
+                    # Check if user already has a like for this post
+                    user_already_liked = Like.objects.filter(
+                        post=like.post,
+                        user=user
+                    ).exists()
+
+                    if not user_already_liked:
+                        # Migrate the anonymous like to the user (preserve IP address)
+                        like.user = user
+                        like.save()
+                    else:
+                        # User already liked this post, delete the duplicate anonymous like
+                        like.delete()
+
             messages.success(request, "Email verified successfully! You are now logged in.")
             return redirect("user_profile")
         # Token expired

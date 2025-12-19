@@ -1,73 +1,62 @@
-.cards-group {
-    display: flex;               /* Use Flexbox layout */
-    flex-wrap: wrap;             /* Allow cards to wrap onto multiple rows */
-    gap: var(--cards-group-gap); /* Space between cards (both row and column) */
-    justify-content: center;     /* Center cards horizontally */
-    align-items: flex-start;     /* Align cards to the top of each row */
+.card {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-transition: all 0.1s linear;
+    background-color: var(--card-bg-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.5s;
+    transform: translateZ(0);
+    border-radius: var(--card-border-radius);
+    /*border: solid 1px red;*/
 }
 
-    .card {
-        display: block;
-        overflow: hidden;
-        position: relative;
-
-        width: 100%;
-        min-width: 300px;
-        min-height: 200px;
-
-        aspect-ratio: 3 / 2;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        -webkit-transition: all 0.1s linear;
-        background-color: var(--card-bg-color);
-        box-shadow: var(--card-shadow);
-        transition: all 0.5s;
-        transform: translateZ(0);
-        border-radius: var(--card-border-radius);
+    .card:hover {
+        transform: scale(1.02);
+        transition: all 0.2s;
     }
 
-        .card:hover {
-            transform: scale(1.02);
-            transition: all 0.2s;
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: absolute;
+        inset: 0; /* top: 0; right: 0; bottom: 0; left: 0 */
+        padding: var(--card-content-padding);
+        z-index: 10; /* Ensure content is above background image */
+        box-sizing: border-box;
+        /*text-align: center;*/
+    }
+
+        .card-title {
+            font-size: var(--card-title-font-size);
+            display: inline;
+            line-height: 1.3em;
+            transition: all 0.1s;
+            padding: var(--card-title-padding);
+            margin: var(--card-title-margin);
+            font-weight: var(--card-title-font-weight);
+            background-color: var(--card-title-bg-color);
+            color: var(--card-title-color);
+            border-radius: var(--card-title-subtitle-border-radius);
         }
 
-        .card-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: absolute;
-            inset: 0; /* top: 0; right: 0; bottom: 0; left: 0 */
-            padding: var(--card-content-padding);
-            z-index: 10; /* Ensure content is above background image */
-            box-sizing: border-box;
-            /*text-align: center;*/
+        .card-subtitle {
+            font-size: var(--card-subtitle-font-size);
+            display: inline;
+            line-height: 1.3em;
+            transition: all 0.1s;
+            padding: var(--card-subtitle-padding);
+            margin: var(--card-subtitle-margin);
+            font-weight: var(--card-subtitle-font-weight);
+            background-color: var(--card-subtitle-bg-color);
+            color: var(--card-subtitle-color);
+            border-radius: var(--card-title-subtitle-border-radius);
         }
-
-            .card-title {
-                font-size: var(--card-title-font-size);
-                display: inline;
-                line-height: 1.3em;
-                transition: all 0.1s;
-                padding: var(--card-title-padding);
-                margin: var(--card-title-margin);
-                font-weight: var(--card-title-font-weight);
-                background-color: var(--card-title-bg-color);
-                color: var(--card-title-color);
-                border-radius: var(--card-title-subtitle-border-radius);
-            }
-
-            .card-subtitle {
-                font-size: var(--card-subtitle-font-size);
-                display: inline;
-                line-height: 1.3em;
-                transition: all 0.1s;
-                padding: var(--card-subtitle-padding);
-                margin: var(--card-subtitle-margin);
-                font-weight: var(--card-subtitle-font-weight);
-                background-color: var(--card-subtitle-bg-color);
-                color: var(--card-subtitle-color);
-                border-radius: var(--card-title-subtitle-border-radius);
-            }

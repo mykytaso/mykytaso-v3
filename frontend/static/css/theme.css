@@ -14,7 +14,7 @@
     --content-form-min-width: 200px;
     --content-form-max-width: 400px;
 
-    --content-post-list-min-width: 10px;
+    --content-post-list-min-width: 300px;
     --content-post-list-max-width: 680px;
 
     --content-post-retrieve-min-width: 10px;
@@ -43,6 +43,8 @@
     /* Post */
     --post-title-font-size: 280%;
     --post-title-font-weight: 900;
+    --post-info-block-left-gap: 40px;
+
 
     /* Button Styles */
     --button-color: #FFFFFF;
@@ -147,6 +149,8 @@ body {
             --cards-group-gap: 40px;
             --card-title-font-size: 160%;
             --card-content-padding: 10px 10px 40px 10px;
+
+            --post-info-block-left-gap: 30px;
         }
         body {
             font-size: 14px;
@@ -161,6 +165,7 @@ body {
             --card-title-font-size: 140%;
             --card-content-padding: 10px 10px 40px 10px;
 
+            --post-info-block-left-gap: 20px;
         }
 
         body {

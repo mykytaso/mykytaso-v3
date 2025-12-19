@@ -14,19 +14,17 @@
         <div class="content-post-list">
 
             {% if posts %}
-                <div class="cards-group">
-                    {% for post in posts %}
-                        <a href="{{ post.get_absolute_url }}" class="card" style="background-image: url('{{ post.cover_image }}');">
-                            <span class="card-content">
-                                <span class="card-title">{{ post.title }}</span>
+                {% for post in posts %}
+                    <a href="{{ post.get_absolute_url }}" class="card" style="background-image: url('{{ post.cover_image }}');">
+                        <span class="card-content">
+                            <span class="card-title">{{ post.title }}</span>
 
-                                {% if post.subtitle %}
-                                    <span class="card-subtitle">{{ post.subtitle }}</span>
-                                {% endif %}
-                            </span>
-                        </a>
-                    {% endfor %}
-                </div>
+                            {% if post.subtitle %}
+                                <span class="card-subtitle">{{ post.subtitle }}</span>
+                            {% endif %}
+                        </span>
+                    </a>
+                {% endfor %}
             {% else %}
                 <p style="margin-top: 2rem; color: #666;">No posts available yet.</p>
             {% endif %}

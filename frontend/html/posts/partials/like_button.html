@@ -1,0 +1,20 @@
+{% load static %}
+
+<div id="like-button-container" class="like-comment-container">
+    <a
+        hx-post="{% url 'toggle_like' post.id %}"
+        hx-target="#like-button-container"
+        hx-swap="outerHTML"
+    >
+        <span style="padding: 0 2px 0 0">
+            {% if user_has_liked %}
+                <i class="fa-solid fa-heart"></i>
+            {% else %}
+                <i class="fa-regular fa-heart"></i>
+            {% endif %}
+        </span>
+        <span>
+            {{ like_count }}
+        </span>
+    </a>
+</div>

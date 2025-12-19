@@ -22,16 +22,41 @@
     width: 100%;
     margin: 30px 0;
     padding: 10px 10px;
-
     color: var(--text-color-secondary);
-
     border: var(--post-info-border);
     border-left: none;
     border-right: none;
 }
+
     .block-left {
         display: flex;
         flex-direction: row;
-        gap: 30px;
+        gap: var(--post-info-block-left-gap);
         align-items: center;
+        /*border: solid 1px red;*/
     }
+
+        .like-comment-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            /*border: solid 1px red;*/
+        }
+
+            .like-comment-container a {
+                color: var(--text-color-secondary);
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .like-comment-container a:hover {
+                color: var(--text-color-secondary);
+                text-decoration: none;
+                transform: scale(1.1);
+                transition: all 0.2s;
+
+            }
+            .like-comment-container a:active {
+                color: var(--text-color-secondary) !important;
+            }

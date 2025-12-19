@@ -19,8 +19,25 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def get_like_count(self):
+        """Return total number of likes for this post."""
+        return self.likes.count()
+
+    def is_liked_by_user(self, user):
+        """Check if authenticated user has liked this post."""
+        if not user.is_authenticated:
+            return False
+        return self.likes.filter(user=user).exists()
+
+    def is_liked_by_ip(self, ip_address):
+        """Check if anonymous IP address has liked this post."""
+        if not ip_address:
+            return False
+        return self.likes.filter(ip_address=ip_address, user__isnull=True).exists()
+
     class Meta:
         ordering: ClassVar[list[str]] = ["-created_at"]
+        db_table = "posts"
 
     def __str__(self):
         return self.title
