@@ -4,11 +4,6 @@
     --roboto-condensed-font: "Roboto Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --roboto-semi-condensed-font: "Roboto Semi-Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
-    /* Content Widths */
-    /*--content-width-max: 1400px;*/
-    /*--content-width-normal: 1000px;*/
-    /*--content-width-small: 800px;*/
-
     /* Content */
     --content-padding : 20px 80px 0 80px;
     --content-form-min-width: 200px;
@@ -57,10 +52,13 @@
 
 }
 
-/* Box Sizing */
+
+/* Box Sizing and Transitions */
 *, *::before, *::after {
     box-sizing: inherit;
+    transition: all 0.16s;
 }
+
 
 html, html[theme="light"] {
     box-sizing: border-box;
@@ -92,6 +90,7 @@ html, html[theme="light"] {
     --input-border: solid 1px #DBDFE4;
     --input-border-focus: solid 1px #0C1014;
 }
+
 
 html[theme="dark"] {
     scrollbar-gutter: stable;
@@ -126,36 +125,37 @@ html[theme="dark"] {
 
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     font-family: var(--roboto-font);
-    font-size: 16px;
-    line-height: 1.42;
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.01rem;   /* Adds extra space between letters */
+    line-height: 1.7;         /* controls vertical spacing between text lines. */
     color: var(--text-color);
     background-color: var(--bg-color);
-    text-rendering: optimizeSpeed;
-    transition: 0.5s ease-out;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: 0.01rem;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
     @media (max-width: 1024px) {
         :root {
             --content-padding : 20px 60px 0 60px;
 
-            --cards-group-gap: 40px;
-            --card-title-font-size: 160%;
-            --card-content-padding: 10px 10px 40px 10px;
+        --cards-group-gap: 40px;
+        --card-title-font-size: 160%;
+        --card-content-padding: 10px 10px 40px 10px;
 
-            --post-info-block-left-gap: 30px;
+        --post-info-block-left-gap: 30px;
         }
+
         body {
-            font-size: 14px;
+            font-size: 15px;
         }
     }
+
 
     @media (max-width: 570px) {
         :root {
@@ -169,6 +169,6 @@ body {
         }
 
         body {
-            font-size: 13px;
+            font-size: 14px;
         }
     }

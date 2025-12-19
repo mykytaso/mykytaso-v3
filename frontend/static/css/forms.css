@@ -24,7 +24,6 @@ select {
     background-color: transparent;
     border: var(--input-border);
     border-radius: var(--button-border-radius);
-    transition: border-color 0.2s ease;
 }
     /* Input Focus State */
     input[type="text"]:focus,
