@@ -1,40 +1,39 @@
 # Django Project Makefile
-PYTHON = python3.13
 
 # Django migrations
 migrations:
-	$(PYTHON) manage.py makemigrations
+	uv run manage.py makemigrations
 
 migrate:
-	$(PYTHON) manage.py migrate
+	uv run manage.py migrate
 
 # Run development server
 dev:
-	$(PYTHON) manage.py runserver
+	uv run manage.py runserver
 
 # Create superuser
 superuser:
-	$(PYTHON) manage.py createsuperuser
+	uv run manage.py createsuperuser
 
 # Collect static files
 collectstatic:
-	$(PYTHON) manage.py collectstatic --noinput
+	uv run manage.py collectstatic --noinput
 
 # Run tests
 test:
-	$(PYTHON) manage.py test
+	uv run manage.py test
 
 # Shell access
 shell:
-	$(PYTHON) manage.py shell
+	uv run manage.py shell
 
 # Database shell
 dbshell:
-	$(PYTHON) manage.py dbshell
+	uv run manage.py dbshell
 
-# Check for issues
-check:
-	$(PYTHON) manage.py check
+# Check for issues (Django check)
+django-check:
+	uv run manage.py check
 
 # Clean up
 clean:

@@ -57,8 +57,10 @@ services:
 
     # Mount current directory into container
     # Enables live code reloading during development
+    # Preserve Docker's .venv by mounting it separately
     volumes:
       - .:/app
+      - /app/.venv
 
   # ==========================================
   # PostgreSQL Database Service

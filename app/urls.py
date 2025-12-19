@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
-from posts.views import post_list, post_retrieve, about_me
+from likes.views import toggle_like
+from posts.views import about_me, post_list, post_retrieve
 from users.views import (
     CustomLoginView,
     CustomLogoutView,
@@ -59,6 +60,7 @@ urlpatterns = [
     # Posts app URLs
     path("", post_list, name="post_list"),
     path("posts/<uuid:post_id>/", post_retrieve, name="post_retrieve"),
+    path("posts/<uuid:post_id>/like/", toggle_like, name="toggle_like"),
 
     # About me
     path("about/", about_me, name="about_me"),
