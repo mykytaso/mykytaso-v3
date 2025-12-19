@@ -133,9 +133,16 @@ i.fa, i.fab {
     }
 
     .theme-switcher .slider:after {
-        content: "☀️";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 100;
+        cursor: pointer;
+        content: "\f186";  /* fa-sun */
     }
 
         .theme-switcher input:checked + .slider:after {
-            content: "🌙";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 100;
+            cursor: pointer;
+            content: "\f185";  /* fa-moon */
+
         }

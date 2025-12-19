@@ -380,3 +380,29 @@
     font-weight: 900;
     font-style: italic;
 }
+
+
+/* Font Awesome 6 Free Font Faces */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    src: url('../fonts/font_awesome/fa-regular-400.woff2') format('woff2'),
+         url('../fonts/font_awesome/fa-regular-400.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    src: url('../fonts/font_awesome/fa-solid-900.woff2') format('woff2'),
+         url('../fonts/font_awesome/fa-solid-900.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    src: url('../fonts/font_awesome/fa-brands-400.woff2') format('woff2'),
+         url('../fonts/font_awesome/fa-brands-400.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
