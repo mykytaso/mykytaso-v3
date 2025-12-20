@@ -1,6 +1,6 @@
 {% load static %}
 
-<div id="like-button-container" class="like-comment-container">
+<div id="like-button-container" class="like">
     <a
         hx-post="{% url 'toggle_like' post.id %}"
         hx-target="#like-button-container"

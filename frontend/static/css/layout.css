@@ -93,7 +93,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: var(--content-padding);
+    padding: 40px 80px 0 80px;
     align-items: center;
     /*border: solid 1px red;*/
 }
@@ -103,21 +103,21 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        min-width: var(--content-form-min-width);
-        max-width: var(--content-form-max-width);
+        min-width: 200px;
+        max-width: 400px;
         padding: 0;
         margin: 0;
         /*border: solid 1px red;*/
     }
 
-    .content .content-post-list {
+    .content .container-card-list {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--cards-group-gap);
+        gap: 20px;
         width: 100%;
-        min-width: var(--content-post-list-min-width);
-        max-width: var(--content-post-list-max-width);
+        min-width: 300px;
+        max-width: 728px;
         padding: 0;
         margin: 0;
         /*border: solid 1px red;*/
@@ -128,8 +128,8 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        min-width: var(--content-post-retrieve-min-width);
-        max-width: var(--content-post-retrieve-max-width);
+        min-width: 300px;
+        max-width: 680px;
         padding: 0;
         margin: 0;
         /*border: solid 1px red;*/
@@ -167,3 +167,20 @@
             padding: 0 0 20px 0;
             color: var(--text-color-secondary);
         }
+
+
+/* ----------------------------------------------------------- */
+/* ------------------------ RESPONSIVE ----------------------- */
+/* ----------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .content {
+        padding : 40px 60px 0 60px;
+    }
+}
+
+
+@media (max-width: 570px) {
+    .content {
+        padding : 40px 20px 0 20px;
+    }
+}

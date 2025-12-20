@@ -11,22 +11,60 @@
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="content-post-list">
+        <div class="container-card-list">
 
             {% if posts %}
                 {% for post in posts %}
-                    <a href="{{ post.get_absolute_url }}" class="card" style="background-image: url('{{ post.cover_image }}');">
-                        <span class="card-content">
-                            <span class="card-title">{{ post.title }}</span>
+                    <a href="{{ post.get_absolute_url }}" class="card">
+
+                        <div class="card-text-block">
+                            <div class="card-title">
+                                {{ post.title }}
+                            </div>
 
                             {% if post.subtitle %}
-                                <span class="card-subtitle">{{ post.subtitle }}</span>
+                                <div class="card-subtitle">
+                                    {{ post.subtitle }}
+                                </div>
                             {% endif %}
-                        </span>
+
+                            <div class="card-meta">
+
+                                <div class="card-meta-block-left">
+                                    <span>
+                                        <i class="fa-regular fa-heart icon-margin-right"></i>
+                                        {{ post.get_like_count }}
+                                    </span>
+                                    <span>
+                                        <i class="fa-regular fa-comment icon-margin-right"></i>
+                                        0
+                                    </span>
+                                    <span>
+                                        <i class="fa-regular fa-eye icon-margin-right"></i>
+                                        0
+                                    </span>
+                                </div>
+
+                                <span class="card-date">
+                                    {% if post.published_at %}
+                                        {{ post.published_at|date:"M j, Y" }}
+                                    {% else %}
+                                        {{ post.created_at|date:"M j, Y" }}
+                                    {% endif %}
+                                </span>
+
+                            </div>
+                        </div>
+
+                        {% if post.cover_image %}
+                            <div class="card-image" style="background-image: url('{{ post.cover_image }}');"></div>
+                        {% endif %}
                     </a>
+
+                    <div style="margin: 20px; height: 1px; width: 100%; background: var(--devider-color);">&nbsp;</div>
                 {% endfor %}
             {% else %}
-                <p style="margin-top: 2rem; color: #666;">No posts available yet.</p>
+                <p style="margin-top: 2rem; color: var(--text-color-secondary);">No posts available yet.</p>
             {% endif %}
         </div>
 
