@@ -3,7 +3,7 @@ h1,
     text-align: center;
     font-weight: 600;
     font-size: 270%;
-    line-height: 1.3em;
+    /*line-height: 1.3em;*/
     padding: 10px 0 50px;
     margin: 0 auto;
     /*max-width: var(--content-width-max);*/
@@ -14,7 +14,7 @@ h2,
     text-align: center;
     font-weight: 600;
     font-size: 210%;
-    line-height: 1.3em;
+    /*line-height: 1.3em;*/
     padding: 10px 0 30px;
     margin: 0 auto;
     /*max-width: var(--content-width-max);*/
@@ -25,7 +25,7 @@ h3,
     text-align: left;
     font-weight: 500;
     font-size: 170%;
-    line-height: 1.3em;
+    /*line-height: 1.3em;*/
     padding: 30px 0 20px;
     margin: 0 auto;
     /*max-width: var(--content-width-max);*/
@@ -81,7 +81,7 @@ a {
     border: var(--button-border);                /* Theme-aware border */
     color: var(--button-color);                  /* Theme-aware text color */
     text-align: center;              /* Center text horizontally */
-    line-height: 1em;                /* Compact line height for single-line buttons */
+    line-height: var(--line-height-s);      /* Compact line height for single-line buttons */
     font-family: var(--roboto-font);   /* Use Roboto font */
     font-size: 16px;                 /* Base font size for readability */
     font-weight: 500;                /* Medium font weight */
