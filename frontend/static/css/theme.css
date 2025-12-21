@@ -45,7 +45,7 @@ html, html[theme="light"] {
     --text-color-secondary: #6A717A;
 
     /* Cards and Post */
-    --devider-color: #F2F2F2;
+    --divider-color: #F2F2F2;
 
     /* Links */
     --link-color: #4150F7;
@@ -76,7 +76,7 @@ html[theme="dark"] {
     --text-color-secondary: #A7A7A7;
 
     /* Cards and Post */
-    --devider-color: #262626;
+    --divider-color: #262626;
 
     /* Links */
     --link-color: #708DFF;
