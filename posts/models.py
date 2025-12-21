@@ -15,6 +15,7 @@ class Post(models.Model):
 
     is_visible = models.BooleanField(default=True)
     published_at = models.DateTimeField(null=True, blank=True)
+    view_count = models.PositiveIntegerField(default=0, db_index=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

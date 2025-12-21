@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.shortcuts import get_object_or_404, render
 
 from likes.views import get_client_ip
@@ -16,6 +17,10 @@ def post_list(request):
 
 def post_retrieve(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+
+    # Increment view count atomically
+    Post.objects.filter(id=post_id).update(view_count=F("view_count") + 1)
+    post.refresh_from_db()
 
     # Determine if current user/IP has liked this post
     if request.user.is_authenticated:

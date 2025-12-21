@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load static %}
+{% load post_filters %}
 
 
 {% block content %}
@@ -41,7 +42,7 @@
                                     </span>
                                     <span>
                                         <i class="fa-regular fa-eye icon-margin-right"></i>
-                                        0
+                                        {{ post.view_count|abbreviate_number }}
                                     </span>
                                 </div>
 
