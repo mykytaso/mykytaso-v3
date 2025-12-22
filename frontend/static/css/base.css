@@ -47,7 +47,9 @@ h2 + h3,
 }
 
 
-/* Links */
+/* ----------------------------------------------------------- */
+/* --------------------------- LINKS ------------------------- */
+/* ----------------------------------------------------------- */
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -65,33 +67,35 @@ a {
     }
 
 
-.text-align-center {
-    text-align: center;
-}
-
-
-/* Buttons */
+/* ----------------------------------------------------------- */
+/* -------------------------- BUTTONS ------------------------ */
+/* ----------------------------------------------------------- */
 .button {
-    display: inline-block;          /* Allows width/height while staying inline */
-    padding: 13px 17px;              /* Internal spacing (vertical horizontal) */
-    box-sizing: border-box;          /* Include padding/border in width calculations */
-    text-decoration: none;           /* Remove underline for links */
+    display: inline-block;                       /* Allows width/height while staying inline */
+    padding: 13px 17px;                          /* Internal spacing (vertical horizontal) */
+    box-sizing: border-box;                      /* Include padding/border in width calculations */
+    text-decoration: none;                       /* Remove underline for links */
     border-radius: var(--button-border-radius);  /* Rounded corners */
     background-color: var(--button-bg-color);    /* Theme-aware background */
     border: var(--button-border);                /* Theme-aware border */
-    color: var(--button-color);                  /* Theme-aware text color */
-    text-align: center;              /* Center text horizontally */
-    line-height: var(--line-height-s);      /* Compact line height for single-line buttons */
-    font-family: var(--roboto-font);   /* Use Roboto font */
-    font-size: 16px;                 /* Base font size for readability */
-    font-weight: 500;                /* Medium font weight */
-    cursor: pointer;                 /* Show pointer on hover */
+    color: var(--button-color) !important;       /* Theme-aware text color */
+    text-align: center;                          /* Center text horizontally */
+    line-height: var(--line-height-s);           /* Compact line height for single-line buttons */
+    font-family: var(--roboto-font);             /* Use Roboto font */
+    font-size: 16px;                             /* Base font size for readability */
+    font-weight: 500;                            /* Medium font weight */
+    cursor: pointer;                             /* Show pointer on hover */
 }
 
     .button:hover {
         color: var(--button-hover-color);
         background-color: var(--button-hover-bg-color);
         border: var(--button-hover-border);
+        text-decoration: none;
+    }
+
+    .button:active {
+        color: var(--button-color) !important;
     }
 
 
