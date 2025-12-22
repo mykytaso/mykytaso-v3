@@ -1,0 +1,11 @@
+Welcome to mykytaso!
+
+Hi {username},
+
+Thank you for registering. Please verify your email address by visiting:
+
+{verification_url}
+
+This link will expire in 24 hours.
+
+If you didn't create an account, you can safely ignore this email.

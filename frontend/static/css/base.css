@@ -126,14 +126,14 @@ i.fa, i.fab {
         font-family: "Font Awesome 6 Free";
         font-weight: 100;
         cursor: pointer;
-        content: "\f186";  /* fa-sun */
+        content: "\f186";
     }
 
         .theme-switcher input:checked + .slider:after {
             font-family: "Font Awesome 6 Free";
-            font-weight: 100;
+            font-weight: 900;
             cursor: pointer;
-            content: "\f185";  /* fa-moon */
+            content: "\f185";
 
         }
 

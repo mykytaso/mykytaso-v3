@@ -71,47 +71,21 @@ def send_verification_email(user, verification_url: str) -> bool:
         bool: True if sent successfully
     """
     current_dir = Path(__file__).parent
+    html_template_path = current_dir / "email_templates" / "verification_email.html"
+    text_template_path = current_dir / "email_templates" / "verification_email.txt"
 
     subject = "Verify Your Email Address"
 
-    html_content = f"""
-    <html>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <h2>Welcome to mykytaso!</h2>
-            <p>Hi {user.username},</p>
-            <p>Thank you for registering. Please verify your email address by clicking the button below:</p>
-            <p style="margin: 30px 0;">
-                <a href="{verification_url}"
-                   style="background-color: #0d6efd; color: white; padding: 12px 24px;
-                          text-decoration: none; border-radius: 5px; display: inline-block;">
-                    Verify Email Address
-                </a>
-            </p>
-            <p>Or copy and paste this link into your browser:</p>
-            <p style="word-break: break-all; color: #666;">{verification_url}</p>
-            <p><small>This link will expire in 24 hours.</small></p>
-            <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
-            <p style="color: #666; font-size: 12px;">
-                If you didn't create an account, you can safely ignore this email.
-            </p>
-        </body>
-    </html>
-    """
+    # Load templates and substitute variables
+    html_content = html_template_path.read_text(encoding="utf-8").format(
+        username=user.username,
+        verification_url=verification_url,
+    )
 
-
-    text_content = f"""
-    Welcome to mykytaso!
-
-    Hi {user.username},
-
-    Thank you for registering. Please verify your email address by visiting:
-
-    {verification_url}
-
-    This link will expire in 24 hours.
-
-    If you didn't create an account, you can safely ignore this email.
-    """
+    text_content = text_template_path.read_text(encoding="utf-8").format(
+        username=user.username,
+        verification_url=verification_url,
+    )
 
     return send_mailgun_email(
         to_email=user.email,
@@ -132,47 +106,22 @@ def send_password_reset_email(user, reset_url: str) -> bool:
     Returns:
         bool: True if sent successfully
     """
+    current_dir = Path(__file__).parent
+    html_template_path = current_dir / "email_templates" / "password_reset_email.html"
+    text_template_path = current_dir / "email_templates" / "password_reset_email.txt"
+
     subject = "Reset Your Password"
 
-    html_content = f"""
-    <html>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <h2>Password Reset Request</h2>
-            <p>Hi {user.username},</p>
-            <p>You requested to reset your password. Click the button below to set a new password:</p>
-            <p style="margin: 30px 0;">
-                <a href="{reset_url}"
-                   style="background-color: #0d6efd; color: white; padding: 12px 24px;
-                          text-decoration: none; border-radius: 5px; display: inline-block;">
-                    Reset Password
-                </a>
-            </p>
-            <p>Or copy and paste this link into your browser:</p>
-            <p style="word-break: break-all; color: #666;">{reset_url}</p>
-            <p><small>This link will expire in 1 hour.</small></p>
-            <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
-            <p style="color: #666; font-size: 12px;">
-                If you didn't request a password reset, you can safely ignore this email.
-                Your password will not be changed.
-            </p>
-        </body>
-    </html>
-    """
+    # Load templates and substitute variables
+    html_content = html_template_path.read_text(encoding="utf-8").format(
+        username=user.username,
+        reset_url=reset_url,
+    )
 
-    text_content = f"""
-    Password Reset Request
-
-    Hi {user.username},
-
-    You requested to reset your password. Visit the link below to set a new password:
-
-    {reset_url}
-
-    This link will expire in 1 hour.
-
-    If you didn't request a password reset, you can safely ignore this email.
-    Your password will not be changed.
-    """
+    text_content = text_template_path.read_text(encoding="utf-8").format(
+        username=user.username,
+        reset_url=reset_url,
+    )
 
     return send_mailgun_email(
         to_email=user.email,
