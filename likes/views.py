@@ -19,9 +19,9 @@ def get_client_ip(request):
 
 
 @require_POST
-def toggle_like(request, post_id):
+def toggle_like(request, slug):
     """Toggle like/unlike for a post. Returns HTMX-compatible HTML fragment."""
-    post = get_object_or_404(Post, id=post_id)
+    post = get_object_or_404(Post, slug=slug)
 
     # Get IP address for all users (authenticated and anonymous)
     ip_address = get_client_ip(request)

@@ -125,7 +125,7 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         """Redirect to next URL if provided, otherwise to user profile."""
-        next_url = self.request.GET.get('next') or self.request.POST.get('next')
+        next_url = self.request.GET.get("next") or self.request.POST.get("next")
         if next_url:
             return next_url
         return reverse_lazy("user_profile")

@@ -7,17 +7,18 @@ from posts.models import Post
 
 
 @login_required
-def add_comment(request, post_id):
+def add_comment(request, slug):
     """Add a comment to a post. Only authenticated users can comment."""
-    if request.method != "POST":
-        return redirect("post_retrieve", post_id=post_id)
+    post = get_object_or_404(Post, slug=slug)
 
-    post = get_object_or_404(Post, id=post_id)
+    if request.method != "POST":
+        return redirect("post_retrieve", slug=slug)
+
     text = request.POST.get("text", "").strip()
 
     if not text:
         messages.error(request, "Comment cannot be empty.")
-        return redirect("post_retrieve", post_id=post_id)
+        return redirect("post_retrieve", slug=slug)
 
     Comment.objects.create(
         post=post,
@@ -26,7 +27,7 @@ def add_comment(request, post_id):
     )
 
     messages.success(request, "Comment added successfully.")
-    return redirect("post_retrieve", post_id=post_id)
+    return redirect("post_retrieve", slug=slug)
 
 
 @login_required
@@ -40,10 +41,10 @@ def delete_comment(request, comment_id):
     # Only the comment author can delete their comment
     if comment.author != request.user:
         messages.error(request, "You can only delete your own comments.")
-        return redirect("post_retrieve", post_id=comment.post.id)
+        return redirect("post_retrieve", slug=comment.post.slug)
 
-    post_id = comment.post.id
+    post_slug = comment.post.slug
     comment.delete()
 
     messages.success(request, "Comment deleted successfully.")
-    return redirect("post_retrieve", post_id=post_id)
+    return redirect("post_retrieve", slug=post_slug)

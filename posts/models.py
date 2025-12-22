@@ -1,17 +1,23 @@
+from datetime import datetime
 from typing import ClassVar
 from uuid import uuid4
 
 from django.db import models
 from django.urls import reverse
 
+from utils.slug import generate_unique_slug
+
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
 
+    slug = models.CharField(max_length=128, unique=True, db_index=True, blank=True)
+
     title = models.CharField(max_length=512, blank=True)
     subtitle = models.CharField(max_length=512, blank=True)
     cover_image = models.URLField(null=True, blank=True)
-    text = models.TextField(blank=True)
+    text = models.TextField(null=True, blank=True)
+    html_cache = models.TextField(null=True, blank=True)
 
     is_visible = models.BooleanField(default=True)
     published_at = models.DateTimeField(null=True, blank=True)
@@ -19,6 +25,26 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering: ClassVar[list[str]] = ["-created_at"]
+        db_table = "posts"
+
+    def __str__(self):
+        return self.title
+
+    def save(self, flush_cache=True, *args, **kwargs):
+        if not self.slug:
+            self.slug = generate_unique_slug(Post, self.title)
+
+        if not self.published_at and self.is_visible:
+            self.published_at = datetime.now()
+
+        if flush_cache:
+            self.html_cache = None
+
+        self.updated_at = datetime.now()
+        return super().save(*args, **kwargs)
 
     def get_like_count(self):
         """Return total number of likes for this post."""
@@ -40,15 +66,8 @@ class Post(models.Model):
             return False
         return self.likes.filter(ip_address=ip_address, user__isnull=True).exists()
 
-    class Meta:
-        ordering: ClassVar[list[str]] = ["-created_at"]
-        db_table = "posts"
-
-    def __str__(self):
-        return self.title
-
     def get_absolute_url(self):
-        return reverse("post_retrieve", kwargs={"post_id": self.id})
+        return reverse("post_retrieve", kwargs={"slug": self.slug})
 
     @classmethod
     def visible_objects(cls):

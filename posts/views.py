@@ -25,11 +25,11 @@ def post_list(request):
     })
 
 
-def post_retrieve(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
+def post_retrieve(request, slug):
+    post = get_object_or_404(Post, slug=slug)
 
     # Increment view count atomically
-    Post.objects.filter(id=post_id).update(view_count=F("view_count") + 1)
+    Post.objects.filter(slug=slug).update(view_count=F("view_count") + 1)
     post.refresh_from_db()
 
     # Determine if current user/IP has liked this post

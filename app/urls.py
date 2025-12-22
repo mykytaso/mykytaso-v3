@@ -60,11 +60,11 @@ urlpatterns = [
 
     # Posts app URLs
     path("", post_list, name="post_list"),
-    path("posts/<uuid:post_id>/", post_retrieve, name="post_retrieve"),
-    path("posts/<uuid:post_id>/like/", toggle_like, name="toggle_like"),
+    path("posts/<slug:slug>/", post_retrieve, name="post_retrieve"),
+    path("posts/<slug:slug>/like/", toggle_like, name="toggle_like"),
 
     # Comments app URLs
-    path("comments/<uuid:post_id>/add/", add_comment, name="add_comment"),
+    path("comments/<slug:slug>/add/", add_comment, name="add_comment"),
     path("comments/<uuid:comment_id>/delete/", delete_comment, name="delete_comment"),
 
     # About me
