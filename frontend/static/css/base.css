@@ -73,7 +73,7 @@ a {
 /* Buttons */
 .button {
     display: inline-block;          /* Allows width/height while staying inline */
-    padding: 15px 18px;              /* Internal spacing (vertical horizontal) */
+    padding: 13px 17px;              /* Internal spacing (vertical horizontal) */
     box-sizing: border-box;          /* Include padding/border in width calculations */
     text-decoration: none;           /* Remove underline for links */
     border-radius: var(--button-border-radius);  /* Rounded corners */
@@ -94,20 +94,6 @@ a {
         border: var(--button-hover-border);
     }
 
-
-.show-on-iphone {
-    display: none !important;
-}
-
-@media (max-width: 570px) {
-    .hide-on-iphone {
-        display: none !important;
-    }
-
-    .show-on-iphone {
-        display: block !important;
-    }
-}
 
 img.emoji {
    height: 1.2em;
@@ -146,3 +132,32 @@ i.fa, i.fab {
             content: "\f185";  /* fa-moon */
 
         }
+
+
+.show-on-iphone {
+    display: none !important;
+}
+
+
+/* ----------------------------------------------------------- */
+/* ------------------------ RESPONSIVE ----------------------- */
+/* ----------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .button {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 570px) {
+    .hide-on-iphone {
+        display: none !important;
+    }
+
+    .show-on-iphone {
+        display: block !important;
+    }
+
+    .button {
+        font-size: 14px;
+    }
+}

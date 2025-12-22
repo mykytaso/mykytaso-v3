@@ -24,6 +24,10 @@ class Post(models.Model):
         """Return total number of likes for this post."""
         return self.likes.count()
 
+    def get_comment_count(self):
+        """Return total number of comments for this post."""
+        return self.comments.count()
+
     def is_liked_by_user(self, user):
         """Check if authenticated user has liked this post."""
         if not user.is_authenticated:

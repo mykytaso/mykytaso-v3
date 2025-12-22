@@ -9,6 +9,27 @@ function toggleTheme(checkbox) {
     localStorage.setItem("theme", theme);
 }
 
+// Convert UTC timestamps to browser's local timezone
+function convertTimestamps() {
+    const timestamps = document.querySelectorAll('.comment-timestamp');
+
+    timestamps.forEach(function(element) {
+        const isoTimestamp = element.getAttribute('data-timestamp');
+        if (!isoTimestamp) return;
+
+        const date = new Date(isoTimestamp);
+
+        // Format: "20.12.2025 19:33"
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+
+        element.textContent = `${day}.${month}.${year}\u00A0\u00A0\u00A0${hours}:${minutes}`;
+    });
+}
+
 // Initialize theme switcher event listener when DOM is ready
 document.addEventListener("DOMContentLoaded", function() {
     const themeCheckbox = document.getElementById("theme-checkbox");
@@ -18,4 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleTheme(this);
         });
     }
+
+    // Convert timestamps to local timezone
+    convertTimestamps();
 });

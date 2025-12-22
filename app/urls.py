@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
+from comments.views import add_comment, delete_comment
 from likes.views import toggle_like
 from posts.views import about_me, post_list, post_retrieve
 from users.views import (
@@ -61,6 +62,10 @@ urlpatterns = [
     path("", post_list, name="post_list"),
     path("posts/<uuid:post_id>/", post_retrieve, name="post_retrieve"),
     path("posts/<uuid:post_id>/like/", toggle_like, name="toggle_like"),
+
+    # Comments app URLs
+    path("comments/<uuid:post_id>/add/", add_comment, name="add_comment"),
+    path("comments/<uuid:comment_id>/delete/", delete_comment, name="delete_comment"),
 
     # About me
     path("about/", about_me, name="about_me"),

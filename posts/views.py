@@ -10,6 +10,16 @@ def post_list(request):
         posts = Post.objects.all()
     else:
         posts = Post.visible_objects()
+
+    # Add liked status to each post
+    if request.user.is_authenticated:
+        for post in posts:
+            post.user_has_liked = post.is_liked_by_user(request.user)
+    else:
+        ip_address = get_client_ip(request)
+        for post in posts:
+            post.user_has_liked = post.is_liked_by_ip(ip_address)
+
     return render(request, "posts/post_list.html", {
         "posts": posts,
     })
@@ -30,11 +40,13 @@ def post_retrieve(request, post_id):
         user_has_liked = post.is_liked_by_ip(ip_address)
 
     like_count = post.get_like_count()
+    comments = post.comments.select_related("author").all()
 
     return render(request, "posts/post_retrieve.html", {
         "post": post,
         "like_count": like_count,
         "user_has_liked": user_has_liked,
+        "comments": comments,
     })
 
 

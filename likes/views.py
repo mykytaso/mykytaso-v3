@@ -50,7 +50,7 @@ def toggle_like(request, post_id):
     # Get updated like count and render partial
     like_count = post.get_like_count()
     html = render_to_string(
-        "posts/partials/like_button.html",
+        "posts/like_button.html",
         {"post": post, "like_count": like_count, "user_has_liked": user_has_liked},
         request=request
     )

@@ -124,7 +124,10 @@ class CustomLoginView(LoginView):
         return response
 
     def get_success_url(self):
-        """Redirect to user profile after login."""
+        """Redirect to next URL if provided, otherwise to user profile."""
+        next_url = self.request.GET.get('next') or self.request.POST.get('next')
+        if next_url:
+            return next_url
         return reverse_lazy("user_profile")
 
 
@@ -212,7 +215,6 @@ class VerifyEmailView(TemplateView):
             user.verify_email()
 
             # Get user's IP address before login
-            from posts.views import get_client_ip
             user_ip = get_client_ip(request)
 
             # Log the user in automatically
@@ -220,8 +222,6 @@ class VerifyEmailView(TemplateView):
 
             # Migrate anonymous likes from this IP to authenticated user
             if user_ip:
-                from posts.models import Like
-
                 # Find anonymous likes from this IP address
                 anonymous_likes = Like.objects.filter(
                     ip_address=user_ip,

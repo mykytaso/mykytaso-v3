@@ -8,7 +8,7 @@
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="content-post-retrieve">
+        <div class="container-post-retrieve">
             <article>
 
                 {% if post.title %}
@@ -22,7 +22,7 @@
                         {% include "posts/like_button.html" %}
                         <div>
                             <i class="fa-regular fa-comment" style="padding: 0 6px 0 0"></i>
-                            0
+                            {{ post.get_comment_count }}
                         </div>
                         <div>
                             <i class="fa-regular fa-eye icon-margin-right" style="padding: 0 6px 0 0"></i>
@@ -43,8 +43,17 @@
                     {{ post.text|linebreaks }}
                 </div>
 
+
             </article>
         </div>
 
+        {# Comments Section #}
+        <div class="container-comments-section">
+
+            <div class="comments-title">Comments ({{ post.get_comment_count }})</div>
+
+            {% include "comments/comment_form.html" %}
+            {% include "comments/comment.html" %}
+        </div>
     </div>
 {% endblock %}

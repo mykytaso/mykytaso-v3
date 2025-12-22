@@ -33,12 +33,16 @@
 
                                 <div class="card-meta-block-left">
                                     <span>
-                                        <i class="fa-regular fa-heart icon-margin-right"></i>
+                                        {% if post.user_has_liked %}
+                                            <i class="fa-solid fa-heart icon-margin-right"></i>
+                                        {% else %}
+                                            <i class="fa-regular fa-heart icon-margin-right"></i>
+                                        {% endif %}
                                         {{ post.get_like_count }}
                                     </span>
                                     <span>
                                         <i class="fa-regular fa-comment icon-margin-right"></i>
-                                        0
+                                        {{ post.get_comment_count }}
                                     </span>
                                     <span>
                                         <i class="fa-regular fa-eye icon-margin-right"></i>
@@ -62,7 +66,7 @@
                         {% endif %}
                     </a>
 
-                    <div style="margin: 20px; height: 1px; width: 100%; background: var(--devider-color);">&nbsp;</div>
+                    {% include "posts/divider.html" %}
                 {% endfor %}
             {% else %}
                 <p style="margin-top: 2rem; color: var(--text-color-secondary);">No posts available yet.</p>
