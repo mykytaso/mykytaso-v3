@@ -13,32 +13,34 @@
     /*border: solid 1px red;*/
 }
 
-    .navbar a {
+    .navbar__link {
         color: var(--text-color) !important;
         text-decoration: none !important;
         /*border: solid 1px red;*/
     }
 
-    .navbar-logo {
+    .navbar__logo {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
         gap: 10px;
+        text-decoration: none !important;
+        color: var(--text-color) !important;
     }
 
-        .navbar-logo img {
+        .navbar__logo-image {
             width: 48px;
             height: 48px;
 
         }
 
-        .navbar-logo div {
+        .navbar__logo-text {
             font-size: 170%;
             font-weight: 600;
         }
 
-    .nav-item {
+    .navbar__item {
         color: var(--text-color) !important;
         text-decoration: none !important;
         font-size: 110%;
@@ -46,23 +48,23 @@
         /*border: solid 1px red;*/
     }
 
-    .nav-item:hover {
+    .navbar__item:hover {
         color: var(--text-color) !important;
         text-decoration: none !important;
         background-color: var(--button-nav-hover-bg-color);
     }
 
-    .nav-item:active {
+    .navbar__item:active {
         color: var(--text-color) !important;
         text-decoration: none !important;
     }
 
-    .nav-item.active {
+    .navbar__item--active {
         background-color: var(--button-nav-hover-bg-color) !important;
     }
 
 
-    .navbar-burger {
+    .navbar__burger {
         height: 36px;
         width: 36px;
         line-height: 33px;
@@ -73,7 +75,7 @@
         font-weight: 400;
     }
 
-    .navbar-menu {
+    .navbar__menu {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -82,7 +84,7 @@
         /*border: solid 1px red;*/
     }
 
-        .navbar-menu-visible {
+        .navbar__menu--visible {
             display: flex !important;
         }
 
@@ -98,7 +100,7 @@
     /*border: solid 1px red;*/
 }
 
-    .content .content-form {
+    .content__form-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -110,7 +112,7 @@
         /*border: solid 1px red;*/
     }
 
-    .content .container-card-list {
+    .content__card-list {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -123,7 +125,7 @@
         /*border: solid 1px red;*/
     }
 
-    .content .container-post-retrieve {
+    .content__post-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -135,7 +137,7 @@
         /*border: solid 1px red;*/
     }
 
-    .content .container-comments-section {
+    .content__comments-section {
         display: flex;
         flex-direction: column;
         /*align-items: center;*/
@@ -161,7 +163,7 @@
     /*border: solid 1px red;*/
 }
 
-        .footer-social {
+        .footer__social {
             display: flex;
             flex-direction: row;
             gap: 26px;
@@ -170,12 +172,12 @@
             margin: 0;
         }
 
-            .footer-social img {
+            .footer__social-icon {
                 display: block;
                 height: 34px;
             }
 
-        .footer-copyright {
+        .footer__copyright {
             margin: 0;
             padding: 0 0 20px 0;
             color: var(--text-color-secondary);

@@ -1,53 +1,53 @@
 {% load static %}
 
 <div class="navbar">
-    <a href="{% url 'post_list' %}" class="navbar-logo">
-        <img src="{% static 'images/m.png' %}" alt="" class="navbar-logo-image">
-        <div>Mykyta</div>
+    <a href="{% url 'post_list' %}" class="navbar__logo">
+        <img src="{% static 'images/m.png' %}" alt="" class="navbar__logo-image">
+        <div class="navbar__logo-text">Mykyta</div>
     </a>
 
-    <div class="button navbar-burger show-on-iphone"
-         onclick="return document.getElementById('navbar-menu').classList.toggle('navbar-menu-visible');"
+    <div class="button navbar__burger show-on-iphone"
+         onclick="return document.getElementById('navbar-menu').classList.toggle('navbar__menu--visible');"
     >
         ≡
     </div>
 
-    <div class="navbar-menu hide-on-iphone" id="navbar-menu">
+    <div class="navbar__menu hide-on-iphone" id="navbar-menu">
         {% with request.resolver_match.url_name as url_name %}
 
-        <a class="button nav-item {% if url_name == 'post_list' %}active{% endif %}" href="{% url 'post_list' %}">
+        <a class="button navbar__item {% if url_name == 'post_list' %}navbar__item--active{% endif %}" href="{% url 'post_list' %}">
             <span>Posts</span>
         </a>
 
-        <a class="button nav-item {% if url_name == 'about_me' %}active{% endif %}" href="{% url 'about_me' %}">
+        <a class="button navbar__item {% if url_name == 'about_me' %}navbar__item--active{% endif %}" href="{% url 'about_me' %}">
             <span>About me</span>
         </a>
 
         {% if user.is_authenticated %}
-            <a class="button nav-item {% if url_name == 'user_profile' or url_name == 'password_change' or url_name == 'user_update' %}active{% endif %}" href="{% url 'user_profile' %}">
+            <a class="button navbar__item {% if url_name == 'user_profile' or url_name == 'password_change' or url_name == 'user_update' %}navbar__item--active{% endif %}" href="{% url 'user_profile' %}">
                 Profile
             </a>
 
             <div style="display: table">
                 <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                    <button type="submit" class="button nav-item">
+                    <button type="submit" class="button navbar__item">
                         Logout
                     </button>
                 </form>
             </div>
         {% else %}
-            <a class="button nav-item {% if url_name == 'login' or url_name == 'password_reset_request' %}active{% endif %}" href="{% url 'login' %}">
+            <a class="button navbar__item {% if url_name == 'login' or url_name == 'password_reset_request' %}navbar__item--active{% endif %}" href="{% url 'login' %}">
                 Login
             </a>
-            <a class="button nav-item {% if url_name == 'register' %}active{% endif %}" href="{% url 'register' %}">
+            <a class="button navbar__item {% if url_name == 'register' %}navbar__item--active{% endif %}" href="{% url 'register' %}">
                 Register
             </a>
         {% endif %}
 
         <label class="theme-switcher" for="theme-checkbox">
-            <input type="checkbox" id="theme-checkbox"/>
-            <span class="slider"></span>
+            <input type="checkbox" id="theme-checkbox" class="theme-switcher__input"/>
+            <span class="theme-switcher__slider"></span>
         </label>
 
         {% endwith %}

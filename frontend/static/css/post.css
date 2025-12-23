@@ -1,4 +1,4 @@
-.post-title {
+.post__title {
     font-size: 280%;
     font-weight: 900;
     color: var(--text-color);
@@ -7,7 +7,7 @@
     line-height: var(--line-height-s);
 }
 
-.post-cover-image {
+.post__cover-image {
     max-width: 100%;
     height: auto;
     display: block;
@@ -15,7 +15,7 @@
     border-radius: 12px;
 }
 
-.post-info {
+.post__info {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,13 +24,13 @@
     margin: 30px 0;
     padding: 10px 10px;
     color: var(--text-color-secondary);
-    border: solid 1px var(--devider-color);
+    border: solid 1px var(--divider-color);
     font-size: 90%;
     border-left: none;
     border-right: none;
 }
 
-    .block-left {
+    .post__info-left {
         display: flex;
         flex-direction: row;
         gap: 30px;
@@ -38,7 +38,7 @@
         /*border: solid 1px red;*/
     }
 
-        .like {
+        .like-button {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -46,23 +46,23 @@
             /*border: solid 1px red;*/
         }
 
-            .like a {
+            .like-button__link {
                 color: var(--text-color-secondary);
                 text-decoration: none;
                 cursor: pointer;
             }
 
-            .like a:hover {
+            .like-button__link:hover {
                 color: var(--text-color-secondary);
                 text-decoration: none;
                 transform: scale(1.1);
 
             }
-            .like a:active {
+            .like-button__link:active {
                 color: var(--text-color-secondary) !important;
             }
 
-.post-content {
+.post__content {
     line-height: var(--line-height-xl);
 }
 
@@ -74,7 +74,7 @@
 }
 
 @media (max-width: 570px) {
-    .block-left {
+    .post__info-left {
         gap: 20px;
     }
 }

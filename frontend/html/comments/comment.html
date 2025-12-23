@@ -2,9 +2,9 @@
 
     {% for comment in comments %}
 
-        <div class="container-comment">
+        <div class="comment">
 
-            <div class="comment-username-delete-row">
+            <div class="comment__header">
                 <div>{{ comment.author.username }}</div>
 
                 {% if user.is_authenticated and user == comment.author %}
@@ -21,9 +21,9 @@
 
             </div>
 
-            <div class="comment-time-row comment-timestamp" data-timestamp="{{ comment.created_at|date:'c' }}"></div>
+            <div class="comment__timestamp-row comment-timestamp" data-timestamp="{{ comment.created_at|date:'c' }}"></div>
 
-            <div class="comment-content-row">{{ comment.text|linebreaks }}</div>
+            <div class="comment__content">{{ comment.text|linebreaks }}</div>
 
             {% include "posts/divider.html" %}
         </div>

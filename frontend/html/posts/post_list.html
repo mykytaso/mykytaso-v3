@@ -12,26 +12,26 @@
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="container-card-list">
+        <div class="content__card-list">
 
             {% if posts %}
                 {% for post in posts %}
                     <a href="{{ post.get_absolute_url }}" class="card">
 
-                        <div class="card-text-block">
-                            <div class="card-title">
+                        <div class="card__text">
+                            <div class="card__title">
                                 {{ post.title }}
                             </div>
 
                             {% if post.subtitle %}
-                                <div class="card-subtitle">
+                                <div class="card__subtitle">
                                     {{ post.subtitle }}
                                 </div>
                             {% endif %}
 
-                            <div class="card-meta">
+                            <div class="card__meta">
 
-                                <div class="card-meta-block-left">
+                                <div class="card__meta-left">
                                     <span>
                                         {% if post.user_has_liked %}
                                             <i class="fa-solid fa-heart icon-margin-right"></i>
@@ -50,7 +50,7 @@
                                     </span>
                                 </div>
 
-                                <span class="card-date">
+                                <span class="card__date">
                                     {% if post.published_at %}
                                         {{ post.published_at|date:"M j, Y" }}
                                     {% else %}
@@ -62,7 +62,7 @@
                         </div>
 
                         {% if post.cover_image %}
-                            <div class="card-image" style="background-image: url('{{ post.cover_image }}');"></div>
+                            <div class="card__image" style="background-image: url('{{ post.cover_image }}');"></div>
                         {% endif %}
                     </a>
 

@@ -13,7 +13,7 @@ a {
         text-decoration: underline;
     }
     a:active {
-        color: var(--link-active-color) !important;
+        color: var(--link-active-color);
         text-decoration: underline;
     }
 
@@ -57,18 +57,18 @@ a {
     align-items: center;
 }
 
-    .theme-switcher input {
+    .theme-switcher__input {
         display: none;
     }
 
-    .theme-switcher .slider:after {
+    .theme-switcher__slider:after {
         font-family: "Font Awesome 6 Free";
         font-weight: 100;
         cursor: pointer;
         content: "\f186";
     }
 
-        .theme-switcher input:checked + .slider:after {
+        .theme-switcher__input:checked + .theme-switcher__slider:after {
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             cursor: pointer;

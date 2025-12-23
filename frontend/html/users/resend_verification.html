@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="content">
-        <div class="content-form">
+        <div class="content__form-container">
 
-           <div class="form-title">Resend Verification Email</div>
+           <div class="form__title">Resend Verification Email</div>
 
             {# Display messages #}
             {% if messages %}
@@ -30,12 +30,12 @@
                     {% endif %}
                 </div>
 
-                <button type="submit" class="button btn-form">
+                <button type="submit" class="button form__submit">
                     Send Verification Email
                 </button>
             </form>
 
-            <div class="form-bottom-text">
+            <div class="form__footer-text">
                 Already verified? <a href="{% url 'login' %}" class="link">Log in</a>
             </div>
 

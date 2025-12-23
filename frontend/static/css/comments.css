@@ -1,4 +1,4 @@
-.comments-title {
+.comments__title {
     font-size: 140%;
     font-weight: 800;
     margin: 0;
@@ -6,11 +6,11 @@
     /*border: solid 1px red;*/
 }
 
-.container-comment-form {
+.comment-form {
     padding: 60px 0;
     /*border: solid 1px red;*/
 }
-    .comment-form-textarea {
+    .comment-form__textarea {
         width: 100%;
         padding: 12px;
         border: var(--input-border);
@@ -21,28 +21,28 @@
         margin: 10px 0;
     }
 
-    .comment-form-user-name {
+    .comment-form__username {
         /*border: solid 1px red;*/
     }
 
-    .btn-comment {
+    .comment-form__submit {
         margin: 0 0 0 auto;
         display: block;
     }
 
-    .log-in-to-comment {
+    .comment-form__login-prompt {
         font-size: 110%;
         text-align: center;
         /*border: solid 1px red;*/
     }
 
 
-.container-comment {
+.comment {
     display: flex;
     flex-direction: column;
     /*border: solid 1px red;*/
 }
-    .comment-username-delete-row {
+    .comment__header {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -51,14 +51,14 @@
         /*border: solid 1px red;*/
     }
 
-    .comment-time-row {
+    .comment__timestamp-row {
         font-size: 13px;
         font-weight: 400;
         color: var(--text-color-secondary);
         /*border: solid 1px red;*/
     }
 
-    .comment-content-row {
+    .comment__content {
         /*padding: 10px 0;*/
         /*border: solid 1px red;*/
     }

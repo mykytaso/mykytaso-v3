@@ -44,17 +44,17 @@ label {
     color: var(--text-color);
 }
 
-.form-bottom-text {
+.form__footer-text {
     margin: 24px 0 0 0;
 }
 
 /* Submit Button */
-.btn-form {
+.form__submit {
     margin: 20px 0 0 0;
     width: 100%;
 }
 
-.form-title {
+.form__title {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 30px;
@@ -80,33 +80,33 @@ label {
     padding: 0;
 }
 
-    .messages > div {
+    .messages__item {
         padding: 12px 16px;
         margin-bottom: 32px;
         border-radius: var(--button-border-radius);
     }
 
-    .messages .success {
+    .messages__item--success {
         background-color: rgba(40, 167, 69, 0.1);
         color: #28a745;
     }
 
-    .messages .error {
+    .messages__item--error {
         background-color: rgba(220, 53, 69, 0.1);
         color: #dc3545;
     }
 
-    .messages .warning {
+    .messages__item--warning {
         background-color: rgba(255, 193, 7, 0.1);
         color: #f0ad4e;
     }
 
-    .messages .info {
+    .messages__item--info {
         background-color: rgba(23, 162, 184, 0.1);
         color: #17a2b8;
     }
 
-    .messages a {
+    .messages__link {
         color: inherit;
         text-decoration: underline;
     }

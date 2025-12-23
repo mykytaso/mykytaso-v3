@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="content">
-        <div class="content-form">
+        <div class="content__form-container">
 
-            <div class="form-title">Login</div>
+            <div class="form__title">Login</div>
 
             {# Display messages #}
             {% if messages %}
@@ -39,16 +39,16 @@
                     {% endif %}
                 </div>
 
-                <button type="submit" class="button btn-form">
+                <button type="submit" class="button form__submit">
                     Login
                 </button>
             </form>
 
-            <div class="form-bottom-text">
+            <div class="form__footer-text">
                 Forgot your password? <a href="{% url 'password_reset_request' %}">Reset it</a>
             </div>
 
-            <div class="form-bottom-text">
+            <div class="form__footer-text">
                 Don't have an account? <a href="{% url 'register' %}">Register</a>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <div class="messages">
     {% for message in messages %}
-        <div class="{{ message.tags }}">
+        <div class="messages__item messages__item--{{ message.tags }}">
             {% if 'safe' in message.tags %}
                 {{ message|safe }}
             {% else %}
