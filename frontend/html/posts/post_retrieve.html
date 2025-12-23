@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 
+{% load posts %}
+
 {% block content %}
     <div class="content">
 
@@ -40,7 +42,7 @@
                 <img class="post-cover-image" src="{{ post.cover_image }}" alt="">
 
                 <div class="post-content">
-                    {{ post.text|linebreaks }}
+                    {% render_post post %}
                 </div>
 
 

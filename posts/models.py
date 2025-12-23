@@ -18,8 +18,8 @@ class Post(models.Model):
     cover_image = models.URLField(null=True, blank=True)
     text = models.TextField(null=True, blank=True)
     html_cache = models.TextField(null=True, blank=True)
-
-    is_visible = models.BooleanField(default=True)
+    is_raw_html = models.BooleanField(default=False)
+    is_visible = models.BooleanField(default=False)
     published_at = models.DateTimeField(null=True, blank=True)
     view_count = models.PositiveIntegerField(default=0, db_index=True)
 
