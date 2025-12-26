@@ -118,13 +118,27 @@
         margin: 0;
     }
 
-    /* Make images responsive */
+    /* Make images responsive and clickable */
+    .post__content figure {
+        margin: 0;
+    }
+
     .post__content img {
         max-width: 100%;
         height: auto;
         display: block;
         margin: 0;
         border-radius: var(--button-border-radius);
+        cursor: zoom-in;
+    }
+
+    .post__content figcaption {
+        margin-top: 10px;
+        font-size: 90%;
+        color: var(--text-color-secondary);
+        text-align: center;
+        font-style: italic;
+        /*border: solid 1px red;*/
     }
 
     /* Make iframes responsive */

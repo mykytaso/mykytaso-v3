@@ -30,6 +30,18 @@ function convertTimestamps() {
     });
 }
 
+function initializeImageZoom() {
+    Lightense(document.querySelectorAll(".post__content img"), {
+        time: 300,
+        padding: 40,
+        offset: 40,
+        keyboard: true,
+        cubicBezier: "cubic-bezier(.2, 0, .1, 1)",
+        background: "var(--bg-color)",
+        zIndex: 2147483647,
+    });
+}
+
 // Initialize theme switcher event listener when DOM is ready
 document.addEventListener("DOMContentLoaded", function() {
     const themeCheckbox = document.getElementById("theme-checkbox");
@@ -42,4 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Convert timestamps to local timezone
     convertTimestamps();
+
+    // Initialize image zoom for post images
+    initializeImageZoom();
 });
