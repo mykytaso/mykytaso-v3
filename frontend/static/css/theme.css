@@ -6,6 +6,7 @@
     --roboto-font: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --roboto-condensed-font: "Roboto Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --roboto-semi-condensed-font: "Roboto Semi-Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --source-code-pro-font: "Source Code Pro", "Consolas", "Monaco", "Courier New", monospace;
 
     /* Button Styles */
     --button-color: #FFFFFF;
