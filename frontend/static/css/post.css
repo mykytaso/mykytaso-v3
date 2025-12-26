@@ -1,3 +1,9 @@
+/* Article container inside post container */
+.content__post-container article {
+    width: 100%;
+    max-width: 100%;
+}
+
 .post__title {
     font-size: 280%;
     font-weight: 900;
@@ -62,9 +68,131 @@
                 color: var(--text-color-secondary) !important;
             }
 
+
+/* -----------------------------------------------------------  */
+/* ---------------------- POST CONTENT ----------------------- */
+/* ----------------------------------------------------------- */
 .post__content {
     line-height: var(--line-height-xl);
+    width: 100%;
 }
+    .post__content p {
+        margin: var(--post-content-p-margin, 16px 0);
+    }
+
+    .post__content h1 {
+        font-size: 200%;
+        font-weight: 900;
+        padding: 40px 0 20px;
+        margin: 0;
+        /*border: solid 1px red;*/
+    }
+    .post__content h2 {
+        font-size: 180%;
+        font-weight: 900;
+        padding: 35px 0 20px;
+        margin: 0;
+    }
+    .post__content h3 {
+        font-size: 160%;
+        font-weight: 900;
+        padding: 30px 0 20px;
+        margin: 0;
+    }
+    .post__content h4 {
+        font-size: 140%;
+        font-weight: 900;
+        padding: 30px 0 20px;
+        margin: 0;
+    }
+    .post__content h5 {
+        font-size: 120%;
+        font-weight: 900;
+        padding: 30px 0 20px;
+        margin: 0;
+    }
+    .post__content h6 {
+        font-size: 100%;
+        font-weight: 900;
+        padding: 30px 0 20px;
+        margin: 0;
+    }
+
+    /* Make images responsive */
+    .post__content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0;
+        border-radius: var(--button-border-radius);
+    }
+
+    /* Make iframes responsive */
+    .post__content iframe {
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;  /* Maintain video aspect ratio */
+        border: none;
+        border-radius: var(--button-border-radius);
+        margin: var(--post-content-p-margin, 16px 0);
+    }
+
+    /* Inline code styling */
+    .post__content code {
+        background-color: var(--code-inline-bg-color);
+        color: var(--code-inline-color);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 90%;
+    }
+
+    /* Code block styling */
+    .post__content .highlight {
+        border-radius: var(--button-border-radius, 8px);
+        margin: var(--post-content-p-margin, 16px 0);
+    }
+    .post__content .highlight pre {
+        background: var(--code-bg-color);
+        border-radius: var(--button-border-radius);
+        color: #F8F8F2;
+        padding: 20px;
+        margin: var(--post-content-p-margin, 16px 0);
+        overflow-x: auto;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    /* Horizontal rule styling */
+    .post__content hr {
+        border: none;
+        border-top: solid 1px var(--divider-color);
+        margin: 30px 0;
+    }
+
+    /* Blockquote styling */
+    .post__content blockquote {
+        margin: var(--post-content-p-margin, 16px 0);
+        padding: 8px 20px;
+        background-color: var(--code-inline-bg-color);
+        border-radius: var(--button-border-radius);
+    }
+
+    /* List styling */
+    .post__content ul, ol {
+        padding-left: 30px;
+        margin: var(--post-content-p-margin, 16px 0);
+    }
+
+        .post__content li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .post__content ul ul, ol ol, ul ol, ol ul {
+            margin: 8px 0;
+        }
+
 
 /* ----------------------------------------------------------- */
 /* ------------------------ RESPONSIVE ----------------------- */
@@ -76,5 +204,8 @@
 @media (max-width: 570px) {
     .post__info-left {
         gap: 20px;
+    }
+    .post__content .highlight pre {
+        font-size: 13px;
     }
 }
