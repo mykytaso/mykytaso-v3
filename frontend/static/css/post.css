@@ -149,6 +149,21 @@
         font-style: italic;
     }
 
+    /* Small centered images (responsive with max width) */
+    .post__content .img-small {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .post__content .img-medium {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        display: block;
+    }
+
     /* Make iframes responsive */
     .post__content iframe {
         max-width: 100%;
