@@ -132,17 +132,9 @@
         cursor: zoom-in;
     }
 
-    .post__content figcaption {
-        margin-top: 10px;
-        font-size: 16px;
-        color: var(--text-color-secondary);
-        text-align: center;
-        font-style: italic;
-        /*border: solid 1px red;*/
-    }
-
+    .post__content figcaption,
     .post__content .caption-text {
-        margin: 16px 0;
+        margin: 16px 0 48px 0;
         font-size: 16px;
         color: var(--text-color-secondary);
         text-align: center;
@@ -150,19 +142,41 @@
     }
 
     /* Small centered images (responsive with max width) */
-    .post__content .img-small {
+    .post__content .img-xs {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .post__content .img-s {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .post__content .img-m {
         width: 100%;
         max-width: 400px;
         margin: 0 auto;
         display: block;
     }
 
-    .post__content .img-medium {
+    .post__content .img-l {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .post__content .img-xl {
         width: 100%;
         max-width: 600px;
         margin: 0 auto;
         display: block;
     }
+
 
     /* Make iframes responsive */
     .post__content iframe {

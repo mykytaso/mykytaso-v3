@@ -10,11 +10,11 @@
 
     /* Button Styles */
     --button-color: #FFFFFF;
-    --button-bg-color: #4A5DF9;
+    --button-bg-color: #1EA2E2;
     --button-border: 0px;
     --button-border-radius: 14px;
     --button-hover-color: #FFFFFF;
-    --button-hover-bg-color: #4150F7;
+    --button-hover-bg-color: #1EA2E2;
     --button-hover-border: 0px;
 
     /* Line Heights */
@@ -55,10 +55,10 @@ html, html[theme="light"] {
     --code-inline-bg-color: #F4F4F5;
 
     /* Links */
-    --link-color: #4150F7;
-    --link-hover-color-my: #4150F7;
-    --visited-link-color: #4150F7;
-    --link-active-color: #8F93D6;
+    --link-color: #1EA2E2;
+    --link-hover-color-my: #1EA2E2;
+    --visited-link-color: #1EA2E2;
+    --link-active-color: #1EA2E2;
 
     /* Navigation Button */
     --button-nav-color: #0C1014;
@@ -89,10 +89,10 @@ html[theme="dark"] {
     --code-inline-bg-color: #1f2936;
 
     /* Links */
-    --link-color: #708DFF;
-    --link-hover-color-my: #708DFF;
-    --visited-link-color: #708DFF;
-    --link-active-color: #586689;
+    --link-color: #1EA2E2;
+    --link-hover-color-my: #1EA2E2;
+    --visited-link-color: #1EA2E2;
+    --link-active-color: #1EA2E2;
 
     /* Navigation Button */
     --button-nav-color: #F5F5F5;

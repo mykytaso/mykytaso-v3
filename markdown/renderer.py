@@ -34,10 +34,16 @@ class CustomRenderer(mistune.HTMLRenderer):
 
         return highlight(code, lexer, formatter)
 
+
     def image(self, alt, url, title=None):
-        title = title or alt
+        escaped_alt = mistune.escape(alt) or ""
         escaped_url = mistune.escape(url)
-        escaped_title = mistune.escape(title)
-        image_tag = f'<img src="{escaped_url}" alt="{escaped_title}">'
-        caption = f"<figcaption>{title}</figcaption>" if title else ""
+
+        image_size = ""
+        if title:
+            escaped_title = mistune.escape(title)
+            image_size = f'class="img-{escaped_title}"'
+
+        image_tag = f'<img src="{escaped_url}" alt="{escaped_alt}" {image_size}>'
+        caption = f"<figcaption>{escaped_alt}</figcaption>" if escaped_alt else ""
         return f'<figure>{image_tag}{caption}</figure>'
