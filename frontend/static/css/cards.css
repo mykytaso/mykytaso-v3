@@ -20,7 +20,7 @@
 }
 
         .card__title {
-            font-size: 28px;
+            font-size: 154%;
             font-weight: 700;
             color: var(--text-color);
             margin: 0;
@@ -39,7 +39,7 @@
         }
 
         .card__subtitle {
-            font-size: 16px;
+            font-size: 90%;
             font-weight: 400;
             color: var(--text-color-secondary);
             line-height: var(--line-height-l);
@@ -70,7 +70,7 @@
                 flex-direction: row;
                 gap: 20px;
                 color: var(--text-color-secondary);
-                font-size: 13px;
+                font-size: 90%;
                 font-weight: 400;
                 /*border: solid 1px red;*/
             }
@@ -80,7 +80,7 @@
 
 
             .card__date {
-                font-size: 13px;
+                font-size: 90%;
                 font-weight: 400;
                 color: var(--text-color-secondary);
                 /*border: solid 1px red;*/

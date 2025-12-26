@@ -33,7 +33,7 @@ a {
     text-align: center;                          /* Center text horizontally */
     line-height: var(--line-height-s);           /* Compact line height for single-line buttons */
     font-family: var(--roboto-font);             /* Use Roboto font */
-    font-size: 16px;                             /* Base font size for readability */
+    font-size: 18px;                             /* Base font size for readability */
     font-weight: 500;                            /* Medium font weight */
     cursor: pointer;                             /* Show pointer on hover */
 }
@@ -86,9 +86,6 @@ a {
 /* ------------------------ RESPONSIVE ----------------------- */
 /* ----------------------------------------------------------- */
 @media (max-width: 1024px) {
-    .button {
-        font-size: 15px;
-    }
 }
 
 @media (max-width: 570px) {
@@ -98,9 +95,5 @@ a {
 
     .show-on-iphone {
         display: block !important;
-    }
-
-    .button {
-        font-size: 14px;
     }
 }

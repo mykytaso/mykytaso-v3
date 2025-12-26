@@ -141,6 +141,14 @@
         /*border: solid 1px red;*/
     }
 
+    .post__content .caption-text {
+        margin: 16px 0;
+        font-size: 90%;
+        color: var(--text-color-secondary);
+        text-align: center;
+        font-style: italic;
+    }
+
     /* Make iframes responsive */
     .post__content iframe {
         max-width: 100%;

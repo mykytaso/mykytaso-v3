@@ -16,7 +16,7 @@
         border: var(--input-border);
         border-radius: var(--button-border-radius);
         font-family: var(--roboto-font);
-        font-size: 15px;
+        font-size: 90%;
         resize: vertical;
         margin: 10px 0;
     }
@@ -52,8 +52,8 @@
     }
 
     .comment__timestamp-row {
-        font-size: 13px;
-        font-weight: 400;
+        font-size: 90%;
+        font-weight: 300;
         color: var(--text-color-secondary);
         /*border: solid 1px red;*/
     }

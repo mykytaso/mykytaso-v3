@@ -1,5 +1,6 @@
 import mistune
 
+from markdown.plugins.caption_plugin import caption_plugin
 from markdown.renderer import CustomRenderer
 
 
@@ -12,6 +13,7 @@ def markdown_text(text, renderer=CustomRenderer):
             "strikethrough",
             "url",
             "table",
+            caption_plugin,
         ]
     )
     return markdown(text)
