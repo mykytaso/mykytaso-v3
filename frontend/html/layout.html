@@ -36,8 +36,11 @@
         htmx.onLoad(function () {
             const themeCheckbox = document.getElementById('theme-checkbox');
             if (themeCheckbox) {
+                // Read current theme from localStorage (not the stale constant)
+                const currentTheme = localStorage.getItem('theme') ||
+                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                 // If theme is dark → checkbox ON
-                themeCheckbox.checked = (theme === 'dark');
+                themeCheckbox.checked = (currentTheme === 'dark');
             }
         });
     </script>
