@@ -45,7 +45,10 @@ html, html[theme="light"] {
     --text-color-secondary: #6A717A;
 
     /* Cards and Post */
-    --divider-color: #F2F2F2;
+    --divider-color: #DBDFE4;
+    --code-bg-color: #2E3440;
+    --code-inline-color: #EB5757;
+    --code-inline-bg-color: #F4F4F5;
 
     /* Links */
     --link-color: #4150F7;
@@ -76,7 +79,10 @@ html[theme="dark"] {
     --text-color-secondary: #A7A7A7;
 
     /* Cards and Post */
-    --divider-color: #262626;
+    --divider-color: #2B3036;
+    --code-bg-color: #141b23;
+    --code-inline-color: #EB5757;
+    --code-inline-bg-color: #1f2936;
 
     /* Links */
     --link-color: #708DFF;
@@ -105,7 +111,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: var(--roboto-font);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 400;
     letter-spacing: 0.01rem;   /* Adds extra space between letters */
     line-height: var(--line-height-m);
