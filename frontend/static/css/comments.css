@@ -1,5 +1,5 @@
 .comments__title {
-    font-size: 140%;
+    font-size: 25px;
     font-weight: 800;
     margin: 0;
     padding: 0;
@@ -16,7 +16,7 @@
         border: var(--input-border);
         border-radius: var(--button-border-radius);
         font-family: var(--roboto-font);
-        font-size: 90%;
+        font-size: 16px;
         resize: vertical;
         margin: 10px 0;
     }
@@ -31,7 +31,7 @@
     }
 
     .comment-form__login-prompt {
-        font-size: 110%;
+        font-size: 20px;
         text-align: center;
         /*border: solid 1px red;*/
     }
@@ -52,7 +52,7 @@
     }
 
     .comment__timestamp-row {
-        font-size: 90%;
+        font-size: 16px;
         font-weight: 300;
         color: var(--text-color-secondary);
         /*border: solid 1px red;*/

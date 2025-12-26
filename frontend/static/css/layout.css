@@ -36,14 +36,14 @@
         }
 
         .navbar__logo-text {
-            font-size: 170%;
+            font-size: 31px;
             font-weight: 600;
         }
 
     .navbar__item {
         color: var(--text-color) !important;
         text-decoration: none !important;
-        font-size: 110%;
+        font-size: 20px;
         background-color: transparent;
         /*border: solid 1px red;*/
     }
