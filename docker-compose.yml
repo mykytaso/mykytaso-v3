@@ -67,7 +67,7 @@ services:
   # ==========================================
   db:
     image: postgres:18.0      # Use official PostgreSQL 18 image
-    restart: always           # Always restart on failure
+    restart: unless-stopped
 
     # Port mapping: host:container
     # Access database at localhost:5432
