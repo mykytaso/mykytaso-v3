@@ -43,7 +43,7 @@
     .navbar__item {
         color: var(--text-color) !important;
         text-decoration: none !important;
-        font-size: 20px;
+        font-size: 18px;
         background-color: transparent;
         /*border: solid 1px red;*/
     }
@@ -119,13 +119,13 @@
         gap: 20px;
         width: 100%;
         min-width: 300px;
-        max-width: 728px;
+        max-width: 680px;
         padding: 0;
         margin: 0;
         /*border: solid 1px red;*/
     }
 
-    .container__post-container {
+    .container__post {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -145,6 +145,31 @@
         min-width: 300px;
         max-width: 680px;
         padding: 60px 0 0 0;
+        margin: 0;
+        /*border: solid 1px red;*/
+    }
+
+    .container__about-me {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        width: 100%;
+        min-width: 300px;
+        max-width: 680px;
+        padding: 0;
+        margin: 0;
+        /*border: solid 1px red;*/
+    }
+
+    .container--user-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        min-width: 300px;
+        max-width: 680px;
+        gap: 12px;
+        padding: 0;
         margin: 0;
         /*border: solid 1px red;*/
     }
