@@ -46,4 +46,4 @@ class CustomRenderer(mistune.HTMLRenderer):
 
         image_tag = f'<img src="{escaped_url}" alt="{escaped_alt}" {image_size}>'
         caption = f"<figcaption>{escaped_alt}</figcaption>" if escaped_alt else ""
-        return f'<figure>{image_tag}{caption}</figure>'
+        return f"<figure>{image_tag}{caption}</figure>"
