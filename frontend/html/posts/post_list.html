@@ -5,14 +5,14 @@
 
 {% block content %}
 
-    <div class="content">
+    <div class="container">
 
         {# Display messages #}
         {% if messages %}
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="content__card-list">
+        <div class="container__card-list">
 
             {% if posts %}
                 {% for post in posts %}

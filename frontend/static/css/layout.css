@@ -91,7 +91,7 @@
 /* ----------------------------------------------------------- */
 /* ------------------------- CONTENT ------------------------- */
 /* ----------------------------------------------------------- */
-.content {
+.container {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -100,7 +100,7 @@
     /*border: solid 1px red;*/
 }
 
-    .content__form-container {
+    .container__form-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -112,7 +112,7 @@
         /*border: solid 1px red;*/
     }
 
-    .content__card-list {
+    .container__card-list {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -125,7 +125,7 @@
         /*border: solid 1px red;*/
     }
 
-    .content__post-container {
+    .container__post-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -137,7 +137,7 @@
         /*border: solid 1px red;*/
     }
 
-    .content__comments-section {
+    .container__comments-section {
         display: flex;
         flex-direction: column;
         /*align-items: center;*/
@@ -188,14 +188,14 @@
 /* ------------------------ RESPONSIVE ----------------------- */
 /* ----------------------------------------------------------- */
 @media (max-width: 1024px) {
-    .content {
+    .container {
         padding : 40px 60px 0 60px;
     }
 }
 
 
 @media (max-width: 570px) {
-    .content {
+    .container {
         padding : 40px 20px 0 20px;
     }
 }

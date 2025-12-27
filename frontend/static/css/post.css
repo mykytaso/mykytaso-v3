@@ -77,7 +77,7 @@
     width: 100%;
 }
     .post__content p {
-        margin: var(--post-content-p-margin, 16px 0);
+        margin: var(--post-content-p-margin) 0;
     }
 
     .post__content h1 {
@@ -185,7 +185,7 @@
         aspect-ratio: 16 / 9;  /* Maintain video aspect ratio */
         border: none;
         border-radius: var(--button-border-radius);
-        margin: var(--post-content-p-margin, 16px 0);
+        margin: var(--post-content-p-margin) 0;
     }
 
     /* Inline code styling */
@@ -226,7 +226,7 @@
 
     /* Blockquote styling */
     .post__content blockquote {
-        margin: var(--post-content-p-margin, 16px 0);
+        margin: var(--post-content-p-margin) 0;
         padding: 8px 20px;
         background-color: var(--code-inline-bg-color);
         border-radius: var(--button-border-radius);
@@ -235,7 +235,7 @@
     /* List styling */
     .post__content ul, ol {
         padding-left: 30px;
-        margin: var(--post-content-p-margin, 16px 0);
+        margin: var(--post-content-p-margin) 0;
     }
 
         .post__content li {

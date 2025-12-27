@@ -3,14 +3,14 @@
 {% load posts %}
 
 {% block content %}
-    <div class="content">
+    <div class="container">
 
         {# Display messages #}
         {% if messages %}
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="content__post-container">
+        <div class="container__post-container">
             <article>
 
                 {% if post.title %}
@@ -50,7 +50,7 @@
         </div>
 
         {# Comments Section #}
-        <div class="content__comments-section">
+        <div class="container__comments-section">
 
             <div class="comments__title">Comments ({{ post.get_comment_count }})</div>
 
