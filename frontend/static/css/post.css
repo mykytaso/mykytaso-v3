@@ -201,19 +201,20 @@
 
     /* Code block styling */
     .post__content .highlight {
-        border-radius: var(--button-border-radius, 8px);
-        margin: var(--post-content-p-margin, 16px 0);
+        background-color: var(--bg-color) !important;
+        /*border: solid 1px red;*/
     }
     .post__content .highlight pre {
         background: var(--code-bg-color);
         border-radius: var(--button-border-radius);
         color: #F8F8F2;
         padding: 20px;
-        margin: var(--post-content-p-margin, 16px 0);
         overflow-x: auto;
         line-height: 1.5;
         font-family: var(--source-code-pro-font);
         font-size: 16px;
+        margin: var(--post-content-p-margin) 0;
+        /*border: solid 1px red;*/
     }
 
     /* Horizontal rule styling */
@@ -245,6 +246,33 @@
         .post__content ul ul, ol ol, ul ol, ol ul {
             margin: 8px 0;
         }
+
+    /* Table styling */
+    .post__content table {
+        display: table;
+        width: 100%;
+        margin: var(--post-content-p-margin) auto;
+        border-collapse: collapse;
+    }
+
+    .post__content th {
+        padding: 8px 12px;
+        text-align: left;
+        font-weight: 500;
+        border: solid 1px var(--code-inline-bg-color);
+        background-color: var(--code-inline-bg-color);
+    }
+
+    .post__content td {
+        padding: 8px 12px;
+        border: 1px solid var(--code-inline-bg-color);
+        color: var(--text-color);
+    }
+
+    .post__content tbody tr:hover {
+        background-color: color-mix(in srgb, var(--code-inline-bg-color) 50%, transparent);
+        transition: background-color 0.2s ease;
+    }
 
 
 /* ----------------------------------------------------------- */

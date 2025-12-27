@@ -10,11 +10,11 @@
 
     /* Button Styles */
     --button-color: #FFFFFF;
-    --button-bg-color: #1EA2E2;
+    --button-bg-color: #009ce8;
     --button-border: 0px;
     --button-border-radius: 14px;
     --button-hover-color: #FFFFFF;
-    --button-hover-bg-color: #1EA2E2;
+    --button-hover-bg-color: #0090de;
     --button-hover-border: 0px;
 
     /* Line Heights */
@@ -25,7 +25,7 @@
     --line-height-xl: 1.7;
 
     /* Post Content */
-    --post-content-p-margin: 16px 0;
+    --post-content-p-margin: 16px;
 }
 
 
@@ -55,10 +55,10 @@ html, html[theme="light"] {
     --code-inline-bg-color: #F4F4F5;
 
     /* Links */
-    --link-color: #1EA2E2;
-    --link-hover-color-my: #1EA2E2;
-    --visited-link-color: #1EA2E2;
-    --link-active-color: #1EA2E2;
+    --link-color: #009ce8;
+    --link-hover-color-my: #009ce8;
+    --visited-link-color: #009ce8;
+    --link-active-color: #0076ba;
 
     /* Navigation Button */
     --button-nav-color: #0C1014;
@@ -89,10 +89,10 @@ html[theme="dark"] {
     --code-inline-bg-color: #1f2936;
 
     /* Links */
-    --link-color: #1EA2E2;
-    --link-hover-color-my: #1EA2E2;
-    --visited-link-color: #1EA2E2;
-    --link-active-color: #1EA2E2;
+    --link-color: #009ce8;
+    --link-hover-color-my: #009ce8;
+    --visited-link-color: #009ce8;
+    --link-active-color: #0076ba;
 
     /* Navigation Button */
     --button-nav-color: #F5F5F5;
