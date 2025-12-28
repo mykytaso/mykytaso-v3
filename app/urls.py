@@ -14,6 +14,7 @@ from users.views import (
     ResendVerificationView,
     UserDetailView,
     UserUpdateView,
+    VerifyEmailChangeView,
     VerifyEmailView,
 )
 
@@ -39,6 +40,11 @@ urlpatterns = [
         "accounts/verify/<str:token>/",
         VerifyEmailView.as_view(),
         name="verify_email",
+    ),
+    path(
+        "accounts/verify-email-change/<str:token>/",
+        VerifyEmailChangeView.as_view(),
+        name="verify_email_change",
     ),
     path(
         "accounts/resend-verification/",
