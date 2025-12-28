@@ -168,6 +168,52 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         """Return the current user."""
         return self.request.user
 
+    def form_valid(self, form):
+        """Handle username update immediately and email update with verification."""
+        new_email = form.cleaned_data["email"]
+        old_email = self.request.user.email
+
+        # Save username via parent (this calls form.save())
+        response = super().form_valid(form)
+
+        # Get the saved user instance
+        user = self.object
+
+        # Check if email has changed
+        if new_email != old_email:
+            # Store new email as pending (don't update actual email yet)
+            user.pending_email = new_email
+            user.save(update_fields=['pending_email'])
+
+            # Generate verification token (this also saves the token fields)
+            token = user.generate_verification_token()
+
+            # Build email change verification URL
+            verification_url = self.request.build_absolute_uri(
+                reverse("verify_email_change", kwargs={"token": token})
+            )
+
+            # Send verification email to new address
+            try:
+                send_verification_email(user, verification_url, new_email)
+                messages.success(
+                    self.request,
+                    f"A verification link has been sent to {new_email}. "
+                    "Please check your email to complete the email change.",
+                )
+            except MailgunError:
+                messages.error(
+                    self.request,
+                    "Failed to send verification email. Please try again later.",
+                )
+                user.pending_email = None
+                user.save()
+        else:
+            # Only username was updated
+            messages.success(self.request, "Profile updated successfully!")
+
+        return response
+
 
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     """Custom password change view."""
@@ -252,6 +298,53 @@ class VerifyEmailView(TemplateView):
             "Verification link has expired. Please request a new verification email.",
         )
         return redirect("resend_verification")
+
+
+class VerifyEmailChangeView(LoginRequiredMixin, TemplateView):
+    """Handle email change verification from token link."""
+
+    login_url = reverse_lazy("login")
+
+    def get(self, request, *args, **kwargs):
+        """Process email change verification token."""
+        token = kwargs.get("token")
+        user = request.user
+
+        # Verify this token belongs to the current user
+        if user.email_verification_token != token:
+            messages.error(request, "Invalid verification link.")
+            return redirect("user_profile")
+
+        # Check if user has a pending email
+        if not user.pending_email:
+            messages.error(request, "No pending email change found.")
+            return redirect("user_profile")
+
+        # Validate token (check expiry)
+        if user.is_verification_token_valid(token):
+            # Token is valid, update email
+            old_email = user.email
+            user.email = user.pending_email
+            user.pending_email = None
+            user.email_verification_token = None
+            user.email_verification_token_created_at = None
+            user.save()
+
+            messages.success(
+                request,
+                f"Email successfully changed from {old_email} to {user.email}!",
+            )
+            return redirect("user_profile")
+
+        # Token expired
+        messages.error(
+            request,
+            "Verification link has expired. Please try changing your email again.",
+        )
+        # Clear pending email on expiry
+        user.pending_email = None
+        user.save()
+        return redirect("user_update")
 
 
 class ResendVerificationView(FormView):

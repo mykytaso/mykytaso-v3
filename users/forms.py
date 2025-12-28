@@ -17,9 +17,18 @@ class RegisterForm(UserCreationForm):
 
 
 class UpdateForm(forms.ModelForm):
+    # Email as a non-model field (won't be auto-saved)
+    email = forms.EmailField(required=True, label="Email")
+
     class Meta:
         model = get_user_model()
-        fields = ["username", "email"]
+        fields = ["username"]  # Only username is auto-saved
+
+    def __init__(self, *args, **kwargs):
+        """Initialize form with current email value."""
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["email"].initial = self.instance.email
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -33,7 +42,14 @@ class UpdateForm(forms.ModelForm):
         return username
 
     def clean_email(self):
+        """Validate new email is unique."""
         email = self.cleaned_data["email"]
+
+        # If email hasn't changed, skip validation
+        if email == self.instance.email:
+            return email
+
+        # Check if email is already in use by another user
         queryset = (
             get_user_model().objects.filter(email=email).exclude(pk=self.instance.pk)
         )
