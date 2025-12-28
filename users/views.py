@@ -156,7 +156,7 @@ class UserDetailView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(LoginRequiredMixin, FormView):
     """User profile update view."""
 
     template_name = "users/user_profile_update.html"
@@ -164,26 +164,29 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("user_profile")
     login_url = reverse_lazy("login")
 
-    def get_object(self, queryset=None):
-        """Return the current user."""
-        return self.request.user
+    def get_form_kwargs(self):
+        """Pass user instance to form."""
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         """Handle username update immediately and email update with verification."""
+        user = self.request.user
+        new_username = form.cleaned_data["username"]
         new_email = form.cleaned_data["email"]
-        old_email = self.request.user.email
+        old_email = user.email
 
-        # Save username via parent (this calls form.save())
-        response = super().form_valid(form)
-
-        # Get the saved user instance
-        user = self.object
+        # Update username immediately
+        if new_username != user.username:
+            user.username = new_username
+            user.save(update_fields=["username"])
 
         # Check if email has changed
         if new_email != old_email:
             # Store new email as pending (don't update actual email yet)
             user.pending_email = new_email
-            user.save(update_fields=['pending_email'])
+            user.save(update_fields=["pending_email"])
 
             # Generate verification token (this also saves the token fields)
             token = user.generate_verification_token()
@@ -207,12 +210,12 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
                     "Failed to send verification email. Please try again later.",
                 )
                 user.pending_email = None
-                user.save()
+                user.save(update_fields=["pending_email"])
         else:
-            # Only username was updated
+            # Only username was updated (or nothing changed)
             messages.success(self.request, "Profile updated successfully!")
 
-        return response
+        return super().form_valid(form)
 
 
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):

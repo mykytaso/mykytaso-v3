@@ -16,43 +16,52 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
-class UpdateForm(forms.ModelForm):
-    # Email as a non-model field (won't be auto-saved)
+class UpdateForm(forms.Form):
+    """Form for updating user profile (username and email)."""
+
+    username = forms.CharField(max_length=128, required=True, label="Username")
     email = forms.EmailField(required=True, label="Email")
 
-    class Meta:
-        model = get_user_model()
-        fields = ["username"]  # Only username is auto-saved
-
     def __init__(self, *args, **kwargs):
-        """Initialize form with current email value."""
+        """Initialize form with current user instance."""
+        self.user = kwargs.pop("instance", None)
         super().__init__(*args, **kwargs)
-        if self.instance and self.instance.pk:
-            self.fields["email"].initial = self.instance.email
+
+        # Populate initial values from user instance
+        if self.user:
+            self.fields["username"].initial = self.user.username
+            self.fields["email"].initial = self.user.email
 
     def clean_username(self):
+        """Validate username is unique."""
         username = self.cleaned_data["username"]
-        queryset = (
-            get_user_model()
-            .objects.filter(username=username)
-            .exclude(pk=self.instance.pk)
-        )
+
+        # If username hasn't changed, skip validation
+        if self.user and username == self.user.username:
+            return username
+
+        # Check if username is already in use by another user
+        queryset = get_user_model().objects.filter(username=username)
+        if self.user:
+            queryset = queryset.exclude(pk=self.user.pk)
+
         if queryset.exists():
             raise forms.ValidationError("This username is already taken.")
         return username
 
     def clean_email(self):
-        """Validate new email is unique."""
+        """Validate email is unique."""
         email = self.cleaned_data["email"]
 
         # If email hasn't changed, skip validation
-        if email == self.instance.email:
+        if self.user and email == self.user.email:
             return email
 
         # Check if email is already in use by another user
-        queryset = (
-            get_user_model().objects.filter(email=email).exclude(pk=self.instance.pk)
-        )
+        queryset = get_user_model().objects.filter(email=email)
+        if self.user:
+            queryset = queryset.exclude(pk=self.user.pk)
+
         if queryset.exists():
             raise forms.ValidationError("This email is already taken.")
         return email
