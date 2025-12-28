@@ -55,7 +55,7 @@ label {
 }
 
 .form__title {
-    font-size: 25px;
+    font-size: 26px;
     font-weight: 600;
     margin-bottom: 30px;
 }
@@ -76,6 +76,7 @@ label {
 .delete-btn {
     background-color: #dc3545;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .delete-btn:hover {
