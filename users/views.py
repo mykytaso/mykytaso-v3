@@ -72,8 +72,16 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def form_valid(self, form):
-        """Check email verification before allowing login."""
+        """Check email verification and account status before allowing login."""
         user = form.get_user()
+
+        # Check if account is deleted
+        if user.is_deleted:
+            messages.error(
+                self.request,
+                "This account has been deleted.",
+            )
+            return self.form_invalid(form)
 
         # Check if email is verified
         if not user.is_email_verified:
@@ -459,3 +467,25 @@ class CustomPasswordResetSetNewView(PasswordResetConfirmView):
             "Your password has been reset successfully! You can now log in with your new password.",
         )
         return response
+
+
+class DeleteAccountView(LoginRequiredMixin, TemplateView):
+    """Handle account deletion (soft delete)."""
+
+    login_url = reverse_lazy("login")
+
+    def post(self, request, *args, **kwargs):
+        """Soft delete the user account."""
+        user = request.user
+
+        # Soft delete the account
+        user.soft_delete()
+
+        # Log the user out
+        logout(request)
+
+        messages.success(
+            request,
+            "Your account has been deleted successfully. I'm sorry to see you go!",
+        )
+        return redirect("post_list")

@@ -3,6 +3,7 @@ from uuid import uuid4
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.utils import timezone
 
 
 class UserAccountManager(BaseUserManager):
@@ -55,6 +56,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email_verification_token = models.CharField(max_length=64, blank=True, null=True, unique=True)
     email_verification_token_created_at = models.DateTimeField(blank=True, null=True)
     pending_email = models.EmailField(blank=True, null=True)
+
+    # Soft delete fields
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -113,4 +118,14 @@ class User(AbstractBaseUser, PermissionsMixin):
             "email_verification_token",
             "email_verification_token_created_at",
         ])
+
+    def soft_delete(self):
+        """Soft delete the user account."""
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.save(update_fields=["is_deleted", "deleted_at"])
+
+    def get_display_name(self):
+        """Return username or 'Deleted User' if account is deleted."""
+        return "Deleted User" if self.is_deleted else self.username
 

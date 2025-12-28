@@ -5,9 +5,9 @@
         <div class="comment">
 
             <div class="comment__header">
-                <div>{{ comment.author.username }}</div>
+                <div>{{ comment.author.get_display_name }}</div>
 
-                {% if user.is_authenticated and user == comment.author %}
+                {% if user.is_authenticated and user == comment.author and not comment.author.is_deleted %}
                     <div style="display: table">
 
                         <form id="del-{{ comment.id }}" method="post" action="{% url 'delete_comment' comment.id %}">

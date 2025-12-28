@@ -60,6 +60,28 @@ label {
     margin-bottom: 30px;
 }
 
+/* Delete Account */
+.delete__title {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 56px 0 0 0;
+    color: var(--text-color);
+}
+.delete__warning {
+    font-size: 16px;
+    margin: 20px;
+    color: var(--text-color-secondary);
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    width: 100%;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
 /* Error Messages near with input field */
 .errorlist {
     display: flex;

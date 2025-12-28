@@ -48,6 +48,21 @@
                 <a href="{% url 'user_profile' %}" class="link">Cancel</a>
             </div>
 
+            <div class="delete__title">
+                Danger Zone
+            </div>
+            <div class="delete__warning">
+                Account deletion is permanent.
+            </div>
+
+            <form method="post" action="{% url 'delete_account' %}"
+                  onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                {% csrf_token %}
+                <button type="submit" class="button delete-btn">
+                    Delete Account
+                </button>
+            </form>
+
         </div>
     </div>
 {% endblock %}

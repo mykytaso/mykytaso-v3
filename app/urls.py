@@ -10,6 +10,7 @@ from users.views import (
     CustomPasswordChangeView,
     CustomPasswordResetRequestView,
     CustomPasswordResetSetNewView,
+    DeleteAccountView,
     RegisterView,
     ResendVerificationView,
     UserDetailView,
@@ -29,6 +30,7 @@ urlpatterns = [
     path("accounts/logout/", CustomLogoutView.as_view(), name="logout"),
     path("accounts/me/", UserDetailView.as_view(), name="user_profile"),
     path("accounts/me/update/", UserUpdateView.as_view(), name="user_update"),
+    path("accounts/me/delete/", DeleteAccountView.as_view(), name="delete_account"),
     path(
         "accounts/me/password_change/",
         CustomPasswordChangeView.as_view(),
