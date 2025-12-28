@@ -59,13 +59,14 @@ def send_mailgun_email(
         raise MailgunError(f"Failed to send email: {e}") from e
 
 
-def send_verification_email(user, verification_url: str) -> bool:
+def send_verification_email(user, verification_url: str, to_email: str | None = None) -> bool:
     """
     Send email verification message to user.
 
     Args:
         user: User instance
         verification_url: Full URL with verification token
+        to_email: Optional email to send to (defaults to user.email)
 
     Returns:
         bool: True if sent successfully
@@ -88,7 +89,7 @@ def send_verification_email(user, verification_url: str) -> bool:
     )
 
     return send_mailgun_email(
-        to_email=user.email,
+        to_email=to_email or user.email,
         subject=subject,
         html_content=html_content,
         text_content=text_content,
