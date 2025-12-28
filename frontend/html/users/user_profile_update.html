@@ -2,23 +2,52 @@
 
 {% block content %}
     <div class="container">
+        <div class="container__form-container">
 
-        <!-- TODO: add content specific container -->
+            <div class="form__title">Update Profile</div>
 
-        {# Display messages #}
-        {% if messages %}
-            {% include "includes/message_form.html" %}
-        {% endif %}
+            {# Display messages #}
+            {% if messages %}
+                {% include "includes/message_form.html" %}
+            {% endif %}
 
-        <h2>
-            Edit User Info
-        </h2>
+            <form method="post">
+                {% csrf_token %}
 
+                {# Display non-field errors #}
+                {% if form.non_field_errors %}
+                    <div class="errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
 
+                {# Username field #}
+                <div>
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="errors">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
 
-        <div class="form__footer-text">
-            <a href="{% url 'user_profile' %}" class="link">Cancel</a>
+                {# Email field #}
+                <div>
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="errors">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="button form__submit">
+                    Update Profile
+                </button>
+            </form>
+
+            <div class="form__footer-text">
+                <a href="{% url 'user_profile' %}" class="link">Cancel</a>
+            </div>
+
         </div>
-
     </div>
 {% endblock %}
