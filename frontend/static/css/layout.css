@@ -234,7 +234,19 @@
 
 
 @media (max-width: 570px) {
+    .navbar {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
     .container {
         padding : 40px 20px 0 20px;
+    }
+
+    .navbar__logo-image {
+        margin-left: 10px;
+    }
+    .navbar__burger-icon {
+        margin-right: 10px;
     }
 }
