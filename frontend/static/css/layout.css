@@ -6,10 +6,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
     gap: 30px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 30px 10px;
+    padding: 30px 0;
     /*border: solid 1px red;*/
 }
 
@@ -230,6 +232,9 @@
     .container {
         padding : 40px 60px 0 60px;
     }
+    .navbar {
+        justify-content: center;
+    }
 }
 
 
@@ -237,16 +242,35 @@
     .navbar {
         justify-content: space-between;
         flex-wrap: nowrap;
+        padding: 30px 20px;
+        position: relative;
+    }
+
+    .navbar__menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-color);
+        box-shadow: 0 8px 8px rgba(0, 0, 0, 0.06);
+        flex-direction: column;
+        padding: 20px 20px 48px 20px;
+        z-index: 10;
+        align-items: center;
+        /*background-color: color-mix(in srgb, var(--bg-color) 90%, transparent);*/
+        /*backdrop-filter: blur(4px);*/
+        /*padding-bottom: 30px;*/
+        /*gap: 10px;*/
+        /*mask-image: linear-gradient(to bottom, black 80%, transparent 100%);*/
+        /*-webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);*/
+    }
+
+    .navbar__menu--visible {
+        display: flex !important;
     }
 
     .container {
-        padding : 40px 20px 0 20px;
-    }
-
-    .navbar__logo-image {
-        margin-left: 10px;
-    }
-    .navbar__burger-icon {
-        margin-right: 10px;
+        padding : 20px 20px 0 20px;
     }
 }
