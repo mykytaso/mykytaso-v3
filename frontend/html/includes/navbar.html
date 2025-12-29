@@ -6,10 +6,10 @@
         <div class="navbar__logo-text"></div>
     </a>
 
-    <div class="button navbar__burger show-on-iphone"
+    <div class="show-on-iphone"
          onclick="return document.getElementById('navbar-menu').classList.toggle('navbar__menu--visible');"
     >
-        ≡
+        <img src="{% static 'images/burger.png' %}" alt="Menu" class="navbar__burger-icon">
     </div>
 
     <div class="navbar__menu hide-on-iphone" id="navbar-menu">

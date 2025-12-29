@@ -79,6 +79,21 @@
         font-weight: 400;
     }
 
+        .navbar__burger-icon {
+            height: 36px;
+            width: 36px;
+            display: block;
+            cursor: pointer;
+        }
+            .navbar__burger-icon:hover {
+                transform: scale(1.1);
+            }
+
+        /* Optional: Invert burger icon color for light theme */
+        html[theme="light"] .navbar__burger-icon {
+            filter: invert(1);
+        }
+
     .navbar__menu {
         display: flex;
         flex-direction: row;
