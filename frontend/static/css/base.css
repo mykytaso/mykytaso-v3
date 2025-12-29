@@ -62,19 +62,20 @@ a {
         display: none;
     }
 
-    .theme-switcher__slider:after {
-        font-family: "Font Awesome 6 Free";
-        font-weight: 100;
+    .theme-switcher__slider {
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
         cursor: pointer;
-        content: "\f186";
+        /* Moon image for light theme (default) */
+        background-image: url('/static/images/moon.png');
     }
 
-        .theme-switcher__input:checked + .theme-switcher__slider:after {
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            cursor: pointer;
-            content: "\f185";
-
+        .theme-switcher__input:checked + .theme-switcher__slider {
+            /* Sun image for dark theme */
+            background-image: url('/static/images/sun.png');
         }
 
 

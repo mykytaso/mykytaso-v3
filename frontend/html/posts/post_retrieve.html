@@ -10,44 +10,41 @@
             {% include "includes/message_form.html" %}
         {% endif %}
 
-        <div class="container__post">
-            <article>
+        <article class="container__post">
 
-                {% if post.title %}
-                    <div class="post__title">
-                        {{ post.title }}
+            {% if post.title %}
+                <div class="post__title">
+                    {{ post.title }}
+                </div>
+            {% endif %}
+
+            <div class="post__info">
+                <div class="post__info-left">
+                    {% include "posts/like_button.html" %}
+                    <div>
+                        <i class="fa-regular fa-comment" style="padding: 0 6px 0 0"></i>
+                        {{ post.get_comment_count }}
                     </div>
+                    <div>
+                        <i class="fa-regular fa-eye icon-margin-right" style="padding: 0 6px 0 0"></i>
+                        {{ post.view_count }}
+                    </div>
+                </div>
+
+                {% if post.published_at %}
+                   {{ post.published_at|date:"M j, Y" }}
+                {% else %}
+                   {{ post.created_at|date:"M j, Y" }}
                 {% endif %}
+            </div>
 
-                <div class="post__info">
-                    <div class="post__info-left">
-                        {% include "posts/like_button.html" %}
-                        <div>
-                            <i class="fa-regular fa-comment" style="padding: 0 6px 0 0"></i>
-                            {{ post.get_comment_count }}
-                        </div>
-                        <div>
-                            <i class="fa-regular fa-eye icon-margin-right" style="padding: 0 6px 0 0"></i>
-                            {{ post.view_count }}
-                        </div>
-                    </div>
+            <img class="post__cover-image" src="{{ post.cover_image }}" alt="">
 
-                    {% if post.published_at %}
-                       {{ post.published_at|date:"M j, Y" }}
-                    {% else %}
-                       {{ post.created_at|date:"M j, Y" }}
-                    {% endif %}
-                </div>
+            <div class="post__content">
+                {% render_post post %}
+            </div>
 
-                <img class="post__cover-image" src="{{ post.cover_image }}" alt="">
-
-                <div class="post__content">
-                    {% render_post post %}
-                </div>
-
-
-            </article>
-        </div>
+        </article>
 
         {# Comments Section #}
         <div class="container__comments-section">

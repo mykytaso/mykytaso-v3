@@ -30,9 +30,13 @@
     }
 
         .navbar__logo-image {
-            width: 48px;
-            height: 48px;
+            /*width: 38px;*/
+            height: 38px;
+        }
 
+        /* Invert logo color for light theme (white -> black) */
+        html[theme="light"] .navbar__logo-image {
+            filter: invert(1);
         }
 
         .navbar__logo-text {
