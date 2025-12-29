@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% load static %}
 {% load posts %}
 
 {% block content %}
@@ -22,11 +22,11 @@
                 <div class="post__info-left">
                     {% include "posts/like_button.html" %}
                     <div>
-                        <i class="fa-regular fa-comment" style="padding: 0 6px 0 0"></i>
+                        <img src="{% static 'images/comment.png' %}" alt="Comments" class="icon">
                         {{ post.get_comment_count }}
                     </div>
                     <div>
-                        <i class="fa-regular fa-eye icon-margin-right" style="padding: 0 6px 0 0"></i>
+                        <img src="{% static 'images/view.png' %}" alt="Views" class="icon">
                         {{ post.view_count }}
                     </div>
                 </div>

@@ -78,6 +78,23 @@ a {
             background-image: url('/static/images/sun.png');
         }
 
+        .theme-switcher__input:hover + .theme-switcher__slider {
+            transform: scale(1.1);
+        }
+
+
+.icon {
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    /*border: solid 1px red;*/
+}
+
+/* Optional: Invert icon color for light theme */
+html[theme="light"] .icon {
+    filter: invert(1);
+}
 
 .show-on-iphone {
     display: none !important;

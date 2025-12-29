@@ -34,18 +34,18 @@
                                 <div class="card__meta-left">
                                     <span>
                                         {% if post.user_has_liked %}
-                                            <i class="fa-solid fa-heart icon-margin-right"></i>
+                                            <img src="{% static 'images/heart-filled.png' %}" alt="Likes" class="icon">
                                         {% else %}
-                                            <i class="fa-regular fa-heart icon-margin-right"></i>
+                                            <img src="{% static 'images/heart-empty.png' %}" alt="Likes" class="icon">
                                         {% endif %}
                                         {{ post.get_like_count }}
                                     </span>
                                     <span>
-                                        <i class="fa-regular fa-comment icon-margin-right"></i>
+                                        <img src="{% static 'images/comment.png' %}" alt="Comments" class="icon">
                                         {{ post.get_comment_count }}
                                     </span>
                                     <span>
-                                        <i class="fa-regular fa-eye icon-margin-right"></i>
+                                        <img src="{% static 'images/view.png' %}" alt="Views" class="icon">
                                         {{ post.view_count|abbreviate_number }}
                                     </span>
                                 </div>

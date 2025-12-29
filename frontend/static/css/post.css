@@ -23,7 +23,8 @@
     width: 100%;
     margin: 30px 0;
     padding: 10px 10px;
-    color: var(--text-color-secondary);
+    color: var(--text-color);
+    font-weight: 300;
     border: solid 1px var(--divider-color);
     font-size: 16px;
     border-left: none;
@@ -38,6 +39,13 @@
         /*border: solid 1px red;*/
     }
 
+        .post__info-left > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+        }
+
         .like-button {
             display: flex;
             flex-direction: row;
@@ -47,19 +55,24 @@
         }
 
             .like-button__link {
-                color: var(--text-color-secondary);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+                color: var(--text-color);
+                font-weight: 300;
                 text-decoration: none;
                 cursor: pointer;
             }
 
             .like-button__link:hover {
-                color: var(--text-color-secondary);
+                color: var(--text-color);
                 text-decoration: none;
                 transform: scale(1.1);
 
             }
             .like-button__link:active {
-                color: var(--text-color-secondary) !important;
+                color: var(--text-color) !important;
             }
 
 

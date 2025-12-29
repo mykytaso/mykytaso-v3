@@ -68,12 +68,21 @@
             .card__meta-left {
                 display: flex;
                 flex-direction: row;
+                align-items: center;
                 gap: 20px;
-                color: var(--text-color-secondary);
                 font-size: 16px;
-                font-weight: 400;
+                font-weight: 300;
+                color: var(--text-color);
                 /*border: solid 1px red;*/
             }
+
+                .card__meta-left > span {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 6px;
+                }
+
                 .card__meta-left .icon-margin-right {
                     margin: 0 4px 0 0;
                 }
@@ -81,8 +90,8 @@
 
             .card__date {
                 font-size: 16px;
-                font-weight: 400;
-                color: var(--text-color-secondary);
+                font-weight: 300;
+                color: var(--text-color);
                 /*border: solid 1px red;*/
             }
 

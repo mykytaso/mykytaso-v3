@@ -7,13 +7,11 @@
         hx-target="#like-button-container"
         hx-swap="outerHTML"
     >
-        <span style="padding: 0 2px 0 0">
-            {% if user_has_liked %}
-                <i class="fa-solid fa-heart"></i>
-            {% else %}
-                <i class="fa-regular fa-heart"></i>
-            {% endif %}
-        </span>
+        {% if user_has_liked %}
+            <img src="{% static 'images/heart-filled.png' %}" alt="Like" class="icon">
+        {% else %}
+            <img src="{% static 'images/heart-empty.png' %}" alt="Like" class="icon">
+        {% endif %}
         <span>
             {{ like_count }}
         </span>
