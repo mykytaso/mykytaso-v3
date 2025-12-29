@@ -8,9 +8,9 @@
         hx-swap="outerHTML"
     >
         {% if user_has_liked %}
-            <img src="{% static 'images/heart-filled.png' %}" alt="Like" class="icon">
+            <img src="{% static 'images/icons/heart-filled.png' %}" alt="Like" class="icon">
         {% else %}
-            <img src="{% static 'images/heart-empty.png' %}" alt="Like" class="icon">
+            <img src="{% static 'images/icons/heart-empty.png' %}" alt="Like" class="icon">
         {% endif %}
         <span>
             {{ like_count }}

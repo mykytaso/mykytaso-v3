@@ -2,13 +2,13 @@
 
 <div class="navbar">
     <a href="{% url 'post_list' %}">
-        <img src="{% static 'images/m5.png' %}" alt="Mykyta Logo" class="navbar__logo-image">
+        <img src="{% static 'images/logo_navbar.png' %}" alt="Mykyta Logo" class="navbar__logo-image">
     </a>
 
     <div class="show-on-iphone"
          onclick="return document.getElementById('navbar-menu').classList.toggle('navbar__menu--visible');"
     >
-        <img src="{% static 'images/burger.png' %}" alt="Menu" class="navbar__burger-icon">
+        <img src="{% static 'images/icons/burger.png' %}" alt="Menu" class="navbar__burger-icon">
     </div>
 
     <div class="navbar__menu hide-on-iphone" id="navbar-menu">

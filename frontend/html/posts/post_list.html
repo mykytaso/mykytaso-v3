@@ -34,18 +34,18 @@
                                 <div class="card__meta-left">
                                     <span>
                                         {% if post.user_has_liked %}
-                                            <img src="{% static 'images/heart-filled.png' %}" alt="Likes" class="icon">
+                                            <img src="{% static 'images/icons/heart-filled.png' %}" alt="Likes" class="icon">
                                         {% else %}
-                                            <img src="{% static 'images/heart-empty.png' %}" alt="Likes" class="icon">
+                                            <img src="{% static 'images/icons/heart-empty.png' %}" alt="Likes" class="icon">
                                         {% endif %}
                                         {{ post.get_like_count }}
                                     </span>
                                     <span>
-                                        <img src="{% static 'images/comment.png' %}" alt="Comments" class="icon">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="Comments" class="icon">
                                         {{ post.get_comment_count }}
                                     </span>
                                     <span>
-                                        <img src="{% static 'images/view.png' %}" alt="Views" class="icon">
+                                        <img src="{% static 'images/icons/view.png' %}" alt="Views" class="icon">
                                         {{ post.view_count|abbreviate_number }}
                                     </span>
                                 </div>

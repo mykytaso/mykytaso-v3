@@ -70,12 +70,12 @@ a {
         background-position: center;
         cursor: pointer;
         /* Moon image for light theme (default) */
-        background-image: url('/static/images/moon.png');
+        background-image: url('/static/images/icons/moon.png');
     }
 
         .theme-switcher__input:checked + .theme-switcher__slider {
             /* Sun image for dark theme */
-            background-image: url('/static/images/sun.png');
+            background-image: url('/static/images/icons/sun.png');
         }
 
         .theme-switcher__input:hover + .theme-switcher__slider {

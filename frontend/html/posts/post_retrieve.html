@@ -22,11 +22,11 @@
                 <div class="post__info-left">
                     {% include "posts/like_button.html" %}
                     <div>
-                        <img src="{% static 'images/comment.png' %}" alt="Comments" class="icon">
+                        <img src="{% static 'images/icons/comment.png' %}" alt="Comments" class="icon">
                         {{ post.get_comment_count }}
                     </div>
                     <div>
-                        <img src="{% static 'images/view.png' %}" alt="Views" class="icon">
+                        <img src="{% static 'images/icons/view.png' %}" alt="Views" class="icon">
                         {{ post.view_count }}
                     </div>
                 </div>
