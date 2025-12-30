@@ -142,6 +142,11 @@ STATICFILES_DIRS = [
     BASE_DIR / "frontend/static",
 ]
 
+
+# To prevent browsers from serving outdated cached CSS after deployment.
+STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))
+
+
 # To prevent browsers from serving outdated cached CSS after deployment.
 STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))
 
