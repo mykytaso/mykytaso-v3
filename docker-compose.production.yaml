@@ -1,0 +1,34 @@
+services:
+  mykytaso_app: &app
+    image: ghcr.io/mykytaso/mykytaso-v3:${GITHUB_SHA:-latest}
+    command: make docker-run-production
+    container_name: mykytaso_app
+    networks:
+      - mykytaso_network
+    environment:
+      - MODE=production
+      - PYTHONUNBUFFERED=1
+      - DEBUG=false
+      - APP_HOST=https://mykytaso.com
+      - POSTGRES_DB=mykytaso_db
+      - POSTGRES_HOST=host.docker.internal
+      - POSTGRES_USER=mykyta
+      - POSTGRES_PASSWORD
+    env_file:
+      - .env
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./static:/tmp/static
+    ports:
+      - "127.0.0.1:8000:8000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "3"
+
+networks:
+  mykytaso_network:
+    driver: bridge
