@@ -131,6 +131,7 @@ check-stats:
 fix: lint-fix format
 	@echo "✅ Code linted and formatted!"
 
-docker-run-production: docker-migrate
+docker-run-production:
+	uv run manage.py migrate
 	cp -r /app/static /tmp/
 	gunicorn MykytaSo.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000 --capture-output --log-level debug --access-logfile - --error-logfile -
