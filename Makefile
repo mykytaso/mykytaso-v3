@@ -133,5 +133,5 @@ fix: lint-fix format
 
 docker-run-production:
 	uv run manage.py migrate
-	cp -r /app/static /tmp/static
+	cp -r /app/static /tmp/
 	gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000 --capture-output --log-level debug --access-logfile - --error-logfile -
