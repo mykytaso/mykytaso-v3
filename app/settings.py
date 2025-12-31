@@ -35,8 +35,6 @@ CSRF_COOKIE_SECURE = not DEBUG
 CSRF_TRUSTED_ORIGINS = [
     "https://mykytaso.com",
     "https://*.mykytaso.com",
-    "https://46.224.183.115/",
-    "http://46.224.183.115/"
 ]
 
 
