@@ -13,6 +13,7 @@ from users.views import (
     DeleteAccountView,
     RegisterView,
     ResendVerificationView,
+    RobotsView,
     UserDetailView,
     UserUpdateView,
     VerifyEmailChangeView,
@@ -77,4 +78,7 @@ urlpatterns = [
 
     # About me
     path("about/", about_me, name="about_me"),
+
+    # robots.txt
+    path("robots.txt", RobotsView.as_view(), name="robots"),
 ]

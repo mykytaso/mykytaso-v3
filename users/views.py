@@ -9,11 +9,13 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetView,
 )
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.views.generic import CreateView, FormView, TemplateView, UpdateView
+from django.views import View
+from django.views.generic import CreateView, FormView, TemplateView
 
 from likes.models import Like
 from likes.views import get_client_ip
@@ -489,3 +491,17 @@ class DeleteAccountView(LoginRequiredMixin, TemplateView):
             "Your account has been deleted successfully. I'm sorry to see you go!",
         )
         return redirect("post_list")
+
+
+class RobotsView(View):
+    """Generate robots.txt dynamically."""
+
+    def get(self, request, *args, **kwargs):
+        """Return robots.txt content."""
+        lines = [
+            "User-agent: *",
+            # f"Sitemap: https://{request.get_host()}/sitemap.xml",
+            "Disallow: /admin/",
+            "Disallow: /accounts/",
+        ]
+        return HttpResponse("\n".join(lines), content_type="text/plain")
