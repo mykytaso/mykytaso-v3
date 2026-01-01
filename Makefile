@@ -50,8 +50,13 @@ stop-db:
 	docker stop mykyta_db && docker rm mykyta_db
 
 # Docker Compose commands
-docker-up:
-	docker compose up --build
+docker-run-production:
+	uv run manage.py migrate
+	cp -r /app/frontend/static /tmp/
+	uv run gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8012 --capture-output --log-level debug --access-logfile - --error-logfile -
+
+docker-run-dev:
+	docker compose -f docker-compose.yaml up
 
 docker-up-d:
 	docker compose up --build -d
@@ -130,8 +135,3 @@ check-stats:
 
 fix: lint-fix format
 	@echo "✅ Code linted and formatted!"
-
-docker-run-production:
-	uv run manage.py migrate
-	cp -r /app/frontend/static /tmp/
-	uv run gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8012 --capture-output --log-level debug --access-logfile - --error-logfile -
