@@ -501,7 +501,7 @@ class RobotsView(View):
         lines = [
             "User-agent: *",
             # f"Sitemap: https://{request.get_host()}/sitemap.xml",
-            "Disallow: /admin/",
+            "Disallow: /kerivnyk/",
             "Disallow: /accounts/",
         ]
         return HttpResponse("\n".join(lines), content_type="text/plain")

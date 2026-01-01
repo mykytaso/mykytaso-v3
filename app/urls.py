@@ -23,7 +23,7 @@ from users.views import (
 
 urlpatterns = [
     # Django admin
-    path("admin/", admin.site.urls),
+    path("kerivnyk/", admin.site.urls),
 
     # User authentication URLs
     path("accounts/register/", RegisterView.as_view(), name="register"),
