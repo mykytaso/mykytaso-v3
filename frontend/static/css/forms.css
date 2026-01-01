@@ -20,6 +20,7 @@ select {
     width: 100%;
     padding: 12px 16px;
     font-family: var(--roboto-font);
+    font-size: 16px;
     color: var(--text-color);
     background-color: transparent;
     border: var(--input-border);
