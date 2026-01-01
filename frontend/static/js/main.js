@@ -42,6 +42,25 @@ function initializeImageZoom() {
     });
 }
 
+// Close mobile menu when clicking outside
+function closeMobileMenuOnOutsideClick(event) {
+    const menu = document.getElementById('navbar-menu');
+    const burgerIcon = event.target.closest('.show-on-iphone');
+
+    // Only proceed if menu exists and is visible
+    if (!menu || !menu.classList.contains('navbar__menu--visible')) {
+        return;
+    }
+
+    // Don't close if clicking on the burger icon or menu itself
+    if (burgerIcon || menu.contains(event.target)) {
+        return;
+    }
+
+    // Close the menu
+    menu.classList.remove('navbar__menu--visible');
+}
+
 // Initialize theme switcher event listener when DOM is ready
 document.addEventListener("DOMContentLoaded", function() {
     const themeCheckbox = document.getElementById("theme-checkbox");
@@ -57,4 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialize image zoom for post images
     initializeImageZoom();
+
+    // Add click listener to close mobile menu when clicking outside
+    document.addEventListener('click', closeMobileMenuOnOutsideClick);
 });
