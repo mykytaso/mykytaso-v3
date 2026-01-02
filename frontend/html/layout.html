@@ -17,6 +17,8 @@
           content="Hi there! I'm Mykyta, and this is my personal website where I share my projects, ideas, and other stuff."/>
     <meta property="og:image" content="{% static 'images/og.jpg' %}"/>
 
+    {% block meta %}{% endblock %}
+
     <!-- Custom CSS -->
     {% include "includes/favicon.html" %}
     {% include "includes/styles.html" %}

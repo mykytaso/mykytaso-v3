@@ -23,6 +23,10 @@ class Post(models.Model):
     published_at = models.DateTimeField(null=True, blank=True)
     view_count = models.PositiveIntegerField(default=0, db_index=True)
 
+    og_title = models.CharField(max_length=512, null=True, blank=True)
+    og_description = models.CharField(max_length=512, null=True, blank=True)
+    og_image = models.URLField(null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
