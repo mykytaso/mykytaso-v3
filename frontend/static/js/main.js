@@ -3,10 +3,18 @@
 // - Otherwise → set theme to "light"
 // - Apply the theme by setting the <html> attribute: <html theme="...">
 // - Save the selected theme in localStorage so it persists on reload
+// - Update theme-color meta tag for mobile browser UI
 function toggleTheme(checkbox) {
     const theme = checkbox.checked ? "dark" : "light";
     document.documentElement.setAttribute("theme", theme);
     localStorage.setItem("theme", theme);
+
+    // Update theme-color meta tag for mobile browser UI
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]:not([media])') ||
+                           document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', theme === 'dark' ? '#0C1014' : '#ffffff');
+    }
 }
 
 // Convert UTC timestamps to browser's local timezone

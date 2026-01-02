@@ -78,6 +78,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "app.context_processors.settings",
             ],
         },
     },
@@ -151,10 +152,6 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "frontend/static",
 ]
-
-
-# To prevent browsers from serving outdated cached CSS after deployment.
-STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))
 
 
 # To prevent browsers from serving outdated cached CSS after deployment.
