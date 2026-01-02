@@ -21,10 +21,6 @@
         margin: 10px 0;
     }
 
-    .comment-form__username {
-        /*border: solid 1px red;*/
-    }
-
     .comment-form__submit {
         margin: 0 0 0 auto;
         display: block;
@@ -58,7 +54,6 @@
         /*border: solid 1px red;*/
     }
 
-    .comment__content {
-        /*padding: 10px 0;*/
-        /*border: solid 1px red;*/
+    .comment__delete-button:hover {
+        transform: scale(1.1)
     }
