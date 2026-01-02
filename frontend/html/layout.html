@@ -9,8 +9,8 @@
 
     <title>mykytaso</title>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Welcome to Mykyta’s Personal Website"/>
+    {# Open Graph #}
+    <meta property="og:title" content="Welcome to Mykyta's Personal Website"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="mykytaso.com"/>
     <meta property="og:description"
@@ -19,12 +19,12 @@
 
     {% block meta %}{% endblock %}
 
-    <!-- Custom CSS -->
+    {# Custom CSS #}
     {% include "includes/favicon.html" %}
     {% include "includes/styles.html" %}
     {% include "includes/scripts.html" %}
 
-    <!-- Theme handling script  -->
+    {# Theme handling script #}
     <script>
         // Read saved theme from localStorage.
         // If nothing saved, fall back to user's system preference (dark/light).
