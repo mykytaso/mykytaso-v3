@@ -5,12 +5,6 @@
 {% block title %} - {{ post.title }}{% endblock %}
 
 {% block meta %}
-    {# SEO Meta Tags #}
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Mykyta">
-    <meta name="description" content="{{ post.og_description }}">
-    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}">
-
     {# Open Graph Meta Tags #}
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Mykyta's Blog">
