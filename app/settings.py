@@ -4,6 +4,8 @@ from random import randint
 
 from dotenv import load_dotenv
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 load_dotenv()
 
@@ -214,3 +216,12 @@ LOGGING = {
         },
     },
 }
+
+# Sentry Configuration
+SENTRY_DSN = os.getenv("SENTRY_DSN")
+
+if SENTRY_DSN and not DEBUG:
+    # activate sentry on production
+    sentry_sdk.init(dsn=SENTRY_DSN, integrations=[
+        DjangoIntegration(),
+    ])

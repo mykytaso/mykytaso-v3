@@ -33,6 +33,7 @@ jobs:
           secret_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           secret_CSRF_TRUSTED_ORIGINS: ${{ secrets.CSRF_TRUSTED_ORIGINS }}
           secret_DEBUG: ${{ secrets.DEBUG }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           secret_PGDATA: ${{ secrets.PGDATA }}
           secret_PRODUCTION_SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
           secret_PRODUCTION_SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}

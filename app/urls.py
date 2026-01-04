@@ -21,6 +21,11 @@ from users.views import (
 )
 
 
+# Error triggering view for testing purposes
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 urlpatterns = [
     # Django admin
     path("kerivnyk/", admin.site.urls),
@@ -81,4 +86,7 @@ urlpatterns = [
 
     # robots.txt
     path("robots.txt", RobotsView.as_view(), name="robots"),
+
+    # Error triggering for testing purposes
+    path("trigger-error/", trigger_error),
 ]
