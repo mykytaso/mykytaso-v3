@@ -1,24 +1,19 @@
-# RECOMMENDED nginx configuration with improved rate limiting
-# This fixes real IP detection and adds granular rate limiting for different endpoints
-
 # ============================================================================
 # RATE LIMITING ZONES
 # ============================================================================
 
+# Map to conditionally rate limit only POST requests to sensitive endpoints
+# GET requests (viewing forms) are not rate limited
+map "$request_method:$request_uri" $limit_auth_key {
+    default "";
+    "~^POST:.*/accounts/(login|register|password-reset|verify|resend-verification)" $binary_remote_addr;
+}
+
 # General traffic limit (3 req/sec with large burst for static content)
 limit_req_zone $binary_remote_addr zone=general_limit:10m rate=3r/s;
 
-# Strict limit for authentication endpoints (prevent brute force)
-# 5 login attempts per minute = ~1 per 12 seconds
-limit_req_zone $binary_remote_addr zone=auth_limit:10m rate=5r/m;
-
-# Medium limit for registration/password reset (prevent spam)
-# 3 requests per minute
-limit_req_zone $binary_remote_addr zone=signup_limit:10m rate=3r/m;
-
-# API/POST endpoints limit (prevent spam/abuse)
-# 10 requests per second
-limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s;
+# Auth/sensitive endpoints: 5 POST attempts per minute (GET requests unlimited)
+limit_req_zone $limit_auth_key zone=auth_limit:10m rate=5r/m;
 
 # ============================================================================
 # CLOUDFLARE REAL IP CONFIGURATION
@@ -85,6 +80,10 @@ server {
     charset utf-8;
     client_max_body_size 15M;
 
+    # Custom error pages
+    error_page 429 /errors/429.html;
+    limit_req_status 429;  # Return 429 instead of default 503 for rate limiting
+
     rewrite ^/favicon.ico$ https://mykytaso.com/static/images/favicon.ico;
     rewrite ^/favicon.png$ https://mykytaso.com/static/images/favicon_32.png;
 
@@ -103,66 +102,23 @@ server {
     }
 
     # ========================================================================
-    # AUTHENTICATION ENDPOINTS - Strict rate limiting
+    # ERROR PAGES - Served directly by nginx
     # ========================================================================
-    location ~ ^/(accounts/login|accounts/register|accounts/password-reset) {
-        # LOGIN: Allow 5 attempts per minute with NO burst
-        # This prevents credential stuffing and brute force attacks
-        limit_req zone=auth_limit nodelay;
-
-        # Security headers
-        add_header "Strict-Transport-Security" "max-age=31536000;includeSubDomains" always;
-        add_header "X-Content-Type-Options" "nosniff" always;
-        add_header "Referrer-Policy" "strict-origin-when-cross-origin" always;
-        add_header "Permissions-Policy" "accelerometer=(),camera=(),geolocation=(),gyroscope=(),magnetometer=(),microphone=(),payment=(),usb=()" always;
-
-        # Proxy headers - IMPORTANT: Set X-Real-IP for Django
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_redirect off;
-        proxy_buffering off;
-
-        proxy_pass http://0.0.0.0:8012;
+    location /errors/ {
+        root /home/mykyta/mykytaso-v3/frontend/static/;
+        internal;  # Only accessible via error_page directive
     }
 
     # ========================================================================
-    # SIGNUP/VERIFICATION ENDPOINTS - Medium rate limiting
+    # SENSITIVE ENDPOINTS - Strict rate limiting (5r/m for POST only)
+    # Covers: login, register, password-reset, verify, resend-verification
     # ========================================================================
-    location ~ ^/(accounts/verify|accounts/resend-verification) {
-        # Allow 3 requests per minute with small burst
-        limit_req zone=signup_limit burst=5 nodelay;
+    location ~ ^/accounts/(login|register|password-reset|verify|resend-verification) {
+        # Allow 5 POST attempts per minute with burst=5 for legitimate typos
+        # GET requests (viewing forms) are not rate limited
+        limit_req zone=auth_limit burst=5 nodelay;
 
         # Security headers
-        add_header "Strict-Transport-Security" "max-age=31536000;includeSubDomains" always;
-        add_header "X-Content-Type-Options" "nosniff" always;
-        add_header "Referrer-Policy" "strict-origin-when-cross-origin" always;
-        add_header "Permissions-Policy" "accelerometer=(),camera=(),geolocation=(),gyroscope=(),magnetometer=(),microphone=(),payment=(),usb=()" always;
-
-        # Proxy headers
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_redirect off;
-        proxy_buffering off;
-
-        proxy_pass http://0.0.0.0:8012;
-    }
-
-    # ========================================================================
-    # API/POST ENDPOINTS - API rate limiting
-    # ========================================================================
-    location ~ ^/(posts/.*/like|comments/) {
-        # Allow 10 req/sec with medium burst for interactive features
-        limit_req zone=api_limit burst=20 nodelay;
-
-        # CORS and security headers
-        add_header "Access-Control-Allow-Origin" "*" always;
-        add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS" always;
-        add_header "Access-Control-Allow-Headers" "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range" always;
-        add_header "Access-Control-Expose-Headers" "Content-Length,Content-Range" always;
         add_header "Strict-Transport-Security" "max-age=31536000;includeSubDomains" always;
         add_header "X-Content-Type-Options" "nosniff" always;
         add_header "Referrer-Policy" "strict-origin-when-cross-origin" always;

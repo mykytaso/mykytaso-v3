@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Too Many Requests - mykytaso.com</title>
+    <style>
+        :root {
+            --roboto-font: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+
+        html, html[theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #0C1014;
+            --text-color-secondary: #6A717A;
+            --accent-color: #009ce8;
+        }
+
+        html[theme="dark"] {
+            --bg-color: #0C1014;
+            --text-color: #E8E9EA;
+            --text-color-secondary: #A0A3A7;
+            --accent-color: #009ce8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--roboto-font);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        p {
+            font-size: 18px;
+            color: var(--text-color-secondary);
+            margin-bottom: 12px;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+
+
+        @media (max-width: 600px) {
+            .error-code {
+                font-size: 48px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <script>
+        // Apply theme based on localStorage or system preference
+        const theme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('theme', theme);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">429</div>
+        <h1>Too Many Login Attempts</h1>
+        <p>You've made too many login attempts in a short period of time.</p>
+    </div>
+</body>
+</html>
