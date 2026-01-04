@@ -5,17 +5,7 @@ from django.views.decorators.http import require_POST
 
 from likes.models import Like
 from posts.models import Post
-
-
-def get_client_ip(request):
-    """Extract client IP address from request headers."""
-    ipaddress = request.META.get("HTTP_X_REAL_IP") \
-        or request.META.get("HTTP_X_FORWARDED_FOR") \
-        or request.META.get("REMOTE_ADDR") or ""
-
-    if "," in ipaddress:  # multiple ips in the header
-        ipaddress = ipaddress.split(",", 1)[0]
-    return ipaddress
+from utils.request import get_client_ip
 
 
 @require_POST
