@@ -71,7 +71,21 @@
             font-weight: 600;
         }
 
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 12px 24px;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
 
+        .back-link:hover {
+            background-color: #0090de;
+        }
 
         @media (max-width: 600px) {
             .error-code {
@@ -97,8 +111,11 @@
 <body>
     <div class="container">
         <div class="error-code">429</div>
-        <h1>Too Many Login Attempts</h1>
-        <p>You've made too many login attempts in a short period of time.</p>
+        <h1>Too Many Attempts</h1>
+        <p>You've made too many attempts in a short period of time.</p>
+        <p>Please wait <span class="highlight">5 minutes</span> before trying again.</p>
+
+        <a href="/" class="back-link">Go to Homepage</a>
     </div>
 </body>
 </html>
