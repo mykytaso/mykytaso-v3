@@ -500,7 +500,7 @@ class RobotsView(View):
         """Return robots.txt content."""
         lines = [
             "User-agent: *",
-            # f"Sitemap: https://{request.get_host()}/sitemap.xml",
+            f"Sitemap: https://{request.get_host()}/sitemap.xml",
             "Disallow: /kerivnyk/",
             "Disallow: /accounts/",
         ]
