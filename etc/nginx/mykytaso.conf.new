@@ -2,18 +2,17 @@
 # RATE LIMITING ZONES
 # ============================================================================
 
-# Map to conditionally rate limit only POST requests to sensitive endpoints
-# GET requests (viewing forms) are not rate limited
+# Rate Limit Key for sensitive endpoints
 map "$request_method:$request_uri" $limit_auth_key {
     default "";
-    "~^POST:.*/accounts/(login|register|password-reset|verify|resend-verification)" $binary_remote_addr;
+    "~^POST:.*/accounts/" $binary_remote_addr;
+    "~^POST:.*/kerivnyk/" $binary_remote_addr;
 }
 
-# General traffic limit (3 req/sec with large burst for static content)
+# General traffic limit
 limit_req_zone $binary_remote_addr zone=general_limit:10m rate=3r/s;
 
-# Auth/sensitive endpoints: 1 POST per minute (5 attempts via burst, then 5min recovery)
-# Recovery time: 5 minutes to get all 5 tokens back
+# Sensitive endpoints limit
 limit_req_zone $limit_auth_key zone=auth_limit:10m rate=1r/m;
 
 # ============================================================================
@@ -114,9 +113,7 @@ server {
     # SENSITIVE ENDPOINTS - Strict rate limiting (1r/m for POST only)
     # Covers: login, register, password-reset, verify, resend-verification
     # ========================================================================
-    location ~ ^/accounts/(login|register|password-reset|verify|resend-verification) {
-        # Allow 5 quick POST attempts (burst), then 5-minute recovery period
-        # GET requests (viewing forms) are not rate limited
+    location ~ ^/(accounts|kerivnyk)/ {
         limit_req zone=auth_limit burst=5 nodelay;
 
         # Security headers
@@ -140,7 +137,6 @@ server {
     # ALL OTHER TRAFFIC - General rate limiting
     # ========================================================================
     location / {
-        # General limit with large burst for normal browsing
         limit_req zone=general_limit burst=50 nodelay;
 
         # CORS and security headers
