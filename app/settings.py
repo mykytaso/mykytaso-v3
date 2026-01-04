@@ -2,10 +2,10 @@ import os
 from pathlib import Path
 from random import randint
 
-from dotenv import load_dotenv
-
 import sentry_sdk
+from dotenv import load_dotenv
 from sentry_sdk.integrations.django import DjangoIntegration
+
 
 load_dotenv()
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "django.contrib.sitemaps",
     # Third-party apps
     "users",
     "posts",

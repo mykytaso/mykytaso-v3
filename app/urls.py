@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
+from app.sitemaps import PostSitemap, StaticViewSitemap
 from comments.views import add_comment, delete_comment
 from likes.views import toggle_like
 from posts.views import about_me, post_list, post_retrieve
@@ -19,6 +21,13 @@ from users.views import (
     VerifyEmailChangeView,
     VerifyEmailView,
 )
+
+
+# Sitemap configuration
+sitemaps = {
+    "posts": PostSitemap,
+    "static": StaticViewSitemap,
+}
 
 
 # # Error triggering view for testing purposes
@@ -86,6 +95,9 @@ urlpatterns = [
 
     # robots.txt
     path("robots.txt", RobotsView.as_view(), name="robots"),
+
+    # Sitemap
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 
     # # Error triggering for testing purposes
     # path("trigger-error/", trigger_error),
