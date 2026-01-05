@@ -8,18 +8,20 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ["title", "is_visible", "published_at", "created_at", "like_count_display"]
     list_filter = ["is_visible", "published_at"]
     search_fields = ["title", "subtitle", "text", "og_title", "og_description"]
-    readonly_fields = ["id", "slug", "created_at", "updated_at", "view_count"]
+    readonly_fields = ["id", "created_at", "updated_at"]
 
     fieldsets = [
         (
             "Content",
             {
                 "fields": [
+                    "slug",
                     "title",
                     "subtitle",
                     "cover_image",
                     "text",
                     "is_raw_html",
+                    "html_cache",
                 ]
             },
         ),
@@ -33,13 +35,13 @@ class PostAdmin(admin.ModelAdmin):
         (
             "Publishing",
             {
-                "fields": ["is_visible", "published_at"],
+                "fields": ["is_visible", "published_at", "view_count"],
             },
         ),
         (
             "Metadata",
             {
-                "fields": ["id", "slug", "view_count", "created_at", "updated_at"],
+                "fields": ["id", "created_at", "updated_at"],
                 "classes": ["collapse"],
             },
         ),
