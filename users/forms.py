@@ -9,7 +9,7 @@ class LoginForm(AuthenticationForm):
     captcha = ReCaptchaField(
         widget=ReCaptchaV2Checkbox(
             attrs={
-                "data-theme": "dark",
+                "data-theme": "light",
                 "data-size": "normal",
                 "class": "custom-recaptcha-class",
             }
@@ -21,7 +21,7 @@ class RegisterForm(UserCreationForm):
     captcha = ReCaptchaField(
         widget=ReCaptchaV2Checkbox(
             attrs={
-                "data-theme": "dark",
+                "data-theme": "light",
                 "data-size": "normal",
                 "class": "custom-recaptcha-class",
             }
