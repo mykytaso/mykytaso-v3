@@ -45,7 +45,7 @@ class Post(models.Model):
             self.published_at = datetime.now()
 
         if flush_cache:
-            self.html_cache = None
+            self.html_cache = ""
 
         self.updated_at = datetime.now()
         return super().save(*args, **kwargs)
