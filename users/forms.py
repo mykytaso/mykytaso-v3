@@ -1,14 +1,33 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 
-# from django_recaptcha.fields import ReCaptchaField
-# from django_recaptcha.widgets import ReCaptchaV2Checkbox
+class LoginForm(AuthenticationForm):
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV2Checkbox(
+            attrs={
+                "data-theme": "dark",
+                "data-size": "normal",
+                "class": "custom-recaptcha-class",
+            }
+        )
+    )
 
 
 class RegisterForm(UserCreationForm):
-    # captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV2Checkbox(
+            attrs={
+                "data-theme": "dark",
+                "data-size": "normal",
+                "class": "custom-recaptcha-class",
+            }
+        )
+    )
+
     email = forms.EmailField(required=True)
 
     class Meta:

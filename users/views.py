@@ -19,7 +19,7 @@ from django.views.generic import CreateView, FormView, TemplateView
 
 from likes.models import Like
 from likes.views import get_client_ip
-from users.forms import RegisterForm, ResendVerificationForm, UpdateForm
+from users.forms import LoginForm, RegisterForm, ResendVerificationForm, UpdateForm
 from utils.email import MailgunError, send_password_reset_email, send_verification_email
 
 
@@ -71,6 +71,7 @@ class CustomLoginView(LoginView):
     """Custom login view."""
 
     template_name = "users/login.html"
+    form_class = LoginForm
     redirect_authenticated_user = True
 
     def form_valid(self, form):

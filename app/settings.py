@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "posts",
     "likes",
     "comments",
+    "django_recaptcha",
 ]
 
 MIDDLEWARE = [
@@ -226,3 +227,7 @@ if SENTRY_DSN and not DEBUG:
     sentry_sdk.init(dsn=SENTRY_DSN, integrations=[
         DjangoIntegration(),
     ])
+
+# reCAPTCHA Configuration
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
