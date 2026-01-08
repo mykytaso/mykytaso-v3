@@ -11,6 +11,7 @@ RUN apt-get update \
       python3-dev \
       make \
       netcat-openbsd \
+      ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
