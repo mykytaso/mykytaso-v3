@@ -41,6 +41,12 @@
                     {% endif %}
                 </div>
 
+                {# reCAPTCHA v2 integration #}
+                <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+                <div style="display: flex; justify-content: center; margin: 0; padding: 0;">
+                    <div class="g-recaptcha" data-sitekey="6LcK334rAAAAAHSz-dl10PDvBbvblKL7wTQnNble" data-action="LOGIN"></div>
+                </div>
+
                 <button type="submit" class="button form__submit">
                     Login
                 </button>
