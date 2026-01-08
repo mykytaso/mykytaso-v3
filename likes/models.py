@@ -7,11 +7,14 @@ from posts.models import Post
 
 class Like(models.Model):
     """Track post likes from authenticated users and anonymous IP addresses."""
+
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
 
     # Foreign Keys
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True, blank=True, related_name="likes")
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, null=True, blank=True, related_name="likes"
+    )
 
     # IP address tracking (for both authenticated and anonymous users)
     ip_address = models.GenericIPAddressField(db_index=True)
@@ -20,23 +23,23 @@ class Like(models.Model):
 
     class Meta:
         db_table = "likes"
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
                 fields=["post", "user"],
                 condition=models.Q(user__isnull=False),
-                name="unique_authenticated_like"
+                name="unique_authenticated_like",
             ),
             models.UniqueConstraint(
                 fields=["post", "ip_address"],
                 condition=models.Q(user__isnull=True),
-                name="unique_anonymous_like"
+                name="unique_anonymous_like",
             ),
-        ]
-        indexes = [
+        )
+        indexes = (
             models.Index(fields=["post", "user"]),
             models.Index(fields=["post", "ip_address"]),
-        ]
-        ordering = ["-created_at"]
+        )
+        ordering = ("-created_at",)
 
     def __str__(self):
         if self.user:

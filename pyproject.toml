@@ -140,6 +140,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 "tests/*.py" = ["S101", "ARG001", "PLR2004", "S105", "S106"]  # Test files
 "migrations/*.py" = ["ALL"]  # Ignore all rules in migrations
 "debug_*.py" = ["T201", "S101"]  # Allow print and assert in debug scripts
+"*/templatetags/*.py" = ["S308"]  # mark_safe is intentional for admin-created content
 
 [tool.ruff.lint.isort]
 # Configure import sorting

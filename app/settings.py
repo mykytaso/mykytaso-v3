@@ -136,8 +136,8 @@ LOGIN_REDIRECT_URL = "user_profile"
 LOGOUT_REDIRECT_URL = "login"
 
 SESSION_COOKIE_AGE = 86400 * 14  # 14 days in seconds
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False # Do not expire session on browser close
-SESSION_SAVE_EVERY_REQUEST = False # Do not extend session on every request
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Do not expire session on browser close
+SESSION_SAVE_EVERY_REQUEST = False  # Do not extend session on every request
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -153,14 +153,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
-# STATIC_ROOT = BASE_DIR / "frontend/test"
 STATICFILES_DIRS = [
     BASE_DIR / "frontend/static",
 ]
 
 
 # To prevent browsers from serving outdated cached CSS after deployment.
-STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))
+STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))  # noqa: S311
 
 
 # Crispy Forms Configuration
@@ -224,9 +223,12 @@ SENTRY_DSN = os.getenv("SENTRY_DSN")
 
 if SENTRY_DSN and not DEBUG:
     # activate sentry on production
-    sentry_sdk.init(dsn=SENTRY_DSN, integrations=[
-        DjangoIntegration(),
-    ])
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[
+            DjangoIntegration(),
+        ],
+    )
 
 # reCAPTCHA Configuration
 RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")

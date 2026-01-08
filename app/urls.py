@@ -30,15 +30,9 @@ sitemaps = {
 }
 
 
-# # Error triggering view for testing purposes
-# def trigger_error(request):
-#     division_by_zero = 1 / 0
-
-
 urlpatterns = [
     # Django admin
     path("kerivnyk/", admin.site.urls),
-
     # User authentication URLs
     path("accounts/register/", RegisterView.as_view(), name="register"),
     path("accounts/login/", CustomLoginView.as_view(), name="login"),
@@ -51,7 +45,6 @@ urlpatterns = [
         CustomPasswordChangeView.as_view(),
         name="password_change",
     ),
-
     # Email verification URLs
     path(
         "accounts/verify/<str:token>/",
@@ -68,7 +61,6 @@ urlpatterns = [
         ResendVerificationView.as_view(),
         name="resend_verification",
     ),
-
     # Password reset URLs
     path(
         "accounts/password-reset/",
@@ -80,25 +72,17 @@ urlpatterns = [
         CustomPasswordResetSetNewView.as_view(),
         name="password_reset_set_new",
     ),
-
     # Posts app URLs
     path("", post_list, name="post_list"),
     path("posts/<slug:slug>/", post_retrieve, name="post_retrieve"),
     path("posts/<slug:slug>/like/", toggle_like, name="toggle_like"),
-
     # Comments app URLs
     path("comments/<slug:slug>/add/", add_comment, name="add_comment"),
     path("comments/<uuid:comment_id>/delete/", delete_comment, name="delete_comment"),
-
     # About me
     path("about/", about_me, name="about_me"),
-
     # robots.txt
     path("robots.txt", RobotsView.as_view(), name="robots"),
-
     # Sitemap
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
-
-    # # Error triggering for testing purposes
-    # path("trigger-error/", trigger_error),
 ]

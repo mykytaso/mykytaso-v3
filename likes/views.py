@@ -28,7 +28,9 @@ def toggle_like(request, slug):
             user_has_liked = True
     else:
         # Anonymous user flow (track by IP only)
-        existing_like = Like.objects.filter(post=post, ip_address=ip_address, user__isnull=True).first()
+        existing_like = Like.objects.filter(
+            post=post, ip_address=ip_address, user__isnull=True
+        ).first()
 
         if existing_like:
             existing_like.delete()
@@ -42,6 +44,6 @@ def toggle_like(request, slug):
     html = render_to_string(
         "posts/like_button.html",
         {"post": post, "like_count": like_count, "user_has_liked": user_has_liked},
-        request=request
+        request=request,
     )
     return HttpResponse(html)

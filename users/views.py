@@ -109,20 +109,13 @@ class CustomLoginView(LoginView):
 
         # Migrate anonymous likes from this IP to authenticated user
         if user_ip:
-
             # Find anonymous likes from this IP address
-            anonymous_likes = Like.objects.filter(
-                ip_address=user_ip,
-                user__isnull=True
-            )
+            anonymous_likes = Like.objects.filter(ip_address=user_ip, user__isnull=True)
 
             # For each anonymous like, check if user already liked this post
             for like in anonymous_likes:
                 # Check if user already has a like for this post
-                user_already_liked = Like.objects.filter(
-                    post=like.post,
-                    user=user
-                ).exists()
+                user_already_liked = Like.objects.filter(post=like.post, user=user).exists()
 
                 if not user_already_liked:
                     # Migrate the anonymous like to the user (preserve IP address)
@@ -250,8 +243,6 @@ class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
 class VerifyEmailView(TemplateView):
     """Handle email verification from token link."""
 
-    # template_name = "users/email_verified.html"
-
     def get(self, request, *args, **kwargs):
         """Process verification token."""
         token = kwargs.get("token")
@@ -283,18 +274,12 @@ class VerifyEmailView(TemplateView):
             # Migrate anonymous likes from this IP to authenticated user
             if user_ip:
                 # Find anonymous likes from this IP address
-                anonymous_likes = Like.objects.filter(
-                    ip_address=user_ip,
-                    user__isnull=True
-                )
+                anonymous_likes = Like.objects.filter(ip_address=user_ip, user__isnull=True)
 
                 # For each anonymous like, check if user already liked this post
                 for like in anonymous_likes:
                     # Check if user already has a like for this post
-                    user_already_liked = Like.objects.filter(
-                        post=like.post,
-                        user=user
-                    ).exists()
+                    user_already_liked = Like.objects.filter(post=like.post, user=user).exists()
 
                     if not user_already_liked:
                         # Migrate the anonymous like to the user (preserve IP address)
@@ -422,12 +407,12 @@ class CustomPasswordResetRequestView(PasswordResetView):
         email = form.cleaned_data["email"]
 
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(email=email, is_email_verified=True, is_deleted=False)
         except User.DoesNotExist:
             # Don't reveal if email exists (security)
             messages.success(
                 self.request,
-                "If this email is in the system, a reset link has been sent. It’s valid for 1 hour.",
+                "If this email is in the system, a reset link has been sent. It's valid for 1 hour.",
             )
             return redirect(self.success_url)
 
@@ -445,7 +430,7 @@ class CustomPasswordResetRequestView(PasswordResetView):
             send_password_reset_email(user, reset_url)
             messages.success(
                 self.request,
-                "If this email is in the system, a reset link has been sent. It’s valid for 1 hour.",
+                "If this email is in the system, a reset link has been sent. It's valid for 1 hour.",
             )
         except MailgunError:
             messages.error(

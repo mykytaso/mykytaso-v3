@@ -3,6 +3,7 @@ from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
 from pygments.lexers.special import TextLexer
+from pygments.util import ClassNotFound
 
 
 class CustomRenderer(mistune.HTMLRenderer):
@@ -20,7 +21,7 @@ class CustomRenderer(mistune.HTMLRenderer):
         if info:
             try:
                 lexer = get_lexer_by_name(info, stripall=True)
-            except Exception:
+            except ClassNotFound:
                 lexer = TextLexer()
         else:
             lexer = TextLexer()
@@ -29,11 +30,10 @@ class CustomRenderer(mistune.HTMLRenderer):
         formatter = HtmlFormatter(
             cssclass="highlight",
             style="dracula",  # nord-darker, monokai, material, dracula, lightbulb, one-dark
-            noclasses=True,   # Use CSS classes instead of inline styles
+            noclasses=True,  # Use CSS classes instead of inline styles
         )
 
         return highlight(code, lexer, formatter)
-
 
     def image(self, alt, url, title=None):
         escaped_alt = mistune.escape(alt) or ""

@@ -55,7 +55,7 @@ def send_mailgun_email(
         raise MailgunError(error_msg)
 
     except requests.exceptions.RequestException as e:
-        logger.error(f"Request error sending email to {to_email}: {e}")
+        logger.exception(f"Request error sending email to {to_email}")
         raise MailgunError(f"Failed to send email: {e}") from e
 
 

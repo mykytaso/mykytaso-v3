@@ -22,12 +22,12 @@ def generate_unique_slug(model, name, separator="-", max_length=50):
 
     while model.objects.filter(slug__iexact=slug).exists():
         suffix = f"{separator}{counter}"
-        slug = f"{base_slug[:max_length - len(suffix)]}{suffix}"
+        slug = f"{base_slug[: max_length - len(suffix)]}{suffix}"
         counter += 1
 
         if counter > 9999:
             uuid_suffix = f"{separator}{uuid4()}"
-            slug = f"{base_slug[:max_length - len(uuid_suffix)]}{uuid_suffix}"
+            slug = f"{base_slug[: max_length - len(uuid_suffix)]}{uuid_suffix}"
             break
 
     return slug

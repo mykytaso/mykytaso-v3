@@ -15,17 +15,17 @@ class Post(models.Model):
 
     title = models.CharField(max_length=512, blank=True)
     subtitle = models.CharField(max_length=512, blank=True)
-    cover_image = models.URLField(null=True, blank=True)
-    text = models.TextField(null=True, blank=True)
-    html_cache = models.TextField(null=True, blank=True)
+    cover_image = models.URLField(blank=True, default="")
+    text = models.TextField(blank=True, default="")
+    html_cache = models.TextField(blank=True, default="")
     is_raw_html = models.BooleanField(default=False)
     is_visible = models.BooleanField(default=False)
     published_at = models.DateTimeField(null=True, blank=True)
     view_count = models.PositiveIntegerField(default=0, db_index=True)
 
-    og_title = models.CharField(max_length=512, null=True, blank=True)
-    og_description = models.CharField(max_length=512, null=True, blank=True)
-    og_image = models.URLField(null=True, blank=True)
+    og_title = models.CharField(max_length=512, blank=True, default="")
+    og_description = models.CharField(max_length=512, blank=True, default="")
+    og_image = models.URLField(blank=True, default="")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -50,6 +50,9 @@ class Post(models.Model):
         self.updated_at = datetime.now()
         return super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("post_retrieve", kwargs={"slug": self.slug})
+
     def get_like_count(self):
         """Return total number of likes for this post."""
         return self.likes.count()
@@ -69,9 +72,6 @@ class Post(models.Model):
         if not ip_address:
             return False
         return self.likes.filter(ip_address=ip_address, user__isnull=True).exists()
-
-    def get_absolute_url(self):
-        return reverse("post_retrieve", kwargs={"slug": self.slug})
 
     @classmethod
     def visible_objects(cls):

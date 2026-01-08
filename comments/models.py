@@ -5,6 +5,7 @@ from django.db import models
 
 class Comment(models.Model):
     """User comments on posts. Only authenticated users can comment."""
+
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
 
     # Foreign Keys
@@ -19,11 +20,11 @@ class Comment(models.Model):
 
     class Meta:
         db_table = "comments"
-        ordering = ["created_at"]
-        indexes = [
+        ordering = ("created_at",)
+        indexes = (
             models.Index(fields=["post", "created_at"]),
             models.Index(fields=["author"]),
-        ]
+        )
 
     def __str__(self):
         return f"{self.author.username} on {self.post.title}"

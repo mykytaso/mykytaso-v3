@@ -8,10 +8,6 @@ def markdown_text(text, renderer=CustomRenderer):
         escape=False,
         hard_wrap=True,
         renderer=renderer(escape=False) if renderer else None,
-        plugins=[
-            "strikethrough",
-            "url",
-            "table"
-        ]
+        plugins=["strikethrough", "url", "table"],
     )
     return markdown(text)

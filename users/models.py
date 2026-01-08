@@ -1,13 +1,16 @@
+from datetime import timedelta
 from uuid import uuid4
 
+from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
+from utils.strings import random_verification_token
+
 
 class UserAccountManager(BaseUserManager):
-
     def create_user(self, username, email, password=None, **other_fields):
         if not email:
             raise ValueError("Email address is required!")
@@ -17,11 +20,7 @@ class UserAccountManager(BaseUserManager):
         # Set email verification to False by default (can be overridden in other_fields)
         other_fields.setdefault("is_email_verified", False)
 
-        user = self.model(
-            username=username,
-            email=email,
-            **other_fields
-        )
+        user = self.model(username=username, email=email, **other_fields)
 
         user.set_password(password)
         user.save()
@@ -55,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_email_verified = models.BooleanField(default=False)
     email_verification_token = models.CharField(max_length=64, blank=True, null=True, unique=True)
     email_verification_token_created_at = models.DateTimeField(blank=True, null=True)
-    pending_email = models.EmailField(blank=True, null=True)
+    pending_email = models.EmailField(blank=True, default="")
 
     # Soft delete fields
     is_deleted = models.BooleanField(default=False)
@@ -63,7 +62,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     objects = UserAccountManager()
 
@@ -76,24 +74,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     def generate_verification_token(self):
         """Generate and save a new email verification token."""
 
-        from django.utils import timezone
-
-        from utils.strings import random_verification_token
-
         self.email_verification_token = random_verification_token()
         self.email_verification_token_created_at = timezone.now()
-        self.save(update_fields=[
-            "email_verification_token",
-            "email_verification_token_created_at",
-        ])
+        self.save(
+            update_fields=[
+                "email_verification_token",
+                "email_verification_token_created_at",
+            ]
+        )
         return self.email_verification_token
 
     def is_verification_token_valid(self, token: str) -> bool:
         """Check if the provided token is valid and not expired."""
-        from datetime import timedelta
-
-        from django.conf import settings
-        from django.utils import timezone
 
         # Check if token matches
         if not self.email_verification_token or self.email_verification_token != token:
@@ -113,11 +105,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.is_email_verified = True
         self.email_verification_token = None
         self.email_verification_token_created_at = None
-        self.save(update_fields=[
-            "is_email_verified",
-            "email_verification_token",
-            "email_verification_token_created_at",
-        ])
+        self.save(
+            update_fields=[
+                "is_email_verified",
+                "email_verification_token",
+                "email_verification_token_created_at",
+            ]
+        )
 
     def soft_delete(self):
         """Soft delete the user account."""
@@ -128,4 +122,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_display_name(self):
         """Return username or 'Deleted User' if account is deleted."""
         return "Deleted User" if self.is_deleted else self.username
-

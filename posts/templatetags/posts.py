@@ -11,7 +11,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def render_post(context, post):
     if post.is_raw_html:
-        html = post.text or post.html_cache # use raw HTML directly, or fall back to cached HTML
+        html = post.text or post.html_cache  # use raw HTML directly, or fall back to cached HTML
     else:
         if not post.html_cache or settings.DEBUG:
             new_html = markdown_text(post.text)

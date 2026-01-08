@@ -6,10 +6,7 @@ from posts.models import Post
 
 
 def post_list(request):
-    if request.user.is_superuser:
-        posts = Post.objects.all()
-    else:
-        posts = Post.visible_objects()
+    posts = Post.objects.all() if request.user.is_superuser else Post.visible_objects()
 
     # Add liked status to each post
     if request.user.is_authenticated:
@@ -20,9 +17,13 @@ def post_list(request):
         for post in posts:
             post.user_has_liked = post.is_liked_by_ip(ip_address)
 
-    return render(request, "posts/post_list.html", {
-        "posts": posts,
-    })
+    return render(
+        request,
+        "posts/post_list.html",
+        {
+            "posts": posts,
+        },
+    )
 
 
 def post_retrieve(request, slug):
@@ -42,12 +43,16 @@ def post_retrieve(request, slug):
     like_count = post.get_like_count()
     comments = post.comments.select_related("author").all()
 
-    return render(request, "posts/post_retrieve.html", {
-        "post": post,
-        "like_count": like_count,
-        "user_has_liked": user_has_liked,
-        "comments": comments,
-    })
+    return render(
+        request,
+        "posts/post_retrieve.html",
+        {
+            "post": post,
+            "like_count": like_count,
+            "user_has_liked": user_has_liked,
+            "comments": comments,
+        },
+    )
 
 
 def about_me(request):
