@@ -1,7 +1,7 @@
 services:
   mykytaso_app: &app
     image: ghcr.io/mykytaso/mykytaso-v3:${GITHUB_SHA:-latest}
-    command: make docker-run-production
+    command: make prod
     container_name: mykytaso_app
     networks:
       - mykytaso_network

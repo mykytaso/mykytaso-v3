@@ -7,74 +7,21 @@ migrations:
 migrate:
 	uv run manage.py migrate
 
-# Run development server
-dev:
-	uv run manage.py runserver
-
 # Create superuser
 superuser:
 	uv run manage.py createsuperuser
 
-# Collect static files
-collectstatic:
-	uv run manage.py collectstatic --noinput
-
-# Run tests
-test:
-	uv run manage.py test
-
-# Shell access
-shell:
-	uv run manage.py shell
-
-# Database shell
-dbshell:
-	uv run manage.py dbshell
-
-# Check for issues (Django check)
-django-check:
-	uv run manage.py check
-
-# Clean up
-clean:
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name "__pycache__" -delete
-
-
-# Run PostgreSQL Docker container (standalone)
-run-db:
-	docker run --name mykyta_db -e POSTGRES_DB=mykyta_db -e POSTGRES_USER=mykyta_admin -e POSTGRES_PASSWORD=CULZEP7ac0DgixnAgynW -p 5432:5432 -d postgres:18.1-alpine3.23
-
-# Stop PostgreSQL Docker container (standalone)
-stop-db:
-	docker stop mykyta_db && docker rm mykyta_db
-
 # Docker Compose commands
-docker-run-production:
+prod:
 	uv run manage.py migrate
 	cp -r /app/frontend/static /tmp/
 	uv run gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8012 --capture-output --log-level debug --access-logfile - --error-logfile -
 
-docker-run-dev:
+dev:
 	docker compose -f docker-compose.yaml up
 
-docker-up-d:
-	docker compose up --build -d
-
-docker-down:
-	docker compose down
-
-docker-down-v:
-	docker compose down -v
-
-docker-logs:
-	docker compose logs -f web
-
-docker-shell:
-	docker compose exec web uv run manage.py shell
-
-docker-dbshell:
-	docker compose exec db psql -U mykyta_admin -d mykyta_db
+dev-rebuild:
+	docker compose -f docker-compose.yaml up --build --force-recreate
 
 docker-migrate:
 	docker compose exec web uv run manage.py migrate
@@ -84,27 +31,6 @@ docker-makemigrations:
 
 docker-superuser:
 	docker compose exec web uv run manage.py createsuperuser
-
-docker-restart:
-	docker compose restart web
-
-
-# Help
-help:
-	@echo "Available commands:"
-	@echo "  make makemigrations  - Create new migrations"
-	@echo "  make migrate         - Apply migrations"
-	@echo "  make runserver       - Start development server"
-	@echo "  make createsuperuser - Create admin user"
-	@echo "  make collectstatic   - Collect static files"
-	@echo "  make test            - Run tests"
-	@echo "  make shell           - Open Django shell"
-	@echo "  make dbshell         - Open database shell"
-	@echo "  make check           - Check for issues"
-	@echo "  make clean           - Remove .pyc files and __pycache__"
-
-.PHONY: makemigrations migrate runserver createsuperuser collectstatic test shell dbshell check clean help
-
 
 # Linting and Formatting commands
 lint:

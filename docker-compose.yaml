@@ -13,7 +13,6 @@ services:
     build:
       context: .              # Build from current directory
       dockerfile: Dockerfile  # Use this Dockerfile
-    image: mykyta-app:latest  # Tag the built image
     container_name: mykyta_app  # Name for easy reference
     restart: unless-stopped   # Auto-restart unless manually stopped
 

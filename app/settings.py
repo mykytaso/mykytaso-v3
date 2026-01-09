@@ -233,3 +233,7 @@ if SENTRY_DSN and not DEBUG:
 # reCAPTCHA Configuration
 RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
+
+# For local testing without real credentials
+if DEBUG:
+    SILENCED_SYSTEM_CHECKS = ["django_recaptcha.recaptcha_test_key_error"]
