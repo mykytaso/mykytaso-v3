@@ -97,6 +97,29 @@ Comprehensive Ruff configuration with 40+ rule sets enabled:
 - Static file cache busting with dynamic hashing
 - Request logging middleware for debugging
 
+### CI/CD Pipeline
+Automated deployment using GitHub Actions with two-stage pipeline:
+
+**Build Stage:**
+- Triggered on push to `main` branch
+- Builds Docker image with multi-tagging strategy (`latest` + commit SHA)
+- Pushes to GitHub Container Registry (ghcr.io)
+- Ensures reproducible builds with SHA-based versioning
+
+**Deploy Stage:**
+- Generates environment file from GitHub Secrets (14+ secret variables)
+- Securely transfers configuration via SSH with key-based authentication
+- Deploys docker-compose.production.yaml to remote server
+- Pulls versioned Docker image and performs zero-downtime restart
+- Automatic cleanup of unused images with `docker system prune`
+
+**Security & Configuration Management:**
+- All sensitive data managed through GitHub Secrets
+- SSH key authentication for secure remote deployment
+- Environment variables include: Django settings, PostgreSQL credentials, Mailgun API keys, Sentry DSN, ReCAPTCHA keys
+- Git commit SHA injected for static asset cache busting
+- Separation of development and production compose configurations
+
 ## Key Features
 
 ### Content Management
@@ -125,11 +148,13 @@ Comprehensive Ruff configuration with 40+ rule sets enabled:
 This project demonstrates proficiency in:
 - Modern Python and Django development patterns
 - PostgreSQL database design and optimization
+- CI/CD pipeline implementation with GitHub Actions
 - Production-ready deployment configuration
 - Security best practices and vulnerability prevention
 - Clean architecture and separation of concerns
 - Custom authentication and authorization flows
 - Performance optimization (caching, indexing, query optimization)
-- Third-party API integration
-- Docker containerization
+- Third-party API integration (Mailgun, Sentry, ReCAPTCHA)
+- Docker containerization and orchestration
+- DevOps practices (SSH automation, secret management, zero-downtime deployments)
 - Code quality tooling and static analysis
