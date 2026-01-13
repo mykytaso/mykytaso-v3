@@ -1,6 +1,8 @@
+from typing import ClassVar
+
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, SetPasswordMixin, UsernameField
 from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
@@ -17,7 +19,13 @@ class LoginForm(AuthenticationForm):
     )
 
 
-class RegisterForm(UserCreationForm):
+class RegisterForm(SetPasswordMixin, forms.ModelForm):
+    """Form for registering a new user."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].widget.attrs["autofocus"] = True
+
     captcha = ReCaptchaField(
         widget=ReCaptchaV2Checkbox(
             attrs={
@@ -28,11 +36,29 @@ class RegisterForm(UserCreationForm):
         )
     )
 
-    email = forms.EmailField(required=True)
+    password1, password2 = SetPasswordMixin.create_password_fields()
 
     class Meta:
         model = get_user_model()
         fields = ("username", "email", "password1", "password2")
+        field_classes: ClassVar[dict[str, type]] = {"username": UsernameField}
+
+    def clean(self):
+        self.validate_passwords()
+        return super().clean()
+
+    def _post_clean(self):
+        super()._post_clean()
+        # Validate the password after self.instance is updated with form data
+        # by super().
+        self.validate_password_for_user(self.instance)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user = self.set_password_and_save(user, commit=commit)
+        if commit and hasattr(self, "save_m2m"):
+            self.save_m2m()
+        return user
 
 
 class UpdateForm(forms.Form):
