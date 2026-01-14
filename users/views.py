@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,6 +23,9 @@ from likes.models import Like
 from likes.views import get_client_ip
 from users.forms import LoginForm, RegisterForm, ResendVerificationForm, UpdateForm
 from utils.email import MailgunError, send_password_reset_email, send_verification_email
+
+
+logger = logging.getLogger(__name__)
 
 
 User = get_user_model()
@@ -65,6 +70,36 @@ class RegisterView(CreateView):
             self.success_url = reverse("resend_verification")
 
         return response
+
+    def form_invalid(self, form):
+        """Log failed registration attempts with detailed information."""
+        # Get request metadata
+        ip_address = get_client_ip(self.request)
+        user_agent = self.request.META.get("HTTP_USER_AGENT", "Unknown")
+        referer = self.request.META.get("HTTP_REFERER", "Direct")
+
+        # Get submitted data (excluding passwords)
+        username = form.data.get("username", "")
+        email = form.data.get("email", "")
+
+        # Extract validation errors
+        error_details = {}
+        for field, errors in form.errors.items():
+            error_details[field] = list(errors)
+
+        # Log the failed attempt
+        logger.warning(
+            "Failed registration attempt | IP: %s | Username: %s | Email: %s | "
+            "User-Agent: %s | Referer: %s | Errors: %s",
+            ip_address,
+            username,
+            email,
+            user_agent,
+            referer,
+            error_details,
+        )
+
+        return super().form_invalid(form)
 
 
 class CustomLoginView(LoginView):
