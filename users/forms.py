@@ -26,6 +26,20 @@ class RegisterForm(SetPasswordMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["username"].widget.attrs["autofocus"] = True
 
+    # Honeypot field - should remain empty
+    website = forms.CharField(
+        required=False,
+        label="Website (leave blank)",
+        widget=forms.TextInput(
+            attrs={
+                "autocomplete": "off",
+                "tabindex": "-1",
+                "class": "honeypot-field",
+                "aria-hidden": "true",
+            }
+        ),
+    )
+
     captcha = ReCaptchaField(
         widget=ReCaptchaV2Checkbox(
             attrs={
@@ -42,6 +56,14 @@ class RegisterForm(SetPasswordMixin, forms.ModelForm):
         model = get_user_model()
         fields = ("username", "email", "password1", "password2")
         field_classes: ClassVar[dict[str, type]] = {"username": UsernameField}
+
+    def clean_website(self):
+        """Reject submission if honeypot field is filled (indicates bot)."""
+        website = self.cleaned_data.get("website")
+        if website:
+            # Silently fail - don't reveal that this is a honeypot
+            raise forms.ValidationError("")
+        return website
 
     def clean(self):
         self.validate_passwords()

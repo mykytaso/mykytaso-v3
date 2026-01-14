@@ -43,6 +43,15 @@
                     {% endif %}
                 </div>
 
+                {# Honeypot field - hidden from users, catches bots #}
+                <div class="honeypot-field">
+                    {{ form.website.label_tag }}
+                    {{ form.website }}
+                    {% if form.website.errors %}
+                        <div class="errors">{{ form.website.errors }}</div>
+                    {% endif %}
+                </div>
+
                 {# Password field #}
                 <div>
                     {{ form.password1.label_tag }}

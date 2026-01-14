@@ -81,23 +81,37 @@ class RegisterView(CreateView):
         # Get submitted data (excluding passwords)
         username = form.data.get("username", "")
         email = form.data.get("email", "")
+        honeypot_value = form.data.get("website", "")
 
         # Extract validation errors
         error_details = {}
         for field, errors in form.errors.items():
             error_details[field] = list(errors)
 
-        # Log the failed attempt
-        logger.warning(
-            "Failed registration attempt | IP: %s | Username: %s | Email: %s | "
-            "User-Agent: %s | Referer: %s | Errors: %s",
-            ip_address,
-            username,
-            email,
-            user_agent,
-            referer,
-            error_details,
-        )
+        # Check if this was caught by honeypot
+        if honeypot_value:
+            logger.warning(
+                "BOT CAUGHT BY HONEYPOT | IP: %s | Username: %s | Email: %s | "
+                "Honeypot value: %s | User-Agent: %s | Referer: %s",
+                ip_address,
+                username,
+                email,
+                honeypot_value,
+                user_agent,
+                referer,
+            )
+        else:
+            # Log regular validation failure
+            logger.warning(
+                "Failed registration attempt | IP: %s | Username: %s | Email: %s | "
+                "User-Agent: %s | Referer: %s | Errors: %s",
+                ip_address,
+                username,
+                email,
+                user_agent,
+                referer,
+                error_details,
+            )
 
         return super().form_invalid(form)
 
