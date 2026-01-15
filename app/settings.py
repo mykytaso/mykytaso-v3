@@ -24,11 +24,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    "0.0.0.0",
     "127.0.0.1",
     "localhost",
     "mykytaso.com",
-    # "192.168.0.242",
 ]
 
 

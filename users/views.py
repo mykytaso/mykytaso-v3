@@ -15,7 +15,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import url_has_allowed_host_and_scheme, urlsafe_base64_encode
 from django.views import View
 from django.views.generic import CreateView, FormView, TemplateView
 
@@ -177,9 +177,13 @@ class CustomLoginView(LoginView):
         return response
 
     def get_success_url(self):
-        """Redirect to next URL if provided, otherwise to user profile."""
+        """Redirect to next URL if provided and safe, otherwise to user profile."""
         next_url = self.request.GET.get("next") or self.request.POST.get("next")
-        if next_url:
+        if next_url and url_has_allowed_host_and_scheme(
+            url=next_url,
+            allowed_hosts={self.request.get_host()},
+            require_https=self.request.is_secure(),
+        ):
             return next_url
         return reverse_lazy("user_profile")
 
