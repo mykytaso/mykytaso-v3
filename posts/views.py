@@ -1,3 +1,7 @@
+import datetime
+from datetime import date
+
+from dateutil.relativedelta import relativedelta
 from django.db.models import F
 from django.shortcuts import get_object_or_404, render
 
@@ -56,4 +60,7 @@ def post_retrieve(request, slug):
 
 
 def about_me(request):
-    return render(request, "posts/about_me.html")
+    start_date = date(2023, 8, 7)
+    today = datetime.datetime.now().date()
+    delta = relativedelta(today, start_date)
+    return render(request, "posts/about_me.html", {"delta": delta})

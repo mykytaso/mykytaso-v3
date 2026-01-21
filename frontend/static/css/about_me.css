@@ -9,6 +9,14 @@
     align-self: center;
 }
 
+.about-me__work-experience {
+    margin: 12px 0 0 0;
+    align-self: center;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-color-secondary);
+}
+
 .about-me__title {
     font-weight: 700;
     font-size: 20px;
