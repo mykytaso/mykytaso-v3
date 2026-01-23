@@ -11,7 +11,7 @@ from django.contrib.auth.views import (
     PasswordResetConfirmView,
     PasswordResetView,
 )
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.encoding import force_bytes
@@ -100,6 +100,7 @@ class RegisterView(CreateView):
                 user_agent,
                 referer,
             )
+            return HttpResponseForbidden("Access denied")
         else:
             # Log regular validation failure
             logger.warning(
