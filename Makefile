@@ -15,7 +15,7 @@ superuser:
 prod:
 	uv run manage.py migrate
 	cp -r /app/frontend/static /tmp/
-	uv run gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8012 --capture-output --log-level debug --access-logfile - --error-logfile -
+	uv run gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8012 --capture-output --log-level debug --access-logfile "" --error-logfile -
 
 dev:
 	docker compose -f docker-compose.yaml up
