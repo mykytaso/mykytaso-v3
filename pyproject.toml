@@ -16,6 +16,7 @@ dependencies = [
     "sentry-sdk[django]>=2.53.0",
     "django-recaptcha>=4.1.0",
     "python-dateutil>=2.9.0.post0",
+    "rich>=14.3.3",
 ]
 
 [tool.ruff]

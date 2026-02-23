@@ -4,6 +4,7 @@ from random import randint
 
 import sentry_sdk
 from dotenv import load_dotenv
+from rich.console import Console
 from sentry_sdk.integrations.django import DjangoIntegration
 
 
@@ -179,21 +180,19 @@ EMAIL_VERIFICATION_TOKEN_EXPIRY_HOURS = 24
 PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
 
 # Logging Configuration
+RICH_CONSOLE = Console(width=300, force_terminal=True)
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    # Formatters control how log messages are rendered as strings.
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {message}",
-            "style": "{",  # Tells Python to use str.format() style placeholders ({levelname}) instead of the default %-style (%(levelname)s). The three options are "{", "%", and "$".
-        }
-    },
     # Handlers control where log messages go.
     "handlers": {
         "console": {
-            "class": "logging.StreamHandler",  # Writes to a stream; defaults to sys.stderr.
-            "formatter": "verbose",  # Uses the verbose formatter.
+            "()": "rich.logging.RichHandler",  # Rich handler for colorized output.
+            "console": RICH_CONSOLE,  # Wide console to prevent line wrapping.
+            "rich_tracebacks": True,  # Format exceptions using Rich's Traceback class.
+            "show_path": False,  # Hide file path column to prevent narrow wrapping.
+            "omit_repeated_times": True,
         },
     },
     # The root logger is the catch-all at the top of the logger hierarchy. Any logger that doesn't match a specific entry in "loggers" (and has propagate=True, the default) will bubble up to here.
@@ -210,6 +209,11 @@ LOGGING = {
         "django.request": {
             "handlers": ["console"],
             "level": "ERROR",  # Only log 5xx errors; 4xx are already covered by RequestLoggingMiddleware.
+            "propagate": False,
+        },
+        "django.server": {
+            "handlers": ["console"],
+            "level": "WARNING",  # Suppress default request logs; already covered by RequestLoggingMiddleware.
             "propagate": False,
         },
         "request": {
