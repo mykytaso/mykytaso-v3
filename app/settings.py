@@ -180,7 +180,7 @@ EMAIL_VERIFICATION_TOKEN_EXPIRY_HOURS = 24
 PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
 
 # Logging Configuration
-RICH_CONSOLE = Console(width=300, force_terminal=True)
+RICH_CONSOLE = Console(width=260, force_terminal=True)
 
 LOGGING = {
     "version": 1,
