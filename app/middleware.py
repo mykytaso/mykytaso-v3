@@ -24,9 +24,10 @@ class RequestLoggingMiddleware:
         referer = request.META.get("HTTP_REFERER", "-")
         user_agent = request.META.get("HTTP_USER_AGENT", "-")
 
-        log.info(
-            f"[{requester_ip}] {method} /{domain}{path} {status_code} -> {duration:.3f} sec "
-            f"Browser: {user_agent} Ref: {referer}",
-        )
+        if "uptimerobot" not in user_agent:
+            log.info(
+                f"[{requester_ip}] {method} /{domain}{path} {status_code} -> {duration:.3f} sec "
+                f"Browser: {user_agent} Ref: {referer}",
+            )
 
         return response
