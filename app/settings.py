@@ -182,22 +182,21 @@ PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    # Formatters control how log messages are rendered as strings.
     "formatters": {
         "verbose": {
             "format": "{levelname} {asctime} {module} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
+            "style": "{",  # Tells Python to use str.format() style placeholders ({levelname}) instead of the default %-style (%(levelname)s). The three options are "{", "%", and "$".
+        }
     },
+    # Handlers control where log messages go.
     "handlers": {
         "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
+            "class": "logging.StreamHandler",  # Writes to a stream; defaults to sys.stderr.
+            "formatter": "verbose",  # Uses the verbose formatter.
         },
     },
+    # The root logger is the catch-all at the top of the logger hierarchy. Any logger that doesn't match a specific entry in "loggers" (and has propagate=True, the default) will bubble up to here.
     "root": {
         "handlers": ["console"],
         "level": "INFO",
@@ -206,9 +205,14 @@ LOGGING = {
         "django": {
             "handlers": ["console"],
             "level": "INFO",
+            "propagate": False,  # Stops Django logs from also reaching the root logger. Without this, every Django log message would be printed twice (once by this logger's console handler, once by root's console handler).
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",  # Only log 5xx errors; 4xx are already covered by RequestLoggingMiddleware.
             "propagate": False,
         },
-        "app.middleware": {
+        "request": {
             "handlers": ["console"],
             "level": "INFO",
             "propagate": False,

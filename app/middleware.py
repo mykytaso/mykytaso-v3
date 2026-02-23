@@ -4,7 +4,7 @@ import time
 from utils.request import get_client_ip
 
 
-log = logging.getLogger(__name__)
+log = logging.getLogger("request")
 
 
 class RequestLoggingMiddleware:
@@ -25,7 +25,7 @@ class RequestLoggingMiddleware:
         user_agent = request.META.get("HTTP_USER_AGENT", "-")
 
         log.info(
-            f"[{requester_ip}] {method} {request.scheme}://{domain}{path} {status_code} -> {duration:.3f} sec "
+            f"[{requester_ip}] {method} /{domain}{path} {status_code} -> {duration:.3f} sec "
             f"Browser: {user_agent} Ref: {referer}",
         )
 

@@ -101,18 +101,17 @@ class RegisterView(CreateView):
                 referer,
             )
             return HttpResponseForbidden("Access denied")
-        else:
-            # Log regular validation failure
-            logger.warning(
-                "Failed registration attempt | IP: %s | Username: %s | Email: %s | "
-                "User-Agent: %s | Referer: %s | Errors: %s",
-                ip_address,
-                username,
-                email,
-                user_agent,
-                referer,
-                error_details,
-            )
+        # Log regular validation failure
+        logger.warning(
+            "Failed registration attempt | IP: %s | Username: %s | Email: %s | "
+            "User-Agent: %s | Referer: %s | Errors: %s",
+            ip_address,
+            username,
+            email,
+            user_agent,
+            referer,
+            error_details,
+        )
 
         return super().form_invalid(form)
 
