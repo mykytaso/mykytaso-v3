@@ -24,7 +24,7 @@ jobs:
       SSH_KEY_PATH: /tmp/ssh_key
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Make envfile
         run: export | grep "secret_" | sed "s/declare -x secret_//" > .env
         env:
