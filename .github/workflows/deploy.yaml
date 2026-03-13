@@ -35,9 +35,6 @@ jobs:
           secret_DEBUG: ${{ secrets.DEBUG }}
           secret_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           secret_PGDATA: ${{ secrets.PGDATA }}
-          secret_PRODUCTION_SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
-          secret_PRODUCTION_SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
-          secret_PRODUCTION_SSH_USERNAME: ${{ secrets.PRODUCTION_SSH_USERNAME }}
           secret_MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
           secret_MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
           secret_MAILGUN_API_URL: ${{ secrets.MAILGUN_API_URL }}
