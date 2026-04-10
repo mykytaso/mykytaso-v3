@@ -157,4 +157,4 @@ This project demonstrates proficiency in:
 - Third-party API integration (Mailgun, Sentry, ReCAPTCHA)
 - Docker containerization and orchestration
 - DevOps practices (SSH automation, secret management, zero-downtime deployments)
-- Code quality tooling and static analysis
+- Code quality tooling and static analysis.
