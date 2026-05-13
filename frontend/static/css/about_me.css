@@ -1,3 +1,10 @@
+.about-me__image {
+    align-self: center;
+    height: 140px;
+    width: 140px;
+    margin: 0 0 40px 0;
+}
+
 .about-me__hi {
     font-size: 26px;
     font-weight: 600;
@@ -5,7 +12,7 @@
 }
 
 .about-me__resume-link {
-    margin: 16px 0 0 0;
+    margin: 24px 0 10px 0;
     align-self: center;
 }
 
