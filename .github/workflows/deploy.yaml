@@ -9,10 +9,11 @@ jobs:
   build:
     name: Build image
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@main
       - run: docker login ghcr.io -u $GITHUB_ACTOR -p ${{ secrets.TOKEN }}
-      - run: docker build -t ghcr.io/$GITHUB_ACTOR/mykytaso-v3:latest -t ghcr.io/$GITHUB_ACTOR/mykytaso-v3:$GITHUB_SHA .
+      - run: docker build --progress=plain -t ghcr.io/$GITHUB_ACTOR/mykytaso-v3:latest -t ghcr.io/$GITHUB_ACTOR/mykytaso-v3:$GITHUB_SHA .
       - run: docker image push ghcr.io/$GITHUB_ACTOR/mykytaso-v3:$GITHUB_SHA
       - run: docker image push ghcr.io/$GITHUB_ACTOR/mykytaso-v3:latest
 
