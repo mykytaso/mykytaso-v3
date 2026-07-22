@@ -1,6 +1,5 @@
 # Official uv image: Debian 13 (trixie) slim with Python 3.12 and uv preinstalled.
-# Pinned uv version for reproducible builds; Debian mirrors are fast/reliable,
-# so we avoid the slow archive.ubuntu.com.
+# Pinned uv version for reproducible builds.
 FROM ghcr.io/astral-sh/uv:0.11.31-python3.12-trixie
 
 ENV MODE=dev
@@ -21,8 +20,7 @@ RUN apt-get update \
 
 WORKDIR /app
 
-# Install dependencies first so this layer is cached
-# unless pyproject.toml or uv.lock change.
+# Install dependencies first so this layer is cached unless pyproject.toml or uv.lock change.
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-cache --compile-bytecode
 
