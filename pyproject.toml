@@ -108,7 +108,7 @@ ignore = [
     "S107",    # Possible hardcoded password in function default
     "S608",    # Possible SQL injection
     "DTZ005",  # datetime.now() without timezone (FastAPI uses it)
-    "B008",    # Function call in default argument (FastAPI Depends pattern)
+    "B008",    # Function call in default argument (FastAPI on pattern)
     "FBT001",  # Boolean positional arg in function
     "FBT002",  # Boolean default value in function
     "TD002",   # Missing TODO author
