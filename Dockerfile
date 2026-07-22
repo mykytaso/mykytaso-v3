@@ -21,6 +21,9 @@ COPY . /app
 # Copy uv from its official image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
+# Use copy instead of hardlink (cache and target are on different filesystems)
+ENV UV_LINK_MODE=copy
+
 # Copy only dependency files first (for better Docker layer caching)
 COPY pyproject.toml uv.lock ./
 # Install Python dependencies in a virtual environment
