@@ -1,14 +1,19 @@
-FROM ubuntu:24.04
-ENV MODE dev
+# Official uv image: Debian 13 (trixie) slim with Python 3.12 and uv preinstalled.
+# Pinned uv version for reproducible builds; Debian mirrors are fast/reliable,
+# so we avoid the slow archive.ubuntu.com.
+FROM ghcr.io/astral-sh/uv:0.11.31-python3.12-trixie
+
+ENV MODE=dev
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
+# Copy instead of hardlink (cache and target are on different filesystems).
+ENV UV_LINK_MODE=copy
 
-
+# Runtime system packages only:
+#   make            -> production starts with `make prod`
+#   netcat-openbsd  -> dev compose waits for the db with `nc -z db 5432`
+#   ca-certificates -> HTTPS calls (Mailgun API via requests)
 RUN apt-get update \
     && apt-get install --no-install-recommends -yq \
-      build-essential \
-      python3 \
-      python3-dev \
       make \
       netcat-openbsd \
       ca-certificates \
@@ -16,15 +21,10 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY . /app
-
-# Copy uv from its official image (pinned version for reproducible builds)
-COPY --from=ghcr.io/astral-sh/uv:0.11.31 /uv /uvx /bin/
-
-# Use copy instead of hardlink (cache and target are on different filesystems)
-ENV UV_LINK_MODE=copy
-
-# Copy only dependency files first (for better Docker layer caching)
+# Install dependencies first so this layer is cached
+# unless pyproject.toml or uv.lock change.
 COPY pyproject.toml uv.lock ./
-# Install Python dependencies in a virtual environment
 RUN uv sync --frozen --no-dev --no-cache --compile-bytecode
+
+# Then copy the application code.
+COPY . /app
