@@ -18,8 +18,8 @@ WORKDIR /app
 
 COPY . /app
 
-# Copy uv from its official image
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+# Copy uv from its official image (pinned version for reproducible builds)
+COPY --from=ghcr.io/astral-sh/uv:0.11.31 /uv /uvx /bin/
 
 # Use copy instead of hardlink (cache and target are on different filesystems)
 ENV UV_LINK_MODE=copy
