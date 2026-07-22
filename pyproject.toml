@@ -176,6 +176,6 @@ docstring-code-line-length = "dynamic"
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.6.0",
-    "ruff>=0.15.12",
+    "pre-commit>=4.6.1",
+    "ruff>=0.15.22",
 ]
