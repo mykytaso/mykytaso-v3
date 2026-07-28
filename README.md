@@ -1,6 +1,6 @@
 # Personal Blog Platform
 
-A production-ready blog application showcasing modern Django development practices, PostgreSQL database design, and full-stack engineering capabilities
+A production-ready blog application showcasing modern Django development practices, PostgreSQL database design, and full-stack engineering capabilities.
 
 ## Technical Stack
 
