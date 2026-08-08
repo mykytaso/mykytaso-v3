@@ -42,10 +42,6 @@
                                         {{ post.get_like_count }}
                                     </span>
                                     <span>
-                                        <img src="{% static 'images/icons/comment.png' %}" alt="Comments" class="icon">
-                                        {{ post.get_comment_count }}
-                                    </span>
-                                    <span>
                                         <img src="{% static 'images/icons/view.png' %}" alt="Views" class="icon">
                                         {{ post.view_count|abbreviate_number }}
                                     </span>
