@@ -130,14 +130,13 @@ Automated deployment using GitHub Actions with two-stage pipeline:
 - Automatic sitemap generation for SEO
 
 ### User Engagement
-- Comment system (authenticated users only)
-- Like functionality for posts and comments
+- Like functionality for posts
 - Anonymous interaction tracking
 - User profile management
 - Email preference management
 
 ### Developer Experience
-- Clean separation of concerns (apps: `users`, `posts`, `comments`, `likes`, `markdown`, `utils`)
+- Clean separation of concerns (apps: `users`, `posts`, `likes`, `markdown`, `utils`)
 - Reusable utility modules for common operations
 - Custom template tags for complex rendering logic
 - Context processors for global template variables
