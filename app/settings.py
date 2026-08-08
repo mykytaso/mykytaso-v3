@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "users",
     "posts",
     "likes",
-    "django_recaptcha",
 ]
 
 MIDDLEWARE = [
@@ -125,15 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-]
-
-# Login/Logout redirect URLs
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "user_profile"
-LOGOUT_REDIRECT_URL = "login"
-
+# Admin session settings (Django admin is the only login on this site)
 SESSION_COOKIE_AGE = 86400 * 14  # 14 days in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Do not expire session on browser close
 SESSION_SAVE_EVERY_REQUEST = False  # Do not extend session on every request
@@ -160,24 +151,6 @@ STATICFILES_DIRS = [
 # To prevent browsers from serving outdated cached CSS after deployment.
 STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))  # noqa: S311
 
-
-# Crispy Forms Configuration
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-
-# Email Configuration (Mailgun)
-MAILGUN_API_KEY = os.getenv("MAILGUN_API_KEY")
-MAILGUN_DOMAIN = os.getenv("MAILGUN_DOMAIN")
-MAILGUN_API_URL = os.getenv("MAILGUN_API_URL", "https://api.mailgun.net/v3")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@yourdomain.com")
-SERVER_EMAIL = os.getenv("SERVER_EMAIL", DEFAULT_FROM_EMAIL)
-
-# Email Verification Settings
-EMAIL_VERIFICATION_TOKEN_EXPIRY_HOURS = 24
-
-# Password Reset Settings
-PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
 
 # Logging Configuration
 RICH_CONSOLE = Console(width=260, force_terminal=True)
@@ -235,11 +208,3 @@ if SENTRY_DSN and not DEBUG:
             DjangoIntegration(),
         ],
     )
-
-# reCAPTCHA Configuration
-RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
-
-# For local testing without real credentials
-if DEBUG:
-    SILENCED_SYSTEM_CHECKS = ["django_recaptcha.recaptcha_test_key_error"]

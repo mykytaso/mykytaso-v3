@@ -10,7 +10,7 @@ ENV UV_LINK_MODE=copy
 # Runtime system packages only:
 #   make            -> production starts with `make prod`
 #   netcat-openbsd  -> dev compose waits for the db with `nc -z db 5432`
-#   ca-certificates -> HTTPS calls (Mailgun API via requests)
+#   ca-certificates -> HTTPS calls (Sentry error reporting)
 RUN apt-get update \
     && apt-get install --no-install-recommends -yq \
       make \

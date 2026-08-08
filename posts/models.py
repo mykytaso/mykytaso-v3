@@ -57,17 +57,11 @@ class Post(models.Model):
         """Return total number of likes for this post."""
         return self.likes.count()
 
-    def is_liked_by_user(self, user):
-        """Check if authenticated user has liked this post."""
-        if not user.is_authenticated:
-            return False
-        return self.likes.filter(user=user).exists()
-
     def is_liked_by_ip(self, ip_address):
-        """Check if anonymous IP address has liked this post."""
+        """Check if this IP address has liked this post."""
         if not ip_address:
             return False
-        return self.likes.filter(ip_address=ip_address, user__isnull=True).exists()
+        return self.likes.filter(ip_address=ip_address).exists()
 
     @classmethod
     def visible_objects(cls):

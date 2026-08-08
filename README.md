@@ -23,12 +23,11 @@ A production-ready blog application showcasing modern Django development practic
 
 ## Architecture Highlights
 
-### Custom Authentication System
-Implemented a custom `User` model with email-based authentication, replacing Django's default username-based system:
-- Email verification with expiring tokens
-- Soft delete functionality (preserves data integrity)
-- Pending email change verification flow
-- Custom user manager (`UserAccountManager`)
+### Single-Author Design
+This is a personal blog with one author. There is no public sign-up:
+- Content is managed entirely through Django admin
+- Custom `User` model with email-based login and a custom manager (`UserAccountManager`)
+- Readers browse and like posts without any account
 
 ### Advanced Blog Post Management
 - **Dual rendering modes**: Markdown with custom renderer or raw HTML
@@ -38,12 +37,10 @@ Implemented a custom `User` model with email-based authentication, replacing Dja
 - **OpenGraph metadata**: SEO-optimized with custom OG tags per post
 - **View counting**: Non-intrusive pageview tracking
 
-### Sophisticated Like System
-Engineered a like system supporting both authenticated and anonymous users:
-- Authenticated users tracked via foreign key relationships
-- Anonymous users tracked via IP address extraction
-- Database constraints ensuring one like per user/IP per post
-- Composite indexes on `[post, user]` and `[post, ip_address]` for query optimization
+### Like System
+Account-free like system tracked entirely by IP address:
+- Database constraint ensuring one like per IP per post
+- Composite index on `[post, ip_address]` for query optimization
 - IP extraction handling `X-Forwarded-For` headers for proxied requests
 
 ### Custom Markdown Renderer
@@ -53,13 +50,6 @@ Built a custom Mistune renderer with Pygments integration:
 - Image rendering with figure/figcaption elements
 - Support for tables, strikethrough, and URL auto-linking
 - Configurable code highlighting themes
-
-### Email Infrastructure
-Implemented transactional email system using Mailgun API:
-- Direct API integration (not Django's email backend)
-- HTML and plain text template pairs
-- Email verification and password reset flows
-- Environment-based configuration for development/production
 
 ## Engineering Practices
 
@@ -82,7 +72,7 @@ Comprehensive Ruff configuration with 40+ rule sets enabled:
 - Timezone-aware datetime fields throughout
 
 ### Security Implementations
-- ReCAPTCHA integration for spam prevention
+- No public sign-up: admin login is the only authenticated entry point
 - CSRF protection on all forms
 - SQL injection prevention via Django ORM
 - XSS protection with proper template escaping
@@ -116,7 +106,7 @@ Automated deployment using GitHub Actions with two-stage pipeline:
 **Security & Configuration Management:**
 - All sensitive data managed through GitHub Secrets
 - SSH key authentication for secure remote deployment
-- Environment variables include: Django settings, PostgreSQL credentials, Mailgun API keys, Sentry DSN, ReCAPTCHA keys
+- Environment variables include: Django settings, PostgreSQL credentials, Sentry DSN
 - Git commit SHA injected for static asset cache busting
 - Separation of development and production compose configurations
 
@@ -129,11 +119,9 @@ Automated deployment using GitHub Actions with two-stage pipeline:
 - Post visibility controls (public/private)
 - Automatic sitemap generation for SEO
 
-### User Engagement
+### Reader Engagement
 - Like functionality for posts
-- Anonymous interaction tracking
-- User profile management
-- Email preference management
+- Anonymous interaction tracking (no account needed)
 
 ### Developer Experience
 - Clean separation of concerns (apps: `users`, `posts`, `likes`, `markdown`, `utils`)
@@ -151,9 +139,9 @@ This project demonstrates proficiency in:
 - Production-ready deployment configuration
 - Security best practices and vulnerability prevention
 - Clean architecture and separation of concerns
-- Custom authentication and authorization flows
+- Custom user model design
 - Performance optimization (caching, indexing, query optimization)
-- Third-party API integration (Mailgun, Sentry, ReCAPTCHA)
+- Third-party API integration (Sentry)
 - Docker containerization and orchestration
 - DevOps practices (SSH automation, secret management, zero-downtime deployments)
 - Code quality tooling and static analysis.

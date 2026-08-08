@@ -103,18 +103,6 @@
     /*border: solid 1px red;*/
 }
 
-    .container__form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        min-width: 200px;
-        max-width: 400px;
-        padding: 0;
-        margin: 0;
-        /*border: solid 1px red;*/
-    }
-
     .container__card-list {
         display: flex;
         flex-direction: column;
@@ -148,32 +136,6 @@
         width: 100%;
         min-width: 300px;
         max-width: 680px;
-        padding: 0;
-        margin: 0;
-        /*border: solid 1px red;*/
-    }
-
-    .container--user-profile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        min-width: 300px;
-        max-width: 680px;
-        gap: 12px;
-        padding: 0;
-        margin: 0;
-        /*border: solid 1px red;*/
-    }
-
-    .container--user-profile-update {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        min-width: 300px;
-        max-width: 680px;
-        gap: 12px;
         padding: 0;
         margin: 0;
         /*border: solid 1px red;*/

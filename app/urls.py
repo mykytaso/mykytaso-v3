@@ -4,22 +4,7 @@ from django.urls import path
 
 from app.sitemaps import PostSitemap, StaticViewSitemap
 from likes.views import toggle_like
-from posts.views import about_me, post_list, post_retrieve
-from users.views import (
-    CustomLoginView,
-    CustomLogoutView,
-    CustomPasswordChangeView,
-    CustomPasswordResetRequestView,
-    CustomPasswordResetSetNewView,
-    DeleteAccountView,
-    RegisterView,
-    ResendVerificationView,
-    RobotsView,
-    UserDetailView,
-    UserUpdateView,
-    VerifyEmailChangeView,
-    VerifyEmailView,
-)
+from posts.views import about_me, post_list, post_retrieve, robots_txt
 
 
 # Sitemap configuration
@@ -30,47 +15,8 @@ sitemaps = {
 
 
 urlpatterns = [
-    # Django admin
+    # Django admin (the only login on this site)
     path("kerivnyk/", admin.site.urls),
-    # User authentication URLs
-    path("accounts/register/", RegisterView.as_view(), name="register"),
-    path("accounts/login/", CustomLoginView.as_view(), name="login"),
-    path("accounts/logout/", CustomLogoutView.as_view(), name="logout"),
-    path("accounts/me/", UserDetailView.as_view(), name="user_profile"),
-    path("accounts/me/update/", UserUpdateView.as_view(), name="user_update"),
-    path("accounts/me/delete/", DeleteAccountView.as_view(), name="delete_account"),
-    path(
-        "accounts/me/password_change/",
-        CustomPasswordChangeView.as_view(),
-        name="password_change",
-    ),
-    # Email verification URLs
-    path(
-        "accounts/verify/<str:token>/",
-        VerifyEmailView.as_view(),
-        name="verify_email",
-    ),
-    path(
-        "accounts/verify-email-change/<str:token>/",
-        VerifyEmailChangeView.as_view(),
-        name="verify_email_change",
-    ),
-    path(
-        "accounts/resend-verification/",
-        ResendVerificationView.as_view(),
-        name="resend_verification",
-    ),
-    # Password reset URLs
-    path(
-        "accounts/password-reset/",
-        CustomPasswordResetRequestView.as_view(),
-        name="password_reset_request",
-    ),
-    path(
-        "accounts/reset/<uidb64>/<token>/",
-        CustomPasswordResetSetNewView.as_view(),
-        name="password_reset_set_new",
-    ),
     # Posts app URLs
     path("", post_list, name="post_list"),
     path("posts/<slug:slug>/", post_retrieve, name="post_retrieve"),
@@ -78,7 +24,7 @@ urlpatterns = [
     # About me
     path("about/", about_me, name="about_me"),
     # robots.txt
-    path("robots.txt", RobotsView.as_view(), name="robots"),
+    path("robots.txt", robots_txt, name="robots"),
     # Sitemap
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]

@@ -22,28 +22,6 @@
             <span>About</span>
         </a>
 
-        {% if user.is_authenticated %}
-            <a class="button navbar__item {% if url_name == 'user_profile' or url_name == 'password_change' or url_name == 'user_update' %}navbar__item--active{% endif %}" href="{% url 'user_profile' %}">
-                Profile
-            </a>
-
-            <div style="display: table">
-                <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                    <button type="submit" class="button navbar__item">
-                        Logout
-                    </button>
-                </form>
-            </div>
-        {% else %}
-            <a class="button navbar__item {% if url_name == 'login' or url_name == 'password_reset_request' %}navbar__item--active{% endif %}" href="{% url 'login' %}">
-                Login
-            </a>
-            <a class="button navbar__item {% if url_name == 'register' %}navbar__item--active{% endif %}" href="{% url 'register' %}">
-                Register
-            </a>
-        {% endif %}
-
         <label class="theme-switcher" for="theme-checkbox">
             <input type="checkbox" id="theme-checkbox" class="theme-switcher__input"/>
             <span class="theme-switcher__slider"></span>
