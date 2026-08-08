@@ -3,7 +3,6 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
 from app.sitemaps import PostSitemap, StaticViewSitemap
-from comments.views import add_comment, delete_comment
 from likes.views import toggle_like
 from posts.views import about_me, post_list, post_retrieve
 from users.views import (
@@ -76,9 +75,6 @@ urlpatterns = [
     path("", post_list, name="post_list"),
     path("posts/<slug:slug>/", post_retrieve, name="post_retrieve"),
     path("posts/<slug:slug>/like/", toggle_like, name="toggle_like"),
-    # Comments app URLs
-    path("comments/<slug:slug>/add/", add_comment, name="add_comment"),
-    path("comments/<uuid:comment_id>/delete/", delete_comment, name="delete_comment"),
     # About me
     path("about/", about_me, name="about_me"),
     # robots.txt
