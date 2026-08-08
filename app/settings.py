@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "users",
     "posts",
     "likes",
-    "comments",
     "django_recaptcha",
 ]
 
