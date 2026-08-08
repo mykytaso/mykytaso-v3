@@ -45,7 +45,6 @@ def post_retrieve(request, slug):
         user_has_liked = post.is_liked_by_ip(ip_address)
 
     like_count = post.get_like_count()
-    comments = post.comments.select_related("author").all()
 
     return render(
         request,
@@ -54,7 +53,6 @@ def post_retrieve(request, slug):
             "post": post,
             "like_count": like_count,
             "user_has_liked": user_has_liked,
-            "comments": comments,
         },
     )
 
