@@ -140,18 +140,6 @@
         /*border: solid 1px red;*/
     }
 
-    .container__comments-section {
-        display: flex;
-        flex-direction: column;
-        /*align-items: center;*/
-        width: 100%;
-        min-width: 300px;
-        max-width: 680px;
-        padding: 60px 0 0 0;
-        margin: 0;
-        /*border: solid 1px red;*/
-    }
-
     .container__about-me {
         display: flex;
         flex-direction: column;
