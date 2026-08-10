@@ -32,6 +32,12 @@ ALLOWED_HOSTS = [
 ]
 
 
+# Nginx terminates TLS and always sets this header, so Django can trust it.
+# Without this, request.scheme is "http" and every absolute URL Django builds
+# (sitemap.xml <loc>, og:url, canonical) comes out as http://.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+
 # CSRF settings
 # Only use secure cookies in production (when DEBUG is False)
 CSRF_COOKIE_SECURE = not DEBUG
