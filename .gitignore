@@ -358,3 +358,4 @@ db_backup.py
 
 # Database dumps created by `make prod-db-backup`
 backups/
+nginx.conf
