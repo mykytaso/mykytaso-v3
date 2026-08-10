@@ -12,25 +12,27 @@ superuser:
 	uv run manage.py createsuperuser
 
 # Docker Compose commands
+COMPOSE_DEV = docker compose -f docker-compose.dev.yaml
+
 prod:
 	uv run manage.py migrate
 	cp -r /app/frontend/static /tmp/
 	uv run gunicorn app.asgi:application -w 4 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0:8012
 
 dev:
-	docker compose -f docker-compose.yaml up
+	$(COMPOSE_DEV) up
 
 dev-rebuild:
-	docker compose -f docker-compose.yaml up --build --force-recreate
+	$(COMPOSE_DEV) up --build --force-recreate
 
 docker-migrate:
-	docker compose exec web uv run manage.py migrate
+	$(COMPOSE_DEV) exec web uv run manage.py migrate
 
 docker-makemigrations:
-	docker compose exec web uv run manage.py makemigrations
+	$(COMPOSE_DEV) exec web uv run manage.py makemigrations
 
 docker-superuser:
-	docker compose exec web uv run manage.py createsuperuser
+	$(COMPOSE_DEV) exec web uv run manage.py createsuperuser
 
 # Production database commands
 # Runs on the production host (not inside the app container).

@@ -8,7 +8,7 @@
 make dev
 ```
 
-Runs `docker compose -f docker-compose.yaml up`
+Runs `docker compose -f docker-compose.dev.yaml up`
 
 <br>
 

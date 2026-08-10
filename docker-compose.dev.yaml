@@ -1,8 +1,8 @@
 # ==========================================
-# Docker Compose Configuration
+# Docker Compose Configuration (development)
 # ==========================================
 # Orchestrates Django web app and PostgreSQL database
-# Run with: make docker-up-d
+# Run with: make dev
 
 services:
   # ==========================================
