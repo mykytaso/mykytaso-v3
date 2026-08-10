@@ -354,7 +354,7 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all
 
 CLAUDE.md
-pg_backup.py
+db_backup.py
 
 # Database dumps created by `make prod-db-backup`
 backups/
