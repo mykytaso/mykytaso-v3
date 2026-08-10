@@ -95,7 +95,9 @@ PostgreSQL runs in Docker in **both** development and production, so the databas
 - Health check gating: the app container starts only once Postgres reports ready
 - In production the database port is published on `127.0.0.1` only — never exposed to the internet
 - Credentials defined once via a YAML anchor and shared between the app and database services
-- Backup and restore through `make prod-db-backup` / `make prod-db-restore`
+- Backup and restore through `make prod-db-backup` / `make prod-db-restore`, with a nightly cron job and 14-day retention
+
+The production host keeps no PostgreSQL client of its own. Every database operation runs inside the container, so the client and server versions can never drift apart. The host needs only Docker and `make` (`sudo apt install make`) — the deploy workflow copies the `Makefile` alongside the compose file.
 
 ### CI/CD Pipeline
 Automated deployment using GitHub Actions with two-stage pipeline:
