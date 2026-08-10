@@ -355,3 +355,6 @@ pyrightconfig.json
 
 CLAUDE.md
 pg_backup.py
+
+# Database dumps created by `make prod-db-backup`
+backups/

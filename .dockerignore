@@ -41,8 +41,13 @@ media/
 .coverage
 htmlcov/
 
+# Database dumps created by `make prod-db-backup`
+backups/
+
 # Misc
 .DS_Store
 *.md
 !CLAUDE.md
 pg_backup.py
+
+.env

@@ -80,12 +80,22 @@ Comprehensive Ruff configuration with 40+ rule sets enabled:
 - Environment-based secret management (no hardcoded credentials)
 
 ### Development Workflow
-- Makefile with common development commands
+- Makefile with common development commands (documented in `README_MAKEFILE.md`)
 - Docker Compose for local development environment
 - Separate production Docker configuration
 - Database migrations version controlled
 - Static file cache busting with dynamic hashing
 - Request logging middleware for debugging
+
+### Containerized Database
+PostgreSQL runs in Docker in **both** development and production, so the database version is pinned in the repository rather than depending on what happens to be installed on the host:
+
+- `postgres:18.0` in both compose files
+- Data persisted in a named volume (`db-data`), surviving container recreation
+- Health check gating: the app container starts only once Postgres reports ready
+- In production the database port is published on `127.0.0.1` only — never exposed to the internet
+- Credentials defined once via a YAML anchor and shared between the app and database services
+- Backup and restore through `make prod-db-backup` / `make prod-db-restore`
 
 ### CI/CD Pipeline
 Automated deployment using GitHub Actions with two-stage pipeline:
@@ -97,11 +107,12 @@ Automated deployment using GitHub Actions with two-stage pipeline:
 - Ensures reproducible builds with SHA-based versioning
 
 **Deploy Stage:**
-- Generates environment file from GitHub Secrets (14+ secret variables)
+- Generates environment file from GitHub Secrets
 - Securely transfers configuration via SSH with key-based authentication
 - Deploys docker-compose.production.yaml to remote server
-- Pulls versioned Docker image and performs zero-downtime restart
-- Automatic cleanup of unused images with `docker system prune`
+- Pulls the SHA-versioned image and recreates the app container
+- Cleans up superseded images from previous deployments
+- The database container is left running and is not recreated by a deploy
 
 **Security & Configuration Management:**
 - All sensitive data managed through GitHub Secrets

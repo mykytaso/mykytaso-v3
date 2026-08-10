@@ -32,6 +32,29 @@ docker-makemigrations:
 docker-superuser:
 	docker compose exec web uv run manage.py createsuperuser
 
+# Production database commands
+# Runs on the production host (not inside the app container).
+# POSTGRES_USER and POSTGRES_DB are read from the db container's own environment, so the credentials are never repeated here.
+COMPOSE_PROD = docker compose -f docker-compose.production.yaml --env-file=.env
+
+prod-db-backup:
+	@mkdir -p backups
+	@set -e; \
+	OUT=backups/mykytaso_db_$$(date +%Y%m%d_%H%M%S).dump; \
+	$(COMPOSE_PROD) exec -T db sh -c 'pg_dump -U "$$POSTGRES_USER" -d "$$POSTGRES_DB" -Fc --no-owner --no-acl' \
+		> $$OUT.tmp || { rm -f $$OUT.tmp; exit 1; }; \
+	mv $$OUT.tmp $$OUT; \
+	echo "✅ Backup written to $$OUT ($$(du -h $$OUT | cut -f1))"
+
+prod-db-restore:
+	@test -n "$(DUMP)" || { echo "❌ Usage: make prod-db-restore DUMP=backups/<file>.dump"; exit 1; }
+	@test -s "$(DUMP)" || { echo "❌ $(DUMP) is missing or empty"; exit 1; }
+	$(COMPOSE_PROD) exec -T db sh -c 'pg_restore -U "$$POSTGRES_USER" -d "$$POSTGRES_DB" --clean --if-exists --no-owner --no-acl' < $(DUMP)
+	@echo "✅ Restored from $(DUMP)"
+
+prod-dbshell:
+	$(COMPOSE_PROD) exec db sh -c 'psql -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+
 # Linting and Formatting commands
 lint:
 	@echo "🔍 Running ruff linter..."

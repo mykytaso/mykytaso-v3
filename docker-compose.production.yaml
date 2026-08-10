@@ -1,24 +1,32 @@
+# Database credentials, defined once and shared by both services.
+# POSTGRES_PASSWORD comes from .env (deploy runs compose with --env-file=.env).
+# The `:?` guard stops the deploy loudly instead of starting Postgres with a wrong password.
+x-postgres-env: &postgres-env
+  POSTGRES_DB: mykytaso_db
+  POSTGRES_USER: mykyta
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set}
+
 services:
-  mykytaso_app: &app
+  mykytaso_app:
     image: ghcr.io/mykytaso/mykytaso-v3:${GITHUB_SHA:-latest}
     command: make prod
     container_name: mykytaso_app
     networks:
       - mykytaso_network
     environment:
-      - MODE=production
-      - PYTHONUNBUFFERED=1
-      - DEBUG=false
-      - APP_HOST=https://mykytaso.com
-      - POSTGRES_DB=mykytaso_db
-      - POSTGRES_HOST=host.docker.internal
-      - POSTGRES_USER=mykyta
-      - POSTGRES_PASSWORD
+      <<: *postgres-env
+      MODE: production
+      PYTHONUNBUFFERED: 1
+      DEBUG: "false"
+      APP_HOST: https://mykytaso.com
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
     env_file:
       - .env
     restart: unless-stopped
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
       - ./frontend/static:/tmp/static
     ports:
@@ -28,6 +36,43 @@ services:
       options:
         max-size: "100M"
         max-file: "3"
+
+  db:
+    image: postgres:18.0
+    container_name: mykytaso_db
+    networks:
+      - mykytaso_network
+    # No `env_file: .env` on purpose:
+    #   - .env carries a PGDATA value that would point Postgres away from the mounted
+    #     volume, so the data would land in the container layer and be lost on recreate.
+    #   - the database has no business receiving SECRET_KEY / SENTRY_DSN.
+    environment:
+      <<: *postgres-env
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    # Loopback only — reachable from the host for backups and psql, never from the internet.
+    ports:
+      - "127.0.0.1:5432:5432"
+    restart: unless-stopped
+    # Default 10s is not always enough for a clean Postgres shutdown.
+    stop_grace_period: 1m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mykyta -d mykytaso_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100M"
+        max-file: "3"
+
+# WARNING: `docker compose down -v` deletes db-data and with it the whole database.
+volumes:
+  db-data:
+    driver: local
 
 networks:
   mykytaso_network:
