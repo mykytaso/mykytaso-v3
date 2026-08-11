@@ -87,6 +87,12 @@
                     margin: 0 4px 0 0;
                 }
 
+                /* Marks a post that is not visible on the site yet. Only the superuser gets these posts in the list. */
+                .card__not-published {
+                    color: var(--danger-color);
+                    font-weight: 400;
+                }
+
 
             .card__date {
                 font-size: 16px;
