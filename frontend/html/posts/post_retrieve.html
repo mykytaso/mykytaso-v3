@@ -5,23 +5,54 @@
 {% block title %} - {{ post.title }}{% endblock %}
 
 {% block meta %}
+    {# The og_* fields are optional. Without these fallbacks a post that does #}
+    {# not fill them gives empty tags, and every share is a blank card.       #}
+    {% firstof post.og_title post.title as meta_title %}
+    {% firstof post.og_description post.subtitle post.title as meta_description %}
+    {% firstof post.og_image post.cover_image as meta_image %}
+
+    <meta name="description" content="{{ meta_description }}">
+
     {# Open Graph Meta Tags #}
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Mykyta's Blog">
-    <meta property="og:title" content="{{ post.og_title }}" />
-    <meta property="og:description" content="{{ post.og_description }}" />
-    <meta property="og:image" content="{{ post.og_image }}" />
+    <meta property="og:title" content="{{ meta_title }}" />
+    <meta property="og:description" content="{{ meta_description }}" />
+    <meta property="og:image" content="{% if meta_image %}{{ meta_image }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.jpg' %}{% endif %}" />
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}" />
 
     {# Article Meta Tags #}
     <meta property="article:author" content="{{ request.scheme }}://{{ request.get_host }}{% url 'about_me' %}">
     <meta property="article:published_time" content="{{ post.published_at|date:"c" }}">
+    <meta property="article:modified_time" content="{{ post.updated_at|date:"c" }}">
 
     {# Twitter Card Meta Tags #}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ post.og_title }}">
-    <meta name="twitter:description" content="{{ post.og_description }}">
-    <meta name="twitter:image" content="{{ post.og_image }}">
+    <meta name="twitter:title" content="{{ meta_title }}">
+    <meta name="twitter:description" content="{{ meta_description }}">
+    <meta name="twitter:image" content="{% if meta_image %}{{ meta_image }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/twitter.jpg' %}{% endif %}">
+
+    {# Structured data, for rich results #}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "{{ post.title|escapejs }}",
+        "description": "{{ meta_description|escapejs }}",
+        "datePublished": "{{ post.published_at|date:"c" }}",
+        "dateModified": "{{ post.updated_at|date:"c" }}",
+        "author": {
+            "@type": "Person",
+            "name": "Mykyta",
+            "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'about_me' %}"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"
+        }{% if meta_image %},
+        "image": "{{ meta_image|escapejs }}"{% endif %}
+    }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -32,9 +63,9 @@
         {% endif %}
         <article class="container__post">
             {% if post.title %}
-                <div class="post__title">
+                <h1 class="post__title">
                     {{ post.title }}
-                </div>
+                </h1>
             {% endif %}
             <div class="post__info">
                 <div class="post__info-left">
@@ -55,7 +86,9 @@
                    {{ post.created_at|date:"M j, Y" }}
                 {% endif %}
             </div>
-            <img class="post__cover-image" src="{{ post.cover_image }}" alt="">
+            {% if post.cover_image %}
+                <img class="post__cover-image" src="{{ post.cover_image }}" alt="{{ post.title }}">
+            {% endif %}
             <div class="post__content">
                 {% render_post post %}
             </div>

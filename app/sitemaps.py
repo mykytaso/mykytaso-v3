@@ -15,8 +15,12 @@ class PostSitemap(Sitemap):
         return Post.visible_objects()
 
     def lastmod(self, obj):
-        """Return the last modification time of the post."""
-        return obj.published_at or obj.updated_at
+        """Return the last modification time of the post.
+
+        updated_at, and not published_at: published_at is set one time and never
+        changes, thus a crawler would never see that an edited post is new.
+        """
+        return obj.updated_at
 
 
 class StaticViewSitemap(Sitemap):
