@@ -78,6 +78,13 @@
             filter: invert(1);
         }
 
+    /* Wrapper for the Logout button. It is only a flex item, thus the button keeps the same size as the <a> items beside it. */
+    .navbar__logout {
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
     .navbar__menu {
         display: flex;
         flex-direction: row;
@@ -102,6 +109,14 @@
     align-items: center;
     /*border: solid 1px red;*/
 }
+
+    /*
+    The editor puts the body and the preview side by side, thus it needs more width than a post.
+    Below 1024px the responsive rules make the padding the same as the rest of the site again, because there the panes are stacked.
+    */
+    .container--wide {
+        padding: 40px 40px 0 40px;
+    }
 
     .container__card-list {
         display: flex;
@@ -136,6 +151,18 @@
         width: 100%;
         min-width: 300px;
         max-width: 680px;
+        padding: 0;
+        margin: 0;
+        /*border: solid 1px red;*/
+    }
+
+    .container__editor {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        width: 100%;
+        min-width: 300px;
+        max-width: 1800px;   /* much wider than a post, to hold two panes */
         padding: 0;
         margin: 0;
         /*border: solid 1px red;*/
@@ -185,6 +212,9 @@
     }
     .navbar {
         justify-content: center;
+    }
+    .container__editor {
+        max-width: 680px;
     }
 }
 
