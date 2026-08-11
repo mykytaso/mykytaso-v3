@@ -45,6 +45,10 @@
                                         <img src="{% static 'images/icons/view.png' %}" alt="Views" class="icon">
                                         {{ post.view_count|abbreviate_number }}
                                     </span>
+                                    {# Only the superuser sees hidden posts in this list. #}
+                                    {% if not post.is_visible %}
+                                        <span class="card__not-published">Not Published</span>
+                                    {% endif %}
                                 </div>
 
                                 <span class="card__date">
