@@ -3,7 +3,7 @@ from uuid import uuid4
 from slugify import slugify
 
 
-def generate_unique_slug(model, name, separator="-", max_length=50):
+def generate_unique_slug(model, name, separator="-", max_length=50, exclude_pk=None, reserved=()):
     """
     Generate a unique slug for a Django model instance.
 
@@ -12,6 +12,14 @@ def generate_unique_slug(model, name, separator="-", max_length=50):
         name: Base name to generate slug from
         separator: Character to use as separator (default: "-")
         max_length: Maximum length of the slug (default: 50)
+        exclude_pk: Primary key to ignore when looking for collisions. Pass the
+            instance's own primary key when you regenerate the slug of a row
+            that already exists. If you do not, its current slug counts as a
+            collision and "my-post" becomes "my-post-1".
+        reserved: Slugs that are never permitted, whatever the database
+            contains. Use it for literal URL segments that catch the same path
+            as the detail route. A reserved slug gets a counter suffix, thus
+            "new" becomes "new-1".
 
     Returns:
         str: Unique slug for the model
@@ -20,7 +28,13 @@ def generate_unique_slug(model, name, separator="-", max_length=50):
     slug = base_slug
     counter = 1
 
-    while model.objects.filter(slug__iexact=slug).exists():
+    reserved_slugs = {value.lower() for value in reserved}
+
+    queryset = model.objects.all()
+    if exclude_pk is not None:
+        queryset = queryset.exclude(pk=exclude_pk)
+
+    while slug.lower() in reserved_slugs or queryset.filter(slug__iexact=slug).exists():
         suffix = f"{separator}{counter}"
         slug = f"{base_slug[: max_length - len(suffix)]}{suffix}"
         counter += 1
