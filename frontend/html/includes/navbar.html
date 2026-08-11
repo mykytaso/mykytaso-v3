@@ -22,6 +22,20 @@
             <span>About</span>
         </a>
 
+        {% if request.user.is_superuser %}
+            <a class="button navbar__item {% if url_name == 'post_create' %}navbar__item--active{% endif %}" href="{% url 'post_create' %}">
+                <span>New post</span>
+            </a>
+
+            {# LogoutView accepts POST only, because this is a form and not a link. #}
+            <form method="post" action="{% url 'logout' %}" class="navbar__logout">
+                {% csrf_token %}
+                <button type="submit" class="button navbar__item">
+                    <span>Logout</span>
+                </button>
+            </form>
+        {% endif %}
+
         <label class="theme-switcher" for="theme-checkbox">
             <input type="checkbox" id="theme-checkbox" class="theme-switcher__input"/>
             <span class="theme-switcher__slider"></span>
