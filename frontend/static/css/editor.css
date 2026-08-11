@@ -1,0 +1,333 @@
+/* ----------------------------------------------------------- */
+/* -------------------------- EDITOR ------------------------- */
+/* ----------------------------------------------------------- */
+/* Superuser-only post editor (posts/post_form.html).           */
+
+.editor__header {
+    width: 100%;
+    padding: 0 0 30px 0;
+    border-bottom: solid 1px var(--divider-color);
+    /*border: solid 1px red;*/
+}
+
+    .editor__heading {
+        font-size: 32px;
+        font-weight: 900;
+        line-height: var(--line-height-s);
+    }
+
+.editor__form {
+    width: 100%;
+}
+
+
+/* ----------------------------------------------------------- */
+/* ---------------------- META COLUMNS ----------------------- */
+/* ----------------------------------------------------------- */
+/* All the fields but the body: the content data on the left,   */
+/* the rendering, Open Graph and publishing groups on the       */
+/* right. The body and the preview are below, in .editor__panes */
+/* across the full width.                                       */
+
+.editor__meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 80px;   /* the same gutter as .editor__panes below */
+    width: 100%;
+    padding: 0 0 40px 0;
+    border-bottom: solid 1px var(--divider-color);
+}
+
+    .editor__column {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+
+/* ----------------------------------------------------------- */
+/* ------------------------- SECTIONS ------------------------ */
+/* ----------------------------------------------------------- */
+.editor__section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 30px 0;
+    border-bottom: solid 1px var(--divider-color);
+}
+
+    /* The two columns do not have the same height, thus a rule below each   */
+    /* section would not line up across the grid. The single rule below      */
+    /* .editor__meta replaces them.                                          */
+    .editor__meta .editor__section {
+        padding: 30px 0 0 0;
+        border-bottom: none;
+    }
+
+    .editor__section-title {
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08rem;
+        color: var(--text-color-secondary);
+    }
+
+    .editor__field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+        .editor__label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .editor__help {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-color-secondary);
+        }
+
+        .editor__error {
+            font-size: 14px;
+            color: var(--danger-color);
+        }
+
+    /* A checkbox reads better with the control before the label. */
+    .editor__field--inline {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .editor__field--inline .editor__help,
+        .editor__field--inline .editor__error {
+            width: 100%;
+        }
+
+
+/* ----------------------------------------------------------- */
+/* ------------------------- CONTROLS ------------------------ */
+/* ----------------------------------------------------------- */
+/* Selected by input type, not by class, the same way post.css  */
+/* selects .post__content h1 / code / pre.                      */
+
+.editor__form input[type="text"],
+.editor__form input[type="url"],
+.editor__form input[type="datetime-local"],
+.editor__form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--roboto-font);
+    font-size: 18px;
+    line-height: var(--line-height-m);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border: var(--input-border);
+    border-radius: var(--button-border-radius);
+    outline: none;
+    color-scheme: light;
+}
+
+    .editor__form input[type="text"]:focus,
+    .editor__form input[type="url"]:focus,
+    .editor__form input[type="datetime-local"]:focus,
+    .editor__form textarea:focus {
+        border: var(--input-border-focus);
+    }
+
+    /* Makes the native date picker and the inner scrollbars follow the theme. */
+    /* Limited to the editor, thus the rest of the site does not change.       */
+    html[theme="dark"] .editor__form input,
+    html[theme="dark"] .editor__form textarea {
+        color-scheme: dark;
+    }
+
+    .editor__form input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+        accent-color: var(--button-bg-color);
+        cursor: pointer;
+    }
+
+    .editor__form textarea {
+        resize: vertical;
+        font-family: var(--source-code-pro-font);
+        font-size: 16px;
+        line-height: var(--line-height-l);
+    }
+
+        /* The body sets the height of the row. flex-basis is auto, not 0, thus */
+        /* the resize handle still makes the row higher.                        */
+        /* This min-height is the only control for the height of both panes:    */
+        /* the preview always follows the body. 70vh fills a tall window, and   */
+        /* 640px is the minimum for a short one.                                */
+        .editor__form textarea[name="text"] {
+            flex: 1 1 auto;
+            min-height: max(640px, 70vh);
+        }
+
+
+/* ----------------------------------------------------------- */
+/* --------------------- SOURCE / PREVIEW -------------------- */
+/* ----------------------------------------------------------- */
+.editor__panes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 80px;   /* the same gutter as .editor__meta above */
+    width: 100%;
+    padding: 10px 0 0 0;
+}
+
+    .editor__pane {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;   /* lets .highlight pre scroll instead of making the grid wider */
+        min-height: 0;  /* lets the children shrink inside the row */
+    }
+
+        /* The grid makes both panes as high as the highest one. The body field */
+        /* fills its pane, thus the textarea and the preview are always the     */
+        /* same height, and the textarea keeps its resize handle: when you drag */
+        /* it, the row becomes higher and the preview follows.                  */
+        .editor__pane .editor__field {
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+    /* The scroll box. The text inside it is .editor__preview-content below. */
+    .editor__preview {
+        /* flex-basis 0 and min-height 0, thus the content of the preview never */
+        /* makes the row higher. The body sets the height and the preview       */
+        /* follows it, with its own scrollbar.                                  */
+        flex: 1 1 0;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 4px 18px;
+        border: var(--input-border);
+        border-radius: var(--button-border-radius);
+    }
+
+        /* Carries .post__content as well, thus the type, the code blocks and  */
+        /* the tables look the same as on the published page. The width is the */
+        /* same as .container__post in layout.css, thus the text wraps exactly  */
+        /* as a reader sees it. The scroll box around it keeps the full width   */
+        /* of the pane, thus it still lines up with the body textarea beside it. */
+        .editor__preview-content {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .editor__preview-empty {
+            color: var(--text-color-secondary);
+            font-style: italic;
+        }
+
+
+/* ----------------------------------------------------------- */
+/* -------------------------- ACTIONS ------------------------ */
+/* ----------------------------------------------------------- */
+.editor__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 30px 0 0 0;
+}
+
+    .editor__actions-spacer {
+        margin-left: auto;
+    }
+
+    /* .button sets the color with !important, thus the modifiers need it too. */
+    .editor__button--secondary {
+        background-color: transparent;
+        color: var(--text-color) !important;
+        border: var(--input-border);
+    }
+
+        /* The border must be here too. base.css sets border: 0 on .button:hover */
+        /* with the same specificity, thus the border goes away without it.      */
+        .editor__button--secondary:hover {
+            background-color: var(--button-nav-hover-bg-color);
+            color: var(--text-color) !important;
+            border: var(--input-border);
+        }
+
+    .editor__button--danger {
+        background-color: transparent;
+        color: var(--danger-color) !important;
+        border: solid 1px var(--danger-color);
+    }
+
+        /* Delete does not react to the mouse. This rule only cancels           */
+        /* .button:hover in base.css, which would make the button blue and take */
+        /* the red border away. It repeats the values above.                    */
+        .editor__button--danger:hover {
+            background-color: transparent;
+            color: var(--danger-color) !important;
+            border: solid 1px var(--danger-color);
+        }
+
+
+/* ----------------------------------------------------------- */
+/* ------------------------ RESPONSIVE ----------------------- */
+/* ----------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .editor__meta {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .editor__panes {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    /* Stacked, thus each pane is its own grid row and the two cannot share a  */
+    /* height. Both get the same explicit height instead. flex must go back to */
+    /* "do not fill", because there is no shared row to fill, and the height   */
+    /* must be exact: a min-height would let the rows="24" attribute of the    */
+    /* textarea widget make the body about 600px while the preview stays 420.  */
+    .editor__pane .editor__field,
+    .editor__form textarea[name="text"],
+    .editor__preview {
+        flex: 0 0 auto;
+    }
+
+    /* min-height cancels the max(640px, 70vh) on the textarea above. */
+    .editor__form textarea[name="text"],
+    .editor__preview {
+        height: 420px;
+        min-height: 0;
+    }
+}
+
+
+@media (max-width: 570px) {
+    .editor__heading {
+        font-size: 26px;
+    }
+
+    .editor__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .editor__actions-spacer {
+        margin-left: 0;
+    }
+
+    .editor__form textarea[name="text"],
+    .editor__preview {
+        height: 320px;
+    }
+}

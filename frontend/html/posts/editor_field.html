@@ -1,0 +1,26 @@
+{# One editor field: label, widget, help text, errors. #}
+{# A checkbox reads better with the control before the label. #}
+
+{% if field.widget_type == "checkbox" %}
+    <div class="editor__field editor__field--inline">
+        {{ field }}
+        <label class="editor__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.help_text %}
+            <div class="editor__help">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+            <div class="editor__error">{{ error }}</div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="editor__field">
+        <label class="editor__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+            <div class="editor__help">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+            <div class="editor__error">{{ error }}</div>
+        {% endfor %}
+    </div>
+{% endif %}

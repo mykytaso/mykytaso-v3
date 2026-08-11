@@ -1,0 +1,15 @@
+{# Live preview fragment for the editor. #}
+{# post_form.html also includes it directly, thus the pane is not empty on the #}
+{# first paint and no request is necessary when the page loads. #}
+{# The |safe filter is correct here: the content is the markdown output of the #}
+{# superuser, or their own raw HTML, and only superuser_only views use it. #}
+{# .post__content is on this inner div, not on the scroll box, thus the text   #}
+{# has the same column width as on the real post page. #}
+
+{% if preview_html %}
+    <div class="post__content editor__preview-content">
+        {{ preview_html|safe }}
+    </div>
+{% else %}
+    <div class="editor__preview-empty">Nothing to preview yet.</div>
+{% endif %}

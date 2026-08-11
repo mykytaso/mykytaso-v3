@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block title %} - {% if post %}Edit post{% else %}New post{% endif %}{% endblock %}
+
+{% block meta %}{# Superuser-only page: no social metadata #}{% endblock %}
+
+{% block content %}
+
+    <div class="container container--wide">
+
+        {# Display messages #}
+        {% if messages %}
+            {% include "includes/message_form.html" %}
+        {% endif %}
+
+        <div class="container__editor">
+
+            <div class="editor__header">
+                <div class="editor__heading">
+                    {% if post %}Edit post{% else %}New post{% endif %}
+                </div>
+            </div>
+
+            {% for error in form.non_field_errors %}
+                <div class="editor__error">{{ error }}</div>
+            {% endfor %}
+
+            <form method="post" class="editor__form">
+                {% csrf_token %}
+
+                {# Everything but the body, in two columns. The body and the #}
+                {# preview go below, across the full width.                  #}
+                <div class="editor__meta">
+
+                    <div class="editor__column">
+                        <div class="editor__section">
+                            <div class="editor__section-title">Content</div>
+
+                            {% include "posts/editor_field.html" with field=form.title %}
+                            {% include "posts/editor_field.html" with field=form.subtitle %}
+                            {% include "posts/editor_field.html" with field=form.slug %}
+                            {% include "posts/editor_field.html" with field=form.cover_image %}
+                        </div>
+                    </div>
+
+                    <div class="editor__column">
+                        <div class="editor__section">
+                            <div class="editor__section-title">Rendering</div>
+
+                            {% include "posts/editor_field.html" with field=form.is_raw_html %}
+                        </div>
+
+                        <div class="editor__section">
+                            <div class="editor__section-title">Open Graph / Social Media</div>
+
+                            {% include "posts/editor_field.html" with field=form.og_title %}
+                            {% include "posts/editor_field.html" with field=form.og_description %}
+                            {% include "posts/editor_field.html" with field=form.og_image %}
+                        </div>
+
+                        <div class="editor__section">
+                            <div class="editor__section-title">Publishing</div>
+
+                            {% include "posts/editor_field.html" with field=form.is_visible %}
+                            {% include "posts/editor_field.html" with field=form.published_at %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="editor__section">
+                    <div class="editor__panes">
+                        <div class="editor__pane">
+                            {% include "posts/editor_field.html" with field=form.text %}
+                        </div>
+
+                        <div class="editor__pane">
+                            <div class="editor__label">Preview</div>
+
+                            {# For non-GET requests htmx sends all the fields of the  #}
+                            {# parent form. Thus text and is_raw_html go with the     #}
+                            {# request and hx-include is not necessary. The CSRF      #}
+                            {# token goes in the body, and the global                 #}
+                            {# htmx:configRequest listener in includes/scripts.html   #}
+                            {# adds the X-CSRFToken header.                           #}
+                            <div id="editor-preview"
+                                 class="editor__preview"
+                                 hx-post="{% url 'post_preview' %}"
+                                 hx-trigger="input changed delay:500ms from:#id_text,
+                                             change from:#id_is_raw_html"
+                                 hx-swap="innerHTML"
+                            >
+                                {% include "posts/post_preview.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor__actions">
+                    <button type="submit" class="button">Save</button>
+
+                    <a class="button editor__button--secondary" href="{% url 'post_list' %}">
+                        Cancel
+                    </a>
+
+                    {% if post %}
+                        {# Forms cannot be inside other forms, thus the delete form is #}
+                        {# below and the form= attribute connects the button to it.    #}
+                        <button type="submit"
+                                form="post-delete-form"
+                                class="button editor__button--danger editor__actions-spacer">
+                            Delete
+                        </button>
+                    {% endif %}
+                </div>
+            </form>
+
+            {% if post %}
+                <form id="post-delete-form"
+                      method="post"
+                      action="{% url 'post_delete' post.slug %}"
+                      onsubmit="return confirm('Delete “{{ post.title|escapejs }}”? This cannot be undone.');">
+                    {% csrf_token %}
+                </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+{% endblock %}
