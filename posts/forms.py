@@ -2,7 +2,7 @@ from typing import ClassVar
 
 from django import forms
 
-from posts.models import RESERVED_SLUGS, Post
+from posts.models import Post
 from utils.slug import generate_unique_slug
 
 
@@ -61,23 +61,6 @@ class PostForm(forms.ModelForm):
             "the post becomes visible.",
         }
 
-    def clean_slug(self):
-        """Refuse the literal routes below "posts/" in app/urls.py.
-
-        A post with the slug "new" saves correctly and is then unreachable: its
-        get_absolute_url() gives "/posts/new/", which resolves to post_create.
-        The reader gets a 404 from a link on the post list page.
-
-        The generated slug in clean() does not come here, thus it passes the
-        same set to generate_unique_slug().
-        """
-        slug = self.cleaned_data["slug"]
-
-        if slug.lower() in RESERVED_SLUGS:
-            raise forms.ValidationError(f"'{slug}' is a reserved URL. Use a different slug.")
-
-        return slug
-
     def clean(self):
         """Fill an empty slug here instead of in Post.save().
 
@@ -97,7 +80,6 @@ class PostForm(forms.ModelForm):
             Post,
             cleaned_data.get("title", ""),
             exclude_pk=self.instance.pk,
-            reserved=RESERVED_SLUGS,
         )
         # A post with no title makes an empty slug, and its get_absolute_url() cannot be reversed.
         # Post.id is a UUID with a default, thus instance.pk exists before the first save.
