@@ -39,7 +39,7 @@ class Post(models.Model):
 
     def save(self, flush_cache=True, *args, **kwargs):
         if not self.slug:
-            self.slug = generate_unique_slug(Post, self.title)
+            self.slug = generate_unique_slug(Post, self.title, exclude_pk=self.pk)
 
         if not self.published_at and self.is_visible:
             self.published_at = datetime.now()
