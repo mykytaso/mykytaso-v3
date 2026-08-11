@@ -69,6 +69,9 @@ html, html[theme="light"] {
     /* Select */
     --input-border: solid 1px #DBDFE4;
     --input-border-focus: solid 1px #0C1014;
+
+    /* Destructive actions */
+    --danger-color: #dc3545;
 }
 
 
@@ -103,6 +106,9 @@ html[theme="dark"] {
     /* Select */
     --input-border: solid 1px #2B3036;
     --input-border-focus: solid 1px #F8F9F9;
+
+    /* Destructive actions */
+    --danger-color: #ff6b6b;
 }
 
 /* ----------------------------------------------------------- */
