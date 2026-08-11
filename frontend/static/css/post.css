@@ -75,6 +75,17 @@
                 color: var(--text-color) !important;
             }
 
+        /* The "Edit" link in .post__info, shown to the superuser only. */
+        .post__admin-link {
+            color: var(--danger-color) !important;
+            font-weight: 300;
+            text-decoration: none !important;
+        }
+
+            .post__admin-link:hover {
+                text-decoration: underline !important;
+            }
+
 
 /* -----------------------------------------------------------  */
 /* ---------------------- POST CONTENT ----------------------- */
