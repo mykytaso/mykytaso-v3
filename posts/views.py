@@ -28,11 +28,13 @@ def post_list(request):
 
 
 def post_retrieve(request, slug):
-    post = get_object_or_404(Post, slug=slug)
+    queryset = Post.objects.all() if request.user.is_superuser else Post.visible_objects()
+    post = get_object_or_404(queryset, slug=slug)
 
-    # Increment view count atomically
-    Post.objects.filter(slug=slug).update(view_count=F("view_count") + 1)
-    post.refresh_from_db()
+    # Increment view count atomically, but do not count admin views
+    if not request.user.is_superuser:
+        Post.objects.filter(slug=slug).update(view_count=F("view_count") + 1)
+        post.refresh_from_db()
 
     # Determine if the current IP has liked this post
     ip_address = get_client_ip(request)
