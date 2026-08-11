@@ -43,6 +43,11 @@
                         <img src="{% static 'images/icons/view.png' %}" alt="Views" class="icon">
                         {{ post.view_count }}
                     </div>
+                    {% if request.user.is_superuser %}
+                        <div>
+                            <a class="post__admin-link" href="{% url 'post_update' post.slug %}">Edit</a>
+                        </div>
+                    {% endif %}
                 </div>
                 {% if post.published_at %}
                    {{ post.published_at|date:"M j, Y" }}
