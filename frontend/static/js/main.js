@@ -29,6 +29,20 @@ function initializeImageZoom() {
     });
 }
 
+// Editor image panel: copy the URL of an image to the clipboard.
+function handleImagePanelClick(event) {
+    const copyButton = event.target.closest("[data-copy-url]");
+    if (!copyButton) {
+        return;
+    }
+
+    navigator.clipboard.writeText(copyButton.dataset.copyUrl).then(() => {
+        const original = copyButton.textContent;
+        copyButton.textContent = "Copied";
+        setTimeout(() => { copyButton.textContent = original; }, 1200);
+    });
+}
+
 // Close mobile menu when clicking outside
 function closeMobileMenuOnOutsideClick(event) {
     const menu = document.getElementById('navbar-menu');
@@ -63,4 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Add click listener to close mobile menu when clicking outside
     document.addEventListener('click', closeMobileMenuOnOutsideClick);
+
+    // Editor image panel buttons (superuser only pages)
+    document.addEventListener('click', handleImagePanelClick);
 });
