@@ -15,7 +15,7 @@ dependencies = [
     "sentry-sdk[django]>=2.67.1",
     "python-dateutil>=2.9.0.post0",
     "rich>=15.0.0",
-    "pillow>=11.0.0",
+    "pillow>=12.3.0",
 ]
 
 [tool.ruff]
