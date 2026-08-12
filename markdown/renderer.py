@@ -30,7 +30,7 @@ class CustomRenderer(mistune.HTMLRenderer):
         formatter = HtmlFormatter(
             cssclass="highlight",
             style="dracula",  # nord-darker, monokai, material, dracula, lightbulb, one-dark
-            noclasses=True,  # Use CSS classes instead of inline styles
+            noclasses=True,  # Write the colours as inline styles, not as CSS classes
         )
 
         return highlight(code, lexer, formatter)
