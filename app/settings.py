@@ -114,6 +114,10 @@ AUTH_USER_MODEL = "users.User"
 # Sites framework
 SITE_ID = 1
 
+# The brand name for og:site_name.
+# It is defined one time here, because the post page overrides the whole meta block and would otherwise drift from the layout.
+SITE_NAME = "mykytaso.com"
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
