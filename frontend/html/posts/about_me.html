@@ -41,8 +41,14 @@
             </div>
 
             <div class="about-me__work-experience">
-                I’ve been writing code for {{ delta.years }} year{{ delta.years|pluralize }}, {{ delta.months }}
-                month{{ delta.months|pluralize }}, and {{ delta.days }} day{{ delta.days|pluralize }}
+                I’ve been writing code for {{ delta.years }} years
+              {% if delta.months and delta.days %}
+                , {{ delta.months }} month{{ delta.months|pluralize }}, and {{ delta.days }} day{{ delta.days|pluralize }}
+              {% elif delta.months %}
+                 and {{ delta.months }} month{{ delta.months|pluralize }}
+              {% elif delta.days %}
+                 and {{ delta.days }} day{{ delta.days|pluralize }}
+              {% endif %}
             </div>
 
             <div class="about-me__resume-link">
