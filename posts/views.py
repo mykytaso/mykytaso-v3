@@ -70,8 +70,9 @@ def robots_txt(request):
 
     lines = [
         "User-agent: *",
+        "Allow: /",
+        "",
         f"Sitemap: https://{request.get_host()}/sitemap.xml",
-        "Disallow: /kerivnyk/",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
