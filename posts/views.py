@@ -10,8 +10,8 @@ from django.views.decorators.http import require_POST
 
 from markdown.markdown import markdown_text
 from posts.decorators import superuser_only
-from posts.forms import PostForm
-from posts.models import Post
+from posts.forms import PostForm, PostImageUploadForm
+from posts.models import Post, PostImage
 from utils.request import get_client_ip
 
 
@@ -93,8 +93,13 @@ def _render_preview_html(text, *, is_raw_html):
     return text if is_raw_html else markdown_text(text)
 
 
-def _editor_context(form, post=None):
-    """Make the context for post_form.html, with the preview already rendered."""
+def _editor_context(request, form, post=None):
+    """
+    Make the context for post_form.html, with the preview already rendered.
+
+    upload_form and site_url are here too, because post_form.html includes the image panel.
+    The panel needs the same context when htmx swaps it later; see _image_panel().
+    """
 
     return {
         "form": form,
@@ -103,6 +108,8 @@ def _editor_context(form, post=None):
             form["text"].value() or "",
             is_raw_html=bool(form["is_raw_html"].value()),
         ),
+        "upload_form": PostImageUploadForm(),
+        "site_url": request.build_absolute_uri("/").rstrip("/"),
     }
 
 
@@ -118,7 +125,7 @@ def post_create(request):
     else:
         form = PostForm()
 
-    return render(request, "posts/post_form.html", _editor_context(form))
+    return render(request, "posts/post_form.html", _editor_context(request, form))
 
 
 @superuser_only
@@ -137,7 +144,7 @@ def post_update(request, slug):
     else:
         form = PostForm(instance=post)
 
-    return render(request, "posts/post_form.html", _editor_context(form, post))
+    return render(request, "posts/post_form.html", _editor_context(request, form, post))
 
 
 @superuser_only
@@ -163,3 +170,52 @@ def post_preview(request):
         is_raw_html=request.POST.get("is_raw_html") in {"on", "true", "1"},
     )
     return render(request, "posts/post_preview.html", {"preview_html": html})
+
+
+# ---------------------------------------------------------------------------
+# Post images (superuser only)
+# ---------------------------------------------------------------------------
+
+
+def _image_panel(request, post, upload_form=None):
+    """Render the image panel fragment that htmx swaps into #image-panel."""
+
+    return render(
+        request,
+        "posts/image_panel.html",
+        {
+            "post": post,
+            "upload_form": upload_form or PostImageUploadForm(),
+            # The copy button must give an absolute URL: cover_image and og_image are URLFields and refuse a path without a scheme.
+            "site_url": request.build_absolute_uri("/").rstrip("/"),
+        },
+    )
+
+
+@superuser_only
+@require_POST
+def post_image_upload(request, slug):
+    """Store the uploaded images and return the panel again."""
+
+    post = get_object_or_404(Post, slug=slug)
+    form = PostImageUploadForm(request.POST, request.FILES)
+
+    if not form.is_valid():
+        return _image_panel(request, post, upload_form=form)
+
+    for file in form.cleaned_data["files"]:
+        PostImage.objects.create(post=post, file=file)
+
+    return _image_panel(request, post)
+
+
+@superuser_only
+@require_POST
+def post_image_delete(request, slug, image_id):
+    """Delete one image of one post. The file goes with it, see posts/signals.py."""
+
+    post = get_object_or_404(Post, slug=slug)
+    # The filter takes the post too, thus a wrong pair gives 404 and never deletes an image of another post.
+    get_object_or_404(PostImage, id=image_id, post=post).delete()
+
+    return _image_panel(request, post)
