@@ -1,10 +1,19 @@
 from django.contrib import admin
 
-from .models import Post
+from .models import Post, PostImage
+
+
+class PostImageInline(admin.TabularInline):
+    """A fallback for the editor image panel. The panel is the normal way."""
+
+    model = PostImage
+    extra = 0
+    readonly_fields = ("width", "height", "created_at")
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
+    inlines = (PostImageInline,)
     list_display = ("title", "is_visible", "published_at", "created_at", "like_count_display")
     list_filter = ("is_visible", "published_at")
     search_fields = ("title", "subtitle", "text", "og_title", "og_description")
