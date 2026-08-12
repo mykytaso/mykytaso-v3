@@ -29,6 +29,10 @@ services:
         condition: service_healthy
     volumes:
       - ./frontend/static:/tmp/static
+      # Uploaded post images.
+      # A bind mount, not a named volume: nginx is a host process and must read a normal host path.
+      # The files stay after a redeploy.
+      - ./media:/app/media
     ports:
       - "127.0.0.1:8012:8012"
     logging:
