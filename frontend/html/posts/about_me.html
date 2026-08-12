@@ -3,6 +3,28 @@
 
 {% block title %} - About{% endblock %}
 
+{% block meta %}
+    {# This block replaces the one in layout.html, thus it must repeat the image tags too. #}
+    {% with meta_title="About Mykyta" meta_description="Mykyta is a backend engineer. Read about his work, his path into engineering, 3D design in Fusion 360, and analog film photography." %}
+        <meta name="description" content="{{ meta_description }}">
+
+        {# Open Graph Meta Tags #}
+        <meta property="og:type" content="profile"/>
+        <meta property="og:site_name" content="{{ settings.SITE_NAME }}"/>
+        <meta property="og:title" content="{{ meta_title }}"/>
+        <meta property="og:description" content="{{ meta_description }}"/>
+        <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"/>
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.jpg' %}"/>
+
+        {# Twitter Card Meta Tags #}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ meta_title }}">
+        <meta name="twitter:description" content="{{ meta_description }}">
+        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/twitter.jpg' %}">
+        <meta name="twitter:site" content="@mykytaso">
+    {% endwith %}
+{% endblock %}
+
 {% block content %}
     <div class="container">
 
@@ -12,7 +34,7 @@
         {% endif %}
 
         <div class="container__about-me">
-            <img class="about-me__image" src="https://mykytaso-v3.s3.amazonaws.com/mykytaso.com/about/photo.png" alt="">
+            <img class="about-me__image" src="https://mykytaso-v3.s3.amazonaws.com/mykytaso.com/about/photo.png" alt="Mykyta">
 
             <div class="about-me__hi">
                 Hi, I’m Mykyta
