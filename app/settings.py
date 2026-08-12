@@ -158,6 +158,21 @@ STATICFILES_DIRS = [
 ]
 
 
+# Media files (post images uploaded from the editor).
+# In production nginx serves /media/ from a bind mount.
+# Django only serves them when DEBUG is True.
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+# The largest image the editor accepts.
+# Nginx caps the whole request at 15M (client_max_body_size), thus this stays below it.
+MAX_IMAGE_UPLOAD_SIZE = 10 * 1024 * 1024
+
+# The container runs as root, but nginx runs as www-data and must read the files.
+# FILE_UPLOAD_PERMISSIONS is already 0o644 by default.
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
+
+
 # To prevent browsers from serving outdated cached CSS after deployment.
 STYLES_HASH = os.getenv("GITHUB_SHA") or str(randint(1, 10000))  # noqa: S311
 
