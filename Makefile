@@ -26,13 +26,13 @@ dev-rebuild:
 	$(COMPOSE_DEV) up --build --force-recreate
 
 docker-migrate:
-	$(COMPOSE_DEV) exec web uv run manage.py migrate
+	$(COMPOSE_DEV) exec mykytaso_app uv run manage.py migrate
 
 docker-makemigrations:
-	$(COMPOSE_DEV) exec web uv run manage.py makemigrations
+	$(COMPOSE_DEV) exec mykytaso_app uv run manage.py makemigrations
 
 docker-superuser:
-	$(COMPOSE_DEV) exec web uv run manage.py createsuperuser
+	$(COMPOSE_DEV) exec mykytaso_app uv run manage.py createsuperuser
 
 # Production database commands
 # Runs on the production host (not inside the app container).

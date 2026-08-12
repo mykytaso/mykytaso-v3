@@ -8,12 +8,12 @@ services:
   # ==========================================
   # Django Web Application Service
   # ==========================================
-  web:
+  mykytaso_app:
     # Build configuration
     build:
       context: .              # Build from current directory
       dockerfile: Dockerfile  # Use this Dockerfile
-    container_name: mykyta_app  # Name for easy reference
+    container_name: mykytaso_app  # Name for easy reference
     restart: unless-stopped   # Auto-restart unless manually stopped
 
     # Port mapping: host:container
@@ -21,11 +21,11 @@ services:
     ports:
       - "8000:8000"
 
-    hostname: web  # Network hostname for inter-container communication
+    hostname: mykytaso_app  # Network hostname for inter-container communication
 
     # Connect to custom network (allows services to find each other by name)
     networks:
-      - app-network
+      - mykytaso_network
 
     # Wait for database to be healthy before starting
     depends_on:
@@ -66,6 +66,7 @@ services:
   # ==========================================
   db:
     image: postgres:18.0      # Use official PostgreSQL 18 image
+    container_name: mykytaso_db  # Name for easy reference
     restart: unless-stopped
 
     # Port mapping: host:container
@@ -73,7 +74,7 @@ services:
     ports:
       - "5432:5432"
 
-    hostname: mykyta_db  # Network hostname
+    hostname: mykytaso_db  # Network hostname
 
     # Persist database data in named volume
     # Data survives container restarts
@@ -93,7 +94,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB?Variable not set}
 
     # Health check: verify database is ready to accept connections
-    # Used by web service's depends_on condition
+    # Used by mykytaso_app service's depends_on condition
     # -d flag specifies the database to check (prevents "database does not exist" error)
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
@@ -102,7 +103,7 @@ services:
       retries: 5     # Try 5 times before marking unhealthy
 
     networks:
-      - app-network
+      - mykytaso_network
 
 # ==========================================
 # Named Volumes
@@ -119,5 +120,5 @@ volumes:
 # ==========================================
 # Custom network allows services to communicate by name
 networks:
-  app-network:
+  mykytaso_network:
     driver: bridge  # Default bridge network driver
