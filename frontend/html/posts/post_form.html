@@ -96,6 +96,20 @@
                     </div>
                 </div>
 
+                <div class="editor__section">
+                    <div class="editor__section-title">Images</div>
+
+                    {% if post %}
+                        {# htmx swaps the content of this div after every upload and every delete. #}
+                        {# The upload form is the sibling for below, because forms cannot be inside other forms. #}
+                        <div id="image-panel">
+                            {% include "posts/image_panel.html" %}
+                        </div>
+                    {% else %}
+                        <div class="editor__help">Save the post first to add images.</div>
+                    {% endif %}
+                </div>
+
                 <div class="editor__actions">
                     <button type="submit" class="button">Save</button>
 
@@ -120,6 +134,21 @@
                       method="post"
                       action="{% url 'post_delete' post.slug %}"
                       onsubmit="return confirm('Delete “{{ post.title|escapejs }}”? This cannot be undone.');">
+                    {% csrf_token %}
+                </form>
+
+                {# The file input and the Upload button are in the image panel   #}
+                {# above and reach this form with the form= attribute. This form  #}
+                {# must stay outside the editor form: with enctype on the editor  #}
+                {# form, every 500 ms preview request would send the files again. #}
+                <form id="image-upload-form"
+                      method="post"
+                      enctype="multipart/form-data"
+                      action="{% url 'post_image_upload' post.slug %}"
+                      hx-post="{% url 'post_image_upload' post.slug %}"
+                      hx-encoding="multipart/form-data"
+                      hx-target="#image-panel"
+                      hx-swap="innerHTML">
                     {% csrf_token %}
                 </form>
             {% endif %}
