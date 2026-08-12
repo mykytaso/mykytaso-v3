@@ -48,6 +48,15 @@ prod-db-backup:
 	mv $$OUT.tmp $$OUT; \
 	echo "✅ Backup written to $$OUT ($$(du -h $$OUT | cut -f1))"
 
+prod-media-backup:
+	@mkdir -p backups
+	@set -e; \
+	test -d media || { echo "❌ media/ does not exist"; exit 1; }; \
+	OUT=backups/media_$$(date +%Y%m%d_%H%M%S).tar.gz; \
+	tar -czf $$OUT.tmp media || { rm -f $$OUT.tmp; exit 1; }; \
+	mv $$OUT.tmp $$OUT; \
+	echo "✅ Media backup written to $$OUT ($$(du -h $$OUT | cut -f1))"
+
 prod-db-restore:
 	@test -n "$(DUMP)" || { echo "❌ Usage: make prod-db-restore DUMP=backups/<file>.dump"; exit 1; }
 	@test -s "$(DUMP)" || { echo "❌ $(DUMP) is missing or empty"; exit 1; }
