@@ -88,6 +88,34 @@ Opens an interactive `psql` session in the `db` container. Exit with `\q`.
 
 ---
 
+
+## Production media
+
+Post images are uploaded from the editor and live on disk in `media/`.
+
+### Backup
+
+```bash
+make prod-media-backup
+```
+
+Writes `backups/media_<timestamp>.tar.gz` from the `media/` directory on the host. `backups/` is git-ignored.
+
+<br>
+
+### Restore
+
+There is no restore target, because a restore is a plain extraction. Run it from `/home/mykyta/mykytaso-v3/`:
+
+```bash
+tar -xzf backups/media_20260812_030000.tar.gz
+```
+
+This adds and overwrites files. It does not delete an image that the archive lacks.
+
+
+---
+
 ## `make prod` — Do not run manually!
 
 ```makefile
