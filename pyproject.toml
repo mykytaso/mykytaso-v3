@@ -12,9 +12,10 @@ dependencies = [
     "pygments>=2.20.0",
     "gunicorn>=26.0.0",
     "uvicorn>=0.52.1",
-    "sentry-sdk[django]>=2.66.1",
+    "sentry-sdk[django]>=2.67.1",
     "python-dateutil>=2.9.0.post0",
     "rich>=15.0.0",
+    "pillow>=11.0.0",
 ]
 
 [tool.ruff]
