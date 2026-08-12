@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.contrib.sitemaps.views import sitemap
@@ -10,6 +12,8 @@ from posts.views import (
     about_me,
     post_create,
     post_delete,
+    post_image_delete,
+    post_image_upload,
     post_list,
     post_preview,
     post_retrieve,
@@ -37,6 +41,15 @@ urlpatterns = [
     path("editor/preview/", post_preview, name="post_preview"),
     path("posts/<slug:slug>/edit/", post_update, name="post_update"),
     path("posts/<slug:slug>/delete/", post_delete, name="post_delete"),
+    # Image panel of the editor. These live under posts/, not editor/, because they act on an existing post, exactly like edit/ and delete/ above.
+    # editor/ is only for routes that have no post to act on.
+    # The slug comes first, thus they do not shadow posts/<slug:slug>/.
+    path("posts/<slug:slug>/images/", post_image_upload, name="post_image_upload"),
+    path(
+        "posts/<slug:slug>/images/<uuid:image_id>/delete/",
+        post_image_delete,
+        name="post_image_delete",
+    ),
     path("posts/<slug:slug>/", post_retrieve, name="post_retrieve"),
     path("posts/<slug:slug>/like/", toggle_like, name="toggle_like"),
     # About me
@@ -48,3 +61,9 @@ urlpatterns = [
     # RSS feed
     path("rss.xml", LatestPostsFeed(), name="rss"),
 ]
+
+
+# Development only. In production DEBUG is False and nginx serves /media/ straight
+# from disk, thus Django never sends the file bytes.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
