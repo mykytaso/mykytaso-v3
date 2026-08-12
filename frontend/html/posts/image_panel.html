@@ -1,0 +1,62 @@
+{# Image panel of the editor. htmx swaps this fragment into #image-panel after   #}
+{# every upload and every delete, thus the file input resets by itself.          #}
+{# The controls carry form="image-upload-form", which is the empty sibling form  #}
+{# below the editor form in post_form.html: forms cannot be inside other forms.  #}
+
+<div class="editor__upload">
+    {{ upload_form.files }}
+
+    <button type="submit" form="image-upload-form" class="button editor__button--secondary">
+        Upload
+    </button>
+</div>
+
+{% for error in upload_form.files.errors %}
+    <div class="editor__error">{{ error }}</div>
+{% endfor %}
+
+{% if post.images.all %}
+    <div class="editor__images">
+        {% for image in post.images.all %}
+            {% with url=site_url|add:image.file.url %}
+                <div class="editor__image">
+                    {# No form is necessary: htmx posts from the button, and the #}
+                    {# htmx:configRequest listener in includes/scripts.html adds #}
+                    {# the CSRF header.                                          #}
+                    <button type="button"
+                            class="editor__image-delete"
+                            title="Delete image"
+                            aria-label="Delete image"
+                            hx-post="{% url 'post_image_delete' post.slug image.id %}"
+                            hx-target="#image-panel"
+                            hx-swap="innerHTML"
+                            hx-confirm="Delete this image? The file goes too.">×</button>
+
+                    <img class="editor__image-thumb" src="{{ image.file.url }}" alt="">
+
+                    {# title= shows the whole name: the CSS cuts a long one. #}
+                    <div class="editor__image-name" title="{{ image.filename }}">
+                        {{ image.filename }}
+                    </div>
+
+                    <div class="editor__image-meta">
+                        <span>{{ image.width }}×{{ image.height }}</span>
+                        <span>{{ image.file.size|filesizeformat }}</span>
+                    </div>
+
+                    <div class="editor__image-actions">
+                        {# main.js handles this with one delegated listener, because #}
+                        {# htmx replaces this markup on every swap.                  #}
+                        <button type="button"
+                                class="editor__image-button"
+                                data-copy-url="{{ url }}">
+                            Copy URL
+                        </button>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="editor__help">No images yet.</div>
+{% endif %}
