@@ -279,6 +279,149 @@
 
 
 /* ----------------------------------------------------------- */
+/* -------------------------- IMAGES ------------------------- */
+/* ----------------------------------------------------------- */
+/* The panel below the body and the preview: upload, then copy   */
+/* the URL of an image into the markdown body or into the cover. */
+.editor__upload {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 0 0 16px 0;
+}
+
+    /* The CONTROLS group above selects by input type and does not list "file". */
+    /* A file input needs its own rule anyway: no full width and no padding.    */
+    .editor__form input[type="file"] {
+        font-family: var(--roboto-font);
+        font-size: 16px;
+        color: var(--text-color);
+    }
+
+        .editor__form input[type="file"]::file-selector-button {
+            margin-right: 12px;
+            padding: 10px 16px;
+            font-family: var(--roboto-font);
+            font-size: 16px;
+            color: var(--text-color);
+            background-color: transparent;
+            border: var(--input-border);
+            border-radius: var(--button-border-radius);
+            cursor: pointer;
+        }
+
+        .editor__form input[type="file"]::file-selector-button:hover {
+            background-color: var(--button-nav-hover-bg-color);
+        }
+
+    .editor__images {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 16px;
+    }
+
+    /* position: relative carries the delete button in the top right corner. */
+    .editor__image {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+        border: var(--input-border);
+        /* Larger than --button-border-radius (14px) on purpose: this is a card, */
+        /* not a control, and it holds a picture with its own rounded corners.    */
+        border-radius: 22px;
+    }
+
+        /* Sits over the thumbnail, thus it needs its own background to stay */
+        /* readable on a light picture and on a dark one.                    */
+        .editor__image-delete {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            padding: 0;
+            font-family: var(--roboto-font);
+            font-size: 20px;
+            line-height: 1;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            border: var(--input-border);
+            border-radius: 50%;
+            opacity: 0.85;
+            cursor: pointer;
+        }
+
+            .editor__image-delete:hover {
+                color: var(--danger-color);
+                border: solid 1px var(--danger-color);
+                opacity: 1;
+            }
+
+        .editor__image-thumb {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: var(--button-border-radius);
+            background-color: var(--button-nav-hover-bg-color);
+        }
+
+        /* A long name is cut with an ellipsis. min-width: 0 is necessary: the */
+        /* card is a flex container, and a flex item does not shrink below its */
+        /* content width without it, thus the card would grow instead.         */
+        .editor__image-name {
+            min-width: 0;
+            overflow: hidden;
+            font-size: 14px;
+            color: var(--text-color);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* The same size and colour as .editor__help. The dimensions go to the */
+        /* left edge and the file size to the right edge.                      */
+        .editor__image-meta {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-color-secondary);
+        }
+
+        .editor__image-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        /* Not .button: this one is small and fills the width of the card. */
+        .editor__image-button {
+            flex: 1 1 auto;
+            padding: 6px 10px;
+            text-align: center;
+            font-family: var(--roboto-font);
+            font-size: 14px;
+            color: var(--text-color);
+            background-color: transparent;
+            border: var(--input-border);
+            border-radius: var(--button-border-radius);
+            cursor: pointer;
+        }
+
+            .editor__image-button:hover {
+                background-color: var(--button-nav-hover-bg-color);
+            }
+
+
+/* ----------------------------------------------------------- */
 /* ------------------------ RESPONSIVE ----------------------- */
 /* ----------------------------------------------------------- */
 @media (max-width: 1024px) {
@@ -329,5 +472,14 @@
     .editor__form textarea[name="text"],
     .editor__preview {
         height: 320px;
+    }
+
+    .editor__images {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .editor__upload {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
