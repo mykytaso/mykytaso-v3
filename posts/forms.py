@@ -1,6 +1,8 @@
 from typing import ClassVar
 
 from django import forms
+from django.conf import settings
+from django.template.defaultfilters import filesizeformat
 
 from posts.models import Post
 from utils.slug import generate_unique_slug
@@ -86,3 +88,66 @@ class PostForm(forms.ModelForm):
         cleaned_data["slug"] = slug or f"post-{self.instance.pk.hex[:8]}"
 
         return cleaned_data
+
+
+class MultipleFileInput(forms.ClearableFileInput):
+    """
+    A file input that takes more than one file.
+
+    Django refuses `multiple` on the standard widget unless the widget says so.
+    """
+
+    allow_multiple_selected = True
+
+
+class MultipleImageField(forms.ImageField):
+    """
+    An ImageField that cleans a list of files and returns a list.
+
+    It is built on ImageField, not FileField, thus Pillow verifies every file.
+    This also rejects SVG, which Pillow cannot open. That matters: media is
+    served from the same origin as the site, and an SVG can carry a script.
+    """
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault(
+            "widget",
+            MultipleFileInput(attrs={"multiple": True, "accept": "image/*"}),
+        )
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        clean_one = super().clean
+
+        if isinstance(data, list | tuple):
+            return [clean_one(item, initial) for item in data]
+
+        return [clean_one(data, initial)]
+
+
+class PostImageUploadForm(forms.Form):
+    """Upload one or more images for a post, from the editor panel."""
+
+    files = MultipleImageField(
+        label="Add images",
+        widget=MultipleFileInput(
+            attrs={
+                "multiple": True,
+                "accept": "image/*",
+                # The input sits inside the editor form, but it belongs to the sibling upload form. See post_form.html.
+                "form": "image-upload-form",
+            }
+        ),
+    )
+
+    def clean_files(self):
+        files = self.cleaned_data["files"]
+        limit = settings.MAX_IMAGE_UPLOAD_SIZE
+
+        too_large = [file.name for file in files if file.size > limit]
+        if too_large:
+            raise forms.ValidationError(
+                f"Larger than {filesizeformat(limit)}: {', '.join(too_large)}"
+            )
+
+        return files
