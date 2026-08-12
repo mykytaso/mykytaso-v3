@@ -18,22 +18,24 @@
     <link rel="alternate" type="application/rss+xml" title="{{ settings.SITE_NAME }}" href="{% url 'rss' %}">
 
     {% block meta %}
-        <meta name="description" content="Web developer sharing projects, ideas, hobbies, technical writing, and code experiments.">
+        {% with meta_title="Mykyta’s Personal Website" meta_description="Mykyta Soloviov's personal website." %}
+            <meta name="description" content="{{ meta_description }}">
 
-        {# Open Graph Meta Tags #}
-        <meta property="og:type" content="website"/>
-        <meta property="og:site_name" content="{{ settings.SITE_NAME }}"/>
-        <meta property="og:title" content="Mykyta’s Personal Website"/>
-        <meta property="og:description" content="This is my cozy place on the internet where I share my projects, ideas, hobbies, and current work."/>
-        <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"/>
-        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.jpg' %}"/>
+            {# Open Graph Meta Tags #}
+            <meta property="og:type" content="website"/>
+            <meta property="og:site_name" content="{{ settings.SITE_NAME }}"/>
+            <meta property="og:title" content="{{ meta_title }}"/>
+            <meta property="og:description" content="{{ meta_description }}"/>
+            <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"/>
+            <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.jpg' %}"/>
 
-        {# Twitter Card Meta Tags #}
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Mykyta’s Personal Website">
-        <meta name="twitter:description" content="This is my cozy place on the internet where I share my projects, ideas, hobbies, and current work.">
-        <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/twitter.jpg' %}">
-        <meta name="twitter:site" content="@mykytaso">
+            {# Twitter Card Meta Tags #}
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="{{ meta_title }}">
+            <meta name="twitter:description" content="{{ meta_description }}">
+            <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/twitter.jpg' %}">
+            <meta name="twitter:site" content="@mykytaso">
+        {% endwith %}
     {% endblock %}
 
     {# Custom CSS #}
