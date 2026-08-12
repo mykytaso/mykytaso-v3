@@ -3,6 +3,7 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 
+from app.feeds import LatestPostsFeed
 from app.sitemaps import PostSitemap, StaticViewSitemap
 from likes.views import toggle_like
 from posts.views import (
@@ -44,4 +45,6 @@ urlpatterns = [
     path("robots.txt", robots_txt, name="robots"),
     # Sitemap
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
+    # RSS feed
+    path("rss.xml", LatestPostsFeed(), name="rss"),
 ]

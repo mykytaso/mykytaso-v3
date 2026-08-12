@@ -15,6 +15,7 @@
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0C1014" media="(prefers-color-scheme: dark)">
     <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ settings.SITE_NAME }}" href="{% url 'rss' %}">
 
     {% block meta %}
         <meta name="description" content="Web developer sharing projects, ideas, hobbies, technical writing, and code experiments.">
