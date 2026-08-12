@@ -15,7 +15,7 @@
 
     {# Open Graph Meta Tags #}
     <meta property="og:type" content="article">
-    <meta property="og:site_name" content="Mykyta's Blog">
+    <meta property="og:site_name" content="{{ settings.SITE_NAME }}">
     <meta property="og:title" content="{{ meta_title }}" />
     <meta property="og:description" content="{{ meta_description }}" />
     <meta property="og:image" content="{% if meta_image %}{{ meta_image }}{% else %}{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.jpg' %}{% endif %}" />

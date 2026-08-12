@@ -21,7 +21,7 @@
 
         {# Open Graph Meta Tags #}
         <meta property="og:type" content="website"/>
-        <meta property="og:site_name" content="mykytaso.com"/>
+        <meta property="og:site_name" content="{{ settings.SITE_NAME }}"/>
         <meta property="og:title" content="Mykyta’s Personal Website"/>
         <meta property="og:description" content="This is my cozy place on the internet where I share my projects, ideas, hobbies, and current work."/>
         <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"/>
