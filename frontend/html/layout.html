@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Mykyta{% block title %}{% endblock %}</title>
+    <title>{% block title %}Mykyta Soloviov – Tech, Programming, Engineering, Life{% endblock %}</title>
 
     {# SEO Meta Tags #}
     <meta name="robots" content="index, follow">
@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/rss+xml" title="{{ settings.SITE_NAME }}" href="{% url 'rss' %}">
 
     {% block meta %}
-        {% with meta_title="Mykyta’s Personal Website" meta_description="Mykyta Soloviov's personal website." %}
+        {% with meta_title="Mykyta Soloviov – Tech, Programming, Engineering, Life" meta_description="Notes on building things, solving problems, and living life as an engineer." %}
             <meta name="description" content="{{ meta_description }}">
 
             {# Open Graph Meta Tags #}
