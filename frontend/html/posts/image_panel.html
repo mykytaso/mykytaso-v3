@@ -15,6 +15,17 @@
     <div class="editor__error">{{ error }}</div>
 {% endfor %}
 
+<div class="editor__help editor__upload-hint">
+    <div>
+        Full width: <strong>1360 px</strong> (two times the 680 px post column). For zoom good quality it could be bigger.<br>
+        The maximum is 10 MB.
+    </div>
+
+    <div>
+        Image size options: <code>![alt](url "m")</code> – xs 400, s 600, m 800, l 1000, xl 1200 px.
+    </div>
+</div>
+
 {% if post.images.all %}
     <div class="editor__images">
         {% for image in post.images.all %}

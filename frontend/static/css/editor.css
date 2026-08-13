@@ -320,6 +320,21 @@
             background-color: var(--button-nav-hover-bg-color);
         }
 
+    /* The size hints below the file input. .editor__help gives the size and */
+    /* the colour; this rule gives the space between the lines and above the */
+    /* thumbnails.                                                           */
+    .editor__upload-hint {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 0 0 16px 0;
+    }
+
+        .editor__upload-hint code {
+            font-family: var(--source-code-pro-font);
+            color: var(--text-color);
+        }
+
     .editor__images {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
