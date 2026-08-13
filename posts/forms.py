@@ -57,6 +57,8 @@ class PostForm(forms.ModelForm):
             "og_description": "OG description",
             "og_image": "OG image",
         }
+        # cover_image and og_image are not here: their help_text is on the model,
+        # Django admin shows the same text. A ModelForm takes it from there.
         help_texts: ClassVar[dict[str, str]] = {
             "is_raw_html": "Show the body as raw HTML instead of markdown.",
             "published_at": "UTC. If empty, it is set automatically the first time "

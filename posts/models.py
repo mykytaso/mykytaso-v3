@@ -16,7 +16,12 @@ class Post(models.Model):
 
     title = models.CharField(max_length=512, blank=True)
     subtitle = models.CharField(max_length=512, blank=True)
-    cover_image = models.URLField(blank=True, default="")
+    cover_image = models.URLField(
+        blank=True,
+        default="",
+        help_text="Best 1360x765 px (16:9). The post page shows it 680 px wide. "
+        "The post list crops it to a centred rectangle.",
+    )
     text = models.TextField(blank=True, default="")
     html_cache = models.TextField(blank=True, default="")
     is_raw_html = models.BooleanField(default=False)
@@ -26,7 +31,12 @@ class Post(models.Model):
 
     og_title = models.CharField(max_length=512, blank=True, default="")
     og_description = models.CharField(max_length=512, blank=True, default="")
-    og_image = models.URLField(blank=True, default="")
+    og_image = models.URLField(
+        blank=True,
+        default="",
+        help_text="Best 1200x630 px (1.91:1) — the standard for Open Graph and for "
+        "the large Twitter card. Not less than 600x315 px.",
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
