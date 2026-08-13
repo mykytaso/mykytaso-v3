@@ -73,12 +73,13 @@ class Post(models.Model):
 
 def post_image_upload_path(instance, filename):
     """
-    Put every image of one post in its own directory.
+    Put every image of one post in its own directory, named "<slug>-<uuid8>".
 
-    The directory uses post_id, not the slug: a slug can change, a UUID cannot.
+    The name is written one time, at the first upload.
+    It does not follow a later slug change: the path of each file is in the database.
     """
 
-    return f"posts/{instance.post_id}/{filename}"
+    return f"posts/{instance.post.slug}-{instance.post_id.hex[:8]}/{filename}"
 
 
 class PostImage(models.Model):
