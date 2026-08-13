@@ -3,7 +3,13 @@
 /* ----------------------------------------------------------- */
 /* Superuser-only post editor (posts/post_form.html).           */
 
+/* The heading on the left, the Delete button on the right. */
 .editor__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     width: 100%;
     padding: 0 0 30px 0;
     border-bottom: solid 1px var(--divider-color);
@@ -234,18 +240,17 @@
 /* ----------------------------------------------------------- */
 /* -------------------------- ACTIONS ------------------------ */
 /* ----------------------------------------------------------- */
+/* Cancel, then Save, both at the right edge. Delete is not here: it sits in */
+/* the header, away from the button you press most.                         */
 .editor__actions {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
     gap: 12px;
     width: 100%;
     padding: 30px 0 0 0;
 }
-
-    .editor__actions-spacer {
-        margin-left: auto;
-    }
 
     /* .button sets the color with !important, thus the modifiers need it too. */
     .editor__button--secondary {
@@ -463,10 +468,6 @@
     .editor__actions {
         flex-direction: column;
         align-items: stretch;
-    }
-
-    .editor__actions-spacer {
-        margin-left: 0;
     }
 
     .editor__form textarea[name="text"],
