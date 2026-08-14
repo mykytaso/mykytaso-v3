@@ -3,11 +3,12 @@ from datetime import date
 
 from dateutil.relativedelta import relativedelta
 from django.contrib import messages
-from django.db.models import F
+from django.db.models import Count, F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from likes.models import Like
 from markdown.markdown import markdown_text
 from posts.decorators import superuser_only
 from posts.forms import PostForm, PostImageUploadForm
@@ -16,12 +17,19 @@ from utils.request import get_client_ip
 
 
 def post_list(request):
-    posts = Post.objects.all() if request.user.is_superuser else Post.visible_objects()
+    queryset = Post.objects.all() if request.user.is_superuser else Post.visible_objects()
+    # One COUNT for the full list, in place of one query for each post in the template.
+    posts = queryset.annotate(like_count=Count("likes"))
 
-    # Add liked status to each post
+    # One query gives every post this IP likes. The loop then reads the set, and makes no query.
     ip_address = get_client_ip(request)
+    liked_post_ids = (
+        set(Like.objects.filter(ip_address=ip_address).values_list("post_id", flat=True))
+        if ip_address
+        else set()
+    )
     for post in posts:
-        post.user_has_liked = post.is_liked_by_ip(ip_address)
+        post.user_has_liked = post.id in liked_post_ids
 
     return render(
         request,
