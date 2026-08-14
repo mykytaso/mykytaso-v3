@@ -17,7 +17,13 @@ from utils.request import get_client_ip
 
 
 def post_list(request):
-    queryset = Post.objects.all() if request.user.is_superuser else Post.visible_objects()
+    # order_by() must be explicit: Django does not apply Meta.ordering to a GROUP BY query,
+    # and the annotate() below makes this a GROUP BY query.
+    queryset = (
+        Post.objects.order_by("-created_at")
+        if request.user.is_superuser
+        else Post.visible_objects()  # already ordered by "-published_at"
+    )
     # One COUNT for the full list, in place of one query for each post in the template.
     posts = queryset.annotate(like_count=Count("likes"))
 
