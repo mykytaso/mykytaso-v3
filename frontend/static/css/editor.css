@@ -60,15 +60,10 @@
     gap: 20px;
     width: 100%;
     padding: 30px 0;
-    border-bottom: solid 1px var(--divider-color);
 }
 
-    /* The two columns do not have the same height, thus a rule below each   */
-    /* section would not line up across the grid. The single rule below      */
-    /* .editor__meta replaces them.                                          */
     .editor__meta .editor__section {
         padding: 30px 0 0 0;
-        border-bottom: none;
     }
 
     .editor__section-title {
@@ -199,6 +194,35 @@
         min-height: 0;  /* lets the children shrink inside the row */
     }
 
+        /* The label of the preview, then the Sync toggle after it. The toggle */
+        /* is smaller than the label, and for that reason this row is as high  */
+        /* as the plain label of the body pane. The two panes keep the same    */
+        /* top edge.                                                           */
+        .editor__pane-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 16px;
+        }
+
+            .editor__sync {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+                font-weight: 300;
+                color: var(--text-color-secondary);
+                cursor: pointer;
+                user-select: none;
+            }
+
+                .editor__form .editor__sync input[type="checkbox"] {
+                    width: 16px;
+                    height: 16px;
+                }
+
         /* The grid makes both panes as high as the highest one. The body field */
         /* fills its pane, thus the textarea and the preview are always the     */
         /* same height, and the textarea keeps its resize handle: when you drag */
@@ -249,7 +273,8 @@
     justify-content: flex-end;
     gap: 12px;
     width: 100%;
-    padding: 30px 0 0 0;
+    padding: 30px 0;
+    border-bottom: solid 1px var(--divider-color);
 }
 
     /* .button sets the color with !important, thus the modifiers need it too. */

@@ -43,6 +43,14 @@ function handleImagePanelClick(event) {
     });
 }
 
+// Editor: the state of the Sync toggle in the preview pane.
+// htmx calls this from the hx-trigger filters of #editor-preview,
+// and for that reason a preview request goes out only when Sync is on.
+function isPreviewSyncOn() {
+    const syncToggle = document.getElementById("preview-sync");
+    return !syncToggle || syncToggle.checked;
+}
+
 // Close mobile menu when clicking outside
 function closeMobileMenuOnOutsideClick(event) {
     const menu = document.getElementById('navbar-menu');

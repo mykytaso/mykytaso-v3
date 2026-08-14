@@ -21,9 +21,6 @@
                 </div>
 
                 {% if post %}
-                    {# The delete form is at the end of the page, because forms  #}
-                    {# cannot be inside other forms. form= connects this button  #}
-                    {# to it, and works from anywhere in the document.           #}
                     <button type="submit"
                             form="post-delete-form"
                             class="button editor__button--danger">
@@ -39,8 +36,6 @@
             <form method="post" class="editor__form">
                 {% csrf_token %}
 
-                {# Everything but the body, in two columns. The body and the #}
-                {# preview go below, across the full width.                  #}
                 <div class="editor__meta">
 
                     <div class="editor__column">
@@ -86,19 +81,21 @@
                         </div>
 
                         <div class="editor__pane">
-                            <div class="editor__label">Preview</div>
+                            <div class="editor__pane-header">
+                                <div class="editor__label">Preview</div>
 
-                            {# For non-GET requests htmx sends all the fields of the  #}
-                            {# parent form. Thus text and is_raw_html go with the     #}
-                            {# request and hx-include is not necessary. The CSRF      #}
-                            {# token goes in the body, and the global                 #}
-                            {# htmx:configRequest listener in includes/scripts.html   #}
-                            {# adds the X-CSRFToken header.                           #}
+                                <label class="editor__sync">
+                                    <input type="checkbox" id="preview-sync" checked>
+                                    Sync
+                                </label>
+                            </div>
+
                             <div id="editor-preview"
                                  class="editor__preview"
                                  hx-post="{% url 'post_preview' %}"
-                                 hx-trigger="input changed delay:500ms from:#id_text,
-                                             change from:#id_is_raw_html"
+                                 hx-trigger="input[isPreviewSyncOn()] changed delay:500ms from:#id_text,
+                                             change[isPreviewSyncOn()] from:#id_is_raw_html,
+                                             change[isPreviewSyncOn()] from:#preview-sync"
                                  hx-swap="innerHTML"
                             >
                                 {% include "posts/post_preview.html" %}
@@ -107,26 +104,26 @@
                     </div>
                 </div>
 
+                <div class="editor__actions">
+                    <a class="button editor__button--secondary" href="{% url 'post_list' %}">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="button">
+                      Save
+                    </button>
+                </div>
+
                 <div class="editor__section">
                     <div class="editor__section-title">Images</div>
 
                     {% if post %}
-                        {# htmx swaps the content of this div after every upload and every delete. #}
-                        {# The upload form is the sibling for below, because forms cannot be inside other forms. #}
                         <div id="image-panel">
                             {% include "posts/image_panel.html" %}
                         </div>
                     {% else %}
                         <div class="editor__help">Save the post first to add images.</div>
                     {% endif %}
-                </div>
-
-                <div class="editor__actions">
-                    <a class="button editor__button--secondary" href="{% url 'post_list' %}">
-                        Cancel
-                    </a>
-
-                    <button type="submit" class="button">Save</button>
                 </div>
             </form>
 
@@ -138,10 +135,6 @@
                     {% csrf_token %}
                 </form>
 
-                {# The file input and the Upload button are in the image panel   #}
-                {# above and reach this form with the form= attribute. This form  #}
-                {# must stay outside the editor form: with enctype on the editor  #}
-                {# form, every 500 ms preview request would send the files again. #}
                 <form id="image-upload-form"
                       method="post"
                       enctype="multipart/form-data"
