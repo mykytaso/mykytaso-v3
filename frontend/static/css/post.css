@@ -144,6 +144,12 @@
         cursor: zoom-in;
     }
 
+    /* A linked image opens its link, not the zoom overlay (see main.js) */
+    .post__content a img {
+        cursor: pointer;
+        border-radius: 0;
+    }
+
     .post__content figcaption,
     .post__content .caption-text {
         margin: 16px 0 48px 0;

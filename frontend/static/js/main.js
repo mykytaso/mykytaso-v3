@@ -18,7 +18,13 @@ function toggleTheme(checkbox) {
 }
 
 function initializeImageZoom() {
-    Lightense(document.querySelectorAll(".post__content img"), {
+    // An image inside a link stays a link: the Lightense click listener does not call preventDefault(),
+    // and for that reason a zoom on it would also follow the link.
+    const zoomableImages = Array.from(
+        document.querySelectorAll(".post__content img")
+    ).filter((image) => !image.closest("a"));
+
+    Lightense(zoomableImages, {
         time: 300,
         padding: 40,
         offset: 40,
