@@ -3,18 +3,35 @@
 /* ----------------------------------------------------------- */
 /* Superuser-only post editor (posts/post_form.html).           */
 
-/* The heading on the left, the Delete button on the right. */
+/* The heading and Delete on the left, Cancel and Save on the right. Save is */
+/* the button you press most: it stays at the top of the page, above the     */
+/* body, and for that reason it needs no scroll after an edit.               */
+/* flex-wrap lets the two groups go to two lines on a narrow window.         */
 .editor__header {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 16px;
     width: 100%;
     padding: 0 0 30px 0;
-    border-bottom: solid 1px var(--divider-color);
     /*border: solid 1px red;*/
 }
+
+    .editor__header-title,
+    .editor__header-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+        /* More space than between Cancel and Save: Delete must not look like */
+        /* part of the heading.                                               */
+        .editor__header-title {
+            gap: 24px;
+        }
 
     .editor__heading {
         font-size: 32px;
@@ -32,16 +49,19 @@
 /* ----------------------------------------------------------- */
 /* All the fields but the body: the content data on the left,   */
 /* the rendering, Open Graph and publishing groups on the       */
-/* right. The body and the preview are below, in .editor__panes */
-/* across the full width.                                       */
+/* right. This is the last block of the page: the body and the  */
+/* preview come first, in .editor__panes across the full width, */
+/* then the images. For that reason the divider is on the top   */
+/* edge, and the padding at the bottom keeps the last field      */
+/* away from the end of the page.                                */
 
 .editor__meta {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0 80px;   /* the same gutter as .editor__panes below */
+    gap: 0 80px;   /* the same gutter as .editor__panes above */
     width: 100%;
     padding: 0 0 40px 0;
-    border-bottom: solid 1px var(--divider-color);
+    border-top: solid 1px var(--divider-color);
 }
 
     .editor__column {
@@ -181,7 +201,7 @@
 .editor__panes {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 80px;   /* the same gutter as .editor__meta above */
+    gap: 80px;   /* the same gutter as .editor__meta below */
     width: 100%;
     padding: 10px 0 0 0;
 }
@@ -262,20 +282,9 @@
 
 
 /* ----------------------------------------------------------- */
-/* -------------------------- ACTIONS ------------------------ */
+/* ---------------------- BUTTON MODIFIERS ------------------- */
 /* ----------------------------------------------------------- */
-/* Cancel, then Save, both at the right edge. Delete is not here: it sits in */
-/* the header, away from the button you press most.                         */
-.editor__actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    width: 100%;
-    padding: 30px 0;
-    border-bottom: solid 1px var(--divider-color);
-}
+/* Delete, Cancel and Save are all in .editor__header above.    */
 
     /* .button sets the color with !important, thus the modifiers need it too. */
     .editor__button--secondary {
@@ -505,10 +514,17 @@
         font-size: 26px;
     }
 
-    .editor__actions {
-        flex-direction: column;
-        align-items: stretch;
+    /* Four buttons do not go on one line here. flex-wrap on .editor__header */
+    /* already puts Cancel and Save on a second line; this rule makes that   */
+    /* line fill the width, thus the buttons stay easy to press.             */
+    .editor__header-actions {
+        flex: 1 1 100%;
     }
+
+        .editor__header-actions .button {
+            flex: 1 1 0;
+            text-align: center;
+        }
 
     .editor__form textarea[name="text"],
     .editor__preview {

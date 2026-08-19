@@ -16,25 +16,80 @@
         <div class="container__editor">
 
             <div class="editor__header">
-                <div class="editor__heading">
-                    {% if post %}Edit post{% else %}New post{% endif %}
+                <div class="editor__header-title">
+                    <div class="editor__heading">
+                        {% if post %}Edit post{% else %}New post{% endif %}
+                    </div>
+
+                    {% if post %}
+                        <button type="submit"
+                                form="post-delete-form"
+                                class="button editor__button--danger">
+                            Delete
+                        </button>
+                    {% endif %}
                 </div>
 
-                {% if post %}
-                    <button type="submit"
-                            form="post-delete-form"
-                            class="button editor__button--danger">
-                        Delete
+                <div class="editor__header-actions">
+                    <a class="button editor__button--secondary" href="{% url 'post_list' %}">
+                        Cancel
+                    </a>
+
+                    {# Outside the form, for that reason it needs form="post-form". #}
+                    <button type="submit" form="post-form" class="button">
+                        Save
                     </button>
-                {% endif %}
+                </div>
             </div>
 
             {% for error in form.non_field_errors %}
                 <div class="editor__error">{{ error }}</div>
             {% endfor %}
 
-            <form method="post" class="editor__form">
+            <form id="post-form" method="post" class="editor__form">
                 {% csrf_token %}
+
+                <div class="editor__section">
+                    <div class="editor__panes">
+                        <div class="editor__pane">
+                            {% include "posts/editor_field.html" with field=form.text %}
+                        </div>
+
+                        <div class="editor__pane">
+                            <div class="editor__pane-header">
+                                <div class="editor__label">Preview</div>
+
+                                <label class="editor__sync">
+                                    <input type="checkbox" id="preview-sync" checked>
+                                    Sync
+                                </label>
+                            </div>
+
+                            <div id="editor-preview"
+                                 class="editor__preview"
+                                 hx-post="{% url 'post_preview' %}"
+                                 hx-trigger="input[isPreviewSyncOn()] changed delay:500ms from:#id_text,
+                                             change[isPreviewSyncOn()] from:#id_is_raw_html,
+                                             change[isPreviewSyncOn()] from:#preview-sync"
+                                 hx-swap="innerHTML"
+                            >
+                                {% include "posts/post_preview.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor__section">
+                    <div class="editor__section-title">Images</div>
+
+                    {% if post %}
+                        <div id="image-panel">
+                            {% include "posts/image_panel.html" %}
+                        </div>
+                    {% else %}
+                        <div class="editor__help">Save the post first to add images.</div>
+                    {% endif %}
+                </div>
 
                 <div class="editor__meta">
 
@@ -72,58 +127,6 @@
                         </div>
                     </div>
 
-                </div>
-
-                <div class="editor__section">
-                    <div class="editor__panes">
-                        <div class="editor__pane">
-                            {% include "posts/editor_field.html" with field=form.text %}
-                        </div>
-
-                        <div class="editor__pane">
-                            <div class="editor__pane-header">
-                                <div class="editor__label">Preview</div>
-
-                                <label class="editor__sync">
-                                    <input type="checkbox" id="preview-sync" checked>
-                                    Sync
-                                </label>
-                            </div>
-
-                            <div id="editor-preview"
-                                 class="editor__preview"
-                                 hx-post="{% url 'post_preview' %}"
-                                 hx-trigger="input[isPreviewSyncOn()] changed delay:500ms from:#id_text,
-                                             change[isPreviewSyncOn()] from:#id_is_raw_html,
-                                             change[isPreviewSyncOn()] from:#preview-sync"
-                                 hx-swap="innerHTML"
-                            >
-                                {% include "posts/post_preview.html" %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="editor__actions">
-                    <a class="button editor__button--secondary" href="{% url 'post_list' %}">
-                        Cancel
-                    </a>
-
-                    <button type="submit" class="button">
-                      Save
-                    </button>
-                </div>
-
-                <div class="editor__section">
-                    <div class="editor__section-title">Images</div>
-
-                    {% if post %}
-                        <div id="image-panel">
-                            {% include "posts/image_panel.html" %}
-                        </div>
-                    {% else %}
-                        <div class="editor__help">Save the post first to add images.</div>
-                    {% endif %}
                 </div>
             </form>
 
