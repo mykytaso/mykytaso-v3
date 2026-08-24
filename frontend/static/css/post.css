@@ -265,6 +265,49 @@
             margin: 8px 0;
         }
 
+    /* Table of contents. Written by hand in the post body as <nav class="toc"> */
+    .post__content .toc {
+        margin: var(--post-content-p-margin) 0;
+        padding: 16px 20px;
+        background-color: var(--code-inline-bg-color);
+        border-radius: var(--button-border-radius);
+    }
+
+        /* The title comes from CSS, not from the post body. A post already saved
+           keeps its old html_cache, and CSS reaches it anyway. */
+        .post__content .toc::before {
+            content: "Table of Contents";
+            display: block;
+            text-align: center;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 25px;  /* Same as .post__content h4 */
+            color: var(--text-color);
+        }
+
+        /* The list rule above adds padding meant for prose. The nav supplies its own.
+           The padding must stay: a marker sits in it, and with no padding the
+           circles fall outside the block. */
+        .post__content .toc ul {
+            margin: 0;
+            padding-left: 20px;
+            list-style: disc;
+        }
+
+        .post__content .toc li {
+            margin: 4px 0;
+            line-height: 1.5;
+        }
+
+        .post__content .toc a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .post__content .toc a:hover {
+            text-decoration: underline;
+        }
+
     /* Table styling */
     .post__content table {
         display: table;

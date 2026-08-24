@@ -17,7 +17,7 @@ A production-ready blog application showcasing modern Django development practic
 - **Sentry** - Real-time error tracking and performance monitoring
 
 ### Frontend & Content Rendering
-- **Mistune 3.x** - Markdown parsing with custom renderer implementation
+- **markdown-it-py 4.x** - CommonMark parsing with custom renderer implementation
 - **Pygments** - Syntax highlighting with configurable themes
 - **Django Templates** - Server-side rendering with context processors
 
@@ -44,11 +44,11 @@ Account-free like system tracked entirely by IP address:
 - IP extraction handling `X-Forwarded-For` headers for proxied requests
 
 ### Custom Markdown Renderer
-Built a custom Mistune renderer with Pygments integration:
-- Syntax highlighting with line numbers
-- Custom heading anchor generation
+Built a custom markdown-it-py renderer with Pygments integration:
+- Syntax highlighting on fenced and indented code blocks
 - Image rendering with figure/figcaption elements
-- Support for tables, strikethrough, and URL auto-linking
+- Support for tables and strikethrough
+- Automatic heading anchors, so sections can be deep-linked
 - Configurable code highlighting themes
 
 ## Engineering Practices
