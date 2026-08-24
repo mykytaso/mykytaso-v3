@@ -1,0 +1,299 @@
+{% extends "layout.html" %}
+
+{% block title %}Writing guide – Mykyta Soloviov{% endblock %}
+
+{% block meta %}{# Superuser-only page: no social metadata #}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="container__post">
+
+            <h1 class="post__title">Writing Guide</h1>
+
+            {# .post__content gives this page the same typography a real post has, #}
+            {# thus every example below looks exactly like the finished article.    #}
+            <div class="post__content">
+
+                <nav class="toc">
+                    <ul>
+                        <li><a href="#modes">The two modes</a></li>
+                        <li><a href="#markdown">Markdown syntax</a>
+                            <ul>
+                                <li><a href="#text">Text</a></li>
+                                <li><a href="#headings">Headings and anchors</a></li>
+                                <li><a href="#lists">Lists</a></li>
+                                <li><a href="#links">Links</a></li>
+                                <li><a href="#code">Code</a></li>
+                                <li><a href="#tables">Tables</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#images">Images</a>
+                            <ul>
+                                <li><a href="#image-upload">Upload</a></li>
+                                <li><a href="#image-sizes">Sizes</a></li>
+                                <li><a href="#image-formats">Formats and limits</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#toc">Table of contents</a></li>
+                        <li><a href="#raw-html">Raw HTML</a></li>
+                        <li><a href="#other">Other</a></li>
+                    </ul>
+                </nav>
+
+                <h2 id="modes">The two modes</h2>
+
+                <table>
+                    <thead>
+                        <tr><th>Mode</th><th>What happens to the body</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Markdown</strong> (default)</td>
+                            <td>markdown-it-py renders it. Raw HTML inside it still passes through.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Raw HTML</strong></td>
+                            <td>The body is used exactly as typed. No markdown is parsed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 id="markdown">Markdown syntax</h2>
+
+                <h3 id="text">Text</h3>
+
+                <div class="highlight">
+                  <pre>
+*italic*<br>
+**bold**<br>
+~~strikethrough~~<br>
+`inline code`<br>
+&gt; A blockquote.<br>
+&gt; A second line stays in the same quote.<br>
+---
+                  </pre>
+                </div>
+
+                <p>
+                    A single newline becomes a line break.
+                </p>
+
+                <h3 id="headings">Headings and anchors</h3>
+
+                <div class="highlight"><pre># Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6</pre></div>
+
+                <p>
+                    A markdown heading gets an <code>id</code> automatically.<br>
+                    The text goes to
+                    lower case, the punctuation goes away, and the words join with
+                    <code>-</code>. Cyrillic letters change to Latin letters.
+                </p>
+
+                <div class="highlight"><pre>## What Is Reshta?      -&gt;  id="what-is-reshta"
+## The save() method    -&gt;  id="the-save-method"
+## C++ &amp; Rust           -&gt;  id="c-rust"
+## Привіт               -&gt;  id="privit"</pre></div>
+
+                <p>
+                    The <code>id</code> is what a link such as <code>#what-is-reshta</code> points at.<br>
+                    Two headings with the same text get <code>-1</code> and <code>-2</code> at the end,
+                    because an <code>id</code> must be unique on the page.
+                </p>
+
+                <h3 id="lists">Lists</h3>
+
+                <div class="highlight"><pre>- one
+- two
+  - nested
+
+1. first
+2. second</pre></div>
+
+                <h3 id="links">Links</h3>
+
+                <div class="highlight"><pre>[text](https://example.com)
+&lt;https://example.com&gt;
+[jump to a section](#headings)</pre></div>
+
+                <h3 id="code">Code</h3>
+
+                <p>
+                    <strong>Inline code.</strong>
+                </p>
+
+                <table>
+                    <thead>
+                        <tr><th>You type</th><th>You get</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>`save()`</td><td><code>save()</code></td></tr>
+                        <tr><td>`app/settings.py`</td><td><code>app/settings.py</code></td></tr>
+                        <tr><td>`*not italic*`</td><td><code>*not italic*</code></td></tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    Markdown inside inline code is not parsed, as the third row shows.<br>
+                    To put a backtick in the code, use two backticks on each side:
+                    <code>``a ` b``</code> gives <code>a ` b</code>.<br>
+                    Inline code gets no colours. Pygments works on blocks only.
+                </p><br>
+
+                <p>
+                    <strong>A code block.</strong>
+                </p>
+
+                <div class="highlight"><pre>```python
+def function_name(argument):
+    return {"key": argument}
+```</pre></div>
+
+                <p>
+                    Four spaces at the start of a line also make a code block, but with no colours.
+                </p>
+
+                <h3 id="tables">Tables</h3>
+
+                <div class="highlight"><pre>| Left | Centre | Right |
+|:-----|:------:|------:|
+| a    | b      | c     |</pre></div>
+
+                <h2 id="images">Images</h2>
+
+                <h3 id="image-upload">Upload</h3>
+
+                <div class="highlight"><pre>![Alt text](https://mykytaso.com/media/photo.jpg "m")</pre></div>
+
+                <p>
+                    The <strong>alt text</strong> becomes the caption below the image, and it is what
+                    a screen reader reads. Leave it empty for an image with no caption.<br>
+                    The <strong>title</strong> — <code>"m"</code> above — sets the width.
+                </p>
+
+                <h3 id="image-sizes">Sizes</h3>
+
+                <p>
+                    <strong>An image in the body.</strong><br>The title in the markdown becomes a
+                    CSS class.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr><th>Title</th><th>Shown at</th><th>Upload this wide</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>"xs"</code></td><td>200 px</td><td>400 px</td></tr>
+                        <tr><td><code>"s"</code></td><td>300 px</td><td>600 px</td></tr>
+                        <tr><td><code>"m"</code></td><td>400 px</td><td>800 px</td></tr>
+                        <tr><td><code>"l"</code></td><td>500 px</td><td>1000 px</td></tr>
+                        <tr><td><code>"xl"</code></td><td>600 px</td><td>1200 px</td></tr>
+                        <tr><td>none</td><td>680 px</td><td>1360 px</td></tr>
+                    </tbody>
+                </table><br>
+
+                <p>
+                    <strong>The post cover.</strong><br>
+                    One file goes to three places, and each one shows it differently.
+                </p>
+
+                <table>
+                    <thead>
+                        <tr><th>Where</th><th>Shown at</th><th>How</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>The post page</td><td>680 px wide</td><td>All of it. No crop.</td></tr>
+                        <tr><td>A card on the post list</td><td>224 × 160 px</td><td>Cropped from the centre</td></tr>
+                        <tr><td>A card on a narrow screen</td><td>680 × 240 px</td><td>Cropped from the centre</td></tr>
+                        <tr><td>Social media</td><td>1200 × 630 px</td><td>Only when <em>OG image</em> is empty</td></tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    <strong>Upload 1360 × 715 px.</strong><br>Twice the width of the post
+                    page.<br>Has the shape social media asks for.<br>
+                    Keep the subject in the middle. A card cuts the sides away on a wide screen,
+                    and the top and the bottom on a narrow one.<br>
+                </p>
+
+                <h3 id="image-formats">Formats and limits</h3>
+
+                <table>
+                    <thead>
+                        <tr><th>Format</th><th>Use it for</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>JPEG</strong></td><td>Photos</td></tr>
+                        <tr><td><strong>PNG</strong></td><td>Screenshots, diagrams, anything transparent</td></tr>
+                        <tr><td><strong>WebP</strong></td><td>Both, at a smaller size. Every current browser reads it.</td></tr>
+                        <tr><td><strong>GIF</strong></td><td>A short animation</td></tr>
+                    </tbody>
+                </table>
+
+                <ul>
+                    <li><strong>SVG is refused.</strong></li>
+                    <li><strong>10 MB for one file.</strong> A photo above 1 MB is nearly always
+                        too large.</li>
+                </ul>
+
+                <h2 id="toc">Table of contents</h2>
+
+                <p>
+                    Write <code>&lt;nav class="toc"&gt;</code> block, and the CSS gives it the title, the
+                    bullets and the box.
+                </p>
+
+                <div class="highlight"><pre>&lt;nav class="toc"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#setup"&gt;Setup&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#usage"&gt;Usage&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#cli"&gt;The CLI&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</pre></div>
+
+                <ul>
+                    <li>A child list goes <strong>inside</strong> the <code>&lt;li&gt;</code> of its
+                        parent, never straight inside a <code>&lt;ul&gt;</code>.</li>
+                    <li>A category gets a filled bullet, a subcategory a hollow one.</li>
+                    <li>Each <code>href</code> must be the same as the <code>id</code> of a heading.</li>
+                </ul>
+
+                <h2 id="raw-html">Raw HTML</h2>
+
+                <p>Markdown cannot do everything.</p>
+
+                <div class="highlight"><pre>&lt;h3 align="center" id="my-section"&gt;A centred heading&lt;/h3&gt;
+
+&lt;p style="text-align:center;"&gt;Centred text.&lt;/p&gt;
+
+&lt;div class="caption-text"&gt;A caption under something that is not an image.&lt;/div&gt;
+
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;A new tab&lt;/a&gt;</pre></div>
+
+                <p>
+                    <strong>A heading written as raw HTML gets no automatic <code>id</code>.</strong>
+                </p>
+
+                <h2 id="other">Other</h2>
+
+                <ul>
+                    <li><strong>Turn Sync off for a long post.</strong> The preview redraws 500 ms
+                        after you stop typing.</li>
+                    <li><strong>Four spaces make a code block.</strong></li>
+                    <li><strong>A bare URL is not a link.</strong></li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

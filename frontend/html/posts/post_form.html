@@ -31,6 +31,14 @@
                 </div>
 
                 <div class="editor__header-actions">
+                    {# A new tab, thus an unsaved post is not lost. #}
+                    <a class="button editor__button--secondary"
+                       href="{% url 'editor_guide' %}"
+                       target="_blank"
+                       rel="noopener">
+                        Guide
+                    </a>
+
                     <a class="button editor__button--secondary" href="{% url 'post_list' %}">
                         Cancel
                     </a>
