@@ -10,6 +10,7 @@ from app.sitemaps import PostSitemap, StaticViewSitemap
 from likes.views import toggle_like
 from posts.views import (
     about_me,
+    editor_guide,
     post_create,
     post_delete,
     post_image_delete,
@@ -39,6 +40,7 @@ urlpatterns = [
     # Editor (superuser only).
     path("editor/new/", post_create, name="post_create"),
     path("editor/preview/", post_preview, name="post_preview"),
+    path("editor/guide/", editor_guide, name="editor_guide"),
     path("posts/<slug:slug>/edit/", post_update, name="post_update"),
     path("posts/<slug:slug>/delete/", post_delete, name="post_delete"),
     # Image panel of the editor. These live under posts/, not editor/, because they act on an existing post, exactly like edit/ and delete/ above.

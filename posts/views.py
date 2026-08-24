@@ -128,6 +128,13 @@ def _editor_context(request, form, post=None):
 
 
 @superuser_only
+def editor_guide(request):
+    """The writing guide, linked from the editor header."""
+
+    return render(request, "posts/editor_guide.html")
+
+
+@superuser_only
 def post_create(request):
     if request.method == "POST":
         form = PostForm(request.POST)
