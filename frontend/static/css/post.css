@@ -269,7 +269,7 @@
     .post__content .toc {
         margin: var(--post-content-p-margin) 0;
         padding: 16px 20px;
-        background-color: var(--code-inline-bg-color);
+        border: solid 1px var(--divider-color);
         border-radius: var(--button-border-radius);
     }
 
@@ -291,7 +291,12 @@
         .post__content .toc ul {
             margin: 0;
             padding-left: 20px;
-            list-style: disc;
+            list-style: disc;  /* A category */
+        }
+
+        /* A subcategory. The nested list wins, because two "ul" beat one. */
+        .post__content .toc ul ul {
+            list-style: circle;
         }
 
         .post__content .toc li {
