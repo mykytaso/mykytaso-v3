@@ -1,10 +1,10 @@
-from datetime import datetime
 from pathlib import PurePosixPath
 from typing import ClassVar
 from uuid import uuid4
 
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 from utils.slug import generate_unique_slug
 
@@ -53,7 +53,7 @@ class Post(models.Model):
             self.slug = generate_unique_slug(Post, self.title, exclude_pk=self.pk)
 
         if not self.published_at and self.is_visible:
-            self.published_at = datetime.now()
+            self.published_at = timezone.now()
 
         if flush_cache:
             self.html_cache = ""

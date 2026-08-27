@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 
 from markdown.markdown import markdown_text
+from posts.models import Post
 
 
 register = template.Library()
@@ -19,7 +20,7 @@ def render_post(context, post):
             # Only save if HTML actually changed
             if new_html != post.html_cache:
                 post.html_cache = new_html
-                post.save(flush_cache=False)
+                Post.objects.filter(pk=post.pk).update(html_cache=new_html)
 
         html = post.html_cache or ""
 

@@ -1,4 +1,3 @@
-import datetime
 from datetime import date
 
 from dateutil.relativedelta import relativedelta
@@ -6,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Count, F
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from likes.models import Like
@@ -74,7 +74,7 @@ def post_retrieve(request, slug):
 
 def about_me(request):
     start_date = date(2023, 8, 7)
-    today = datetime.datetime.now().date()
+    today = timezone.localdate()
     delta = relativedelta(today, start_date)
     return render(request, "posts/about_me.html", {"delta": delta})
 
