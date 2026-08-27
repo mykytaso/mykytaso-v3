@@ -58,7 +58,6 @@ class Post(models.Model):
         if flush_cache:
             self.html_cache = ""
 
-        self.updated_at = datetime.now()
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
